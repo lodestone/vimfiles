@@ -1,12 +1,15 @@
-" Vim color scheme
+" Vim color file
+" Maintainer:   Jonathan Filip <jfilip1024@gmail.com>
+" Last Modified: Thu Jan 21, 2010  10:57AM
+" Version: 3.2
 "
-" Name:         lodestone.vim
-" Maintainer:   Matt Petty <matt@kizmeta.com> 
-" Last Change:  11 February 2010
-" License:      public domain
-" Version:      4.0
+" GUI / 256 color terminal
 "
-" Based on lucius, railscasts, many others
+" I started out trying to combine my favorite parts of other schemes and ended
+" up with this (oceandeep, moria, peaksea, wombat, zenburn).
+"
+" This file also tries to have descriptive comments for each higlighting group
+" so it is easy to understand what each part does.
 
 
 set background=dark
@@ -14,7 +17,7 @@ hi clear
 if exists("syntax_on")
     syntax reset
 endif
-let colors_name="lodestone"
+let colors_name="lucius"
 
 " Some other colors to save
 " blue: 3eb8e5
@@ -26,8 +29,7 @@ let colors_name="lodestone"
 
 " Base color
 " ----------
-" hi Normal           guifg=#e0e0e0           guibg=#202020
-hi Normal           guifg=#e0e0e0           guibg=#030303
+hi Normal           guifg=#e0e0e0           guibg=#202020
 hi Normal           ctermfg=253             ctermbg=235
 
 
@@ -44,8 +46,7 @@ hi Comment          ctermfg=240                                     cterm=none
 hi Constant         guifg=#8cd0d3                                   gui=none
 hi Constant         ctermfg=116                                     cterm=none
 " strings
-" hi String           guifg=#80c0d9                                   gui=none
-hi String           guifg=#60e000                                   gui=none
+hi String           guifg=#80c0d9                                   gui=none
 hi String           ctermfg=110                                     cterm=none
 " character constant
 hi Character        guifg=#80c0d9                                   gui=none
@@ -64,8 +65,7 @@ hi Float            ctermfg=116                                     cterm=none
 " Identifier Group
 " ----------------
 " any variable name
-" hi Identifier       guifg=#e6c080                                   gui=none
-hi Identifier       guifg=#C6C5FE     guibg=NONE        gui=NONE      ctermfg=cyan        ctermbg=NONE        cterm=NONE 
+hi Identifier       guifg=#e6c080                                   gui=none
 hi Identifier       ctermfg=216                                     cterm=none
 " function, method, class
 hi Function         guifg=#e6c080                                   gui=none
@@ -316,9 +316,8 @@ hi PMenuThumb                               ctermbg=102             cterm=none
 " Status Line
 " -----------
 " status line for current window
-" hi StatusLine       guifg=#e0e0e0           guibg=#363946           gui=bold
-hi StatusLine       guifg=#222222           guibg=#eeeeee           gui=bold
-hi StatusLine       ctermfg=254             ctermbg=100            cterm=bold
+hi StatusLine       guifg=#e0e0e0           guibg=#363946           gui=bold
+hi StatusLine       ctermfg=254             ctermbg=237             cterm=bold
 " status line for non-current windows
 hi StatusLineNC     guifg=#767986           guibg=#363946           gui=none
 hi StatusLineNC     ctermfg=244             ctermbg=237             cterm=none
@@ -345,44 +344,3 @@ hi Visual           ctermfg=NONE            ctermbg=24
 " visual mode selection when vim is not owning the selection (x11 only)
 hi VisualNOS        guifg=fg                                        gui=underline
 hi VisualNOS        ctermfg=fg                                      cterm=underline
-
-" Ruby/Rails customization
-" ------------------------
-hi rubyMethod guifg=#ee7777
-hi link railsMethod         PreProc
-hi link rubyDefine          Keyword
-hi link rubySymbol          Constant
-hi link rubyAccess          rubyMethod
-hi link rubyAttribute       rubyMethod
-hi link rubyEval            rubyMethod
-hi link rubyException       rubyMethod
-hi link rubyInclude         rubyMethod
-hi link rubyStringDelimiter rubyString
-hi link rubyRegexp          Regexp
-hi link rubyRegexpDelimiter rubyRegexp
-hi link rubyConstant        Identifier
-"hi link rubyGlobalVariable  Variable
-hi link rubyClassVariable Keyword
-" hi rubyClassVariable   guifg=#ff0000 ctermfg=189
-" hi link rubyInstanceVariable Variable
-hi rubyInstanceVariable      guifg=#D0D0FF ctermfg=189
-hi railsUserClass guifg=#aaaaaa ctermfg=255
-
-hi rubyLocalVariableOrMethod guifg=#D0D0FF ctermfg=189
-
-highlight Special                   guifg=#DA4939 ctermfg=167 
-" highlight pythonBuiltin             guifg=#6D9CBE ctermfg=73 gui=NONE cterm=NONE
-" highlight rubyBlockParameter        guifg=#FFFFFF ctermfg=15
-highlight rubyClass                 guifg=#FFFFFF ctermfg=15
-" highlight rubyConstant              guifg=#DA4939 ctermfg=167
-" highlight rubyInstanceVariable      guifg=#D0D0FF ctermfg=189
-" highlight rubyInterpolation         guifg=#519F50 ctermfg=107
-" highlight rubyLocalVariableOrMethod guifg=#D0D0FF ctermfg=189
-" highlight rubyPredefinedConstant    guifg=#DA4939 ctermfg=167
-highlight rubyPseudoVariable        guifg=#FFC66D ctermfg=221
-" highlight rubyStringDelimiter       guifg=#A5C261 ctermfg=143
-
-hi link javascriptRegexpString  Regexp
-hi link javascriptNumber        Number
-hi link javascriptNull          Constant
-
