@@ -216,30 +216,46 @@ hi CursorLine       cterm=NONE              ctermbg=236             cterm=none
 
 " Misc
 " ----
+" NerdTREE "|"
+hi treePart        guifg=#c0e0FF                                   gui=none
+hi treeDir         guifg=#c0e0b0    gui=none
+
 " directory names and other special names in listings
 hi Directory        guifg=#c0e0b0                                   gui=none
 hi Directory        ctermfg=151                                     cterm=none
 " error messages on the command line
 hi ErrorMsg         guifg=#ee0000           guibg=NONE              gui=none
 hi ErrorMsg         ctermfg=196             ctermbg=NONE            cterm=none
+
 " column separating vertically split windows
-hi VertSplit        guifg=#777777           guibg=#363946           gui=none
-hi VertSplit        ctermfg=242             ctermbg=237             cterm=none
+" hi VertSplit        guifg=#777777           guibg=#363946           gui=none
+" hi VertSplit        ctermfg=242             ctermbg=237             cterm=none
+hi VertSplit        guifg=#777777           guibg=#000000           gui=none
+hi VertSplit        ctermfg=242             ctermbg=000             cterm=none
+
+ 
 " columns where signs are displayed (used in IDEs)
 hi SignColumn       guifg=#9fafaf           guibg=#181818           gui=none
 hi SignColumn       ctermfg=145             ctermbg=233             cterm=none
+
 " line numbers
-hi LineNr           guifg=#818698           guibg=#363946
-hi LineNr           ctermfg=102             ctermbg=237
+" hi LineNr           guifg=#818698           guibg=#363946
+" hi LineNr           ctermfg=102             ctermbg=237
+hi LineNr           guifg=#818698           guibg=#303030
+hi LineNr           ctermfg=102             ctermbg=333
+
 " match parenthesis, brackets
 hi MatchParen       guifg=#00ff00           guibg=NONE              gui=bold
 hi MatchParen       ctermfg=46              ctermbg=NONE            cterm=bold
 " the 'more' prompt when output takes more than one line
 hi MoreMsg          guifg=#2e8b57                                   gui=none
 hi MoreMsg          ctermfg=29                                      cterm=none
+
 " text showing what mode you are in
+
 hi ModeMsg          guifg=#76d5f8           guibg=NONE              gui=none
 hi ModeMsg          ctermfg=117             ctermbg=NONE            cterm=none
+
 " the '~' and '@' and showbreak, '>' double wide char doesn't fit on line
 hi NonText          guifg=#404040                                   gui=none
 hi NonText          ctermfg=235                                     cterm=none
