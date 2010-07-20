@@ -1,12 +1,13 @@
 " Lodestone's vimrc
 
-colorscheme molokai
+colorscheme lodestone
+" colorscheme molokai
 " colorscheme blackboard
 " colorscheme ir_black
 
 "set guifont=Monaco:h10
 " Turn on line numbering
-set number
+" set number
 
 " don't fake me out by appearing as if there is more than one line
 set nowrap
@@ -24,8 +25,9 @@ set hidden
 " Change <leader> to ,
 let mapleader = ","
 
+command WRITE write
 " Increase history
-set history=1000
+" set history=1000
 
 " Send file to gist
 map gist :Gist -p<CR>
@@ -35,11 +37,11 @@ let g:gist_open_browser_after_post = 1
 map <leader>vc :e ~/.vimrc<CR>
 
 " Use TAB to switch to next buffer
-nmap <tab> :bn<CR>
+" nmap <tab> :bn<CR>
 
 " Make spacebar behave like a webpage
-nmap <space> 10<Down>
-nmap <S-space> 10<Up>
+" nmap <space> 10<Down>
+" nmap <S-space> 10<Up>
 
 
 "map <leader>sh :!zsh<CR>
@@ -48,8 +50,11 @@ nmap <S-space> 10<Up>
 let g:fuzzy_ignore = "*.log"
 let g:fuzzy_matching_limit = 30
 
+
+map <leader>rake :Rake<CR>
+
 "map <silent> <leader>t :FuzzyFinderTextMate<CR>
-map <leader>t :FuzzyFinderTextMate<CR>
+" map <leader>t :FuzzyFinderTextMate<CR>
 map <leader>fb :FuzzyFinderBuffer<CR>
 map <leader>fr :FuzzyFinderMruFile<CR>
 
@@ -65,6 +70,8 @@ map <leader>kp :cd ~/projects/
 
 " Open NERD Tree
 map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+" Mirror NERD Tree
+map <leader>dd :execute 'NERDTreeMirror'<CR>
 
 " Capitalize/Uncapitalize Current word
 map <leader>C mzb~`z
@@ -102,6 +109,7 @@ imap <C-k> <C-o>d$
 "map <silent> <LocalLeader>rf :RunRubyFocusedUnitTest<CR>
 
 " Note: bde selects and deletes the current word.
+" Note: so does diw
 " Yank all -- Can also do standard: ggyG
 map <leader>ya :%y<CR>
 
@@ -110,17 +118,25 @@ map <leader>ya :%y<CR>
 
 " For my sanity
 " Switch j k
-" map j <Up>
-" map k <Down>
-noremap j k
-noremap k j
+" noremap j k
+" noremap k j
  
+" I can't seem to reach $ as easily as I "should" (double meaning)
+nmap - $
 
 autocmd BufRead,BufNewFile *.js set ft=javascript.jquery
 
 
 " Change which file opens after executing :Rails command
 let g:rails_default_file='config/database.yml'
+
+
+
+" Set up a key to refresh FuzzyFinder list:
+map <special> <F12> :ruby finder.rescan!<ENTER>
+
+" TODO Reload .vimrc (and .gvimrc)
+"map <special> <F11> :source $MYVIMRC<ENTER>:source $MYGVIMRC<ENTER>
 
 " I want this:
 "Adding #{} to AutoClose Plugin and activating it for String interpolation
@@ -130,7 +146,64 @@ let g:rails_default_file='config/database.yml'
 
 " highlight the current line and column the cursor is on
 set cursorline
-set cursorcolumn
+" set cursorcolumn!
+
+
+
+function! PreviewMKD()
+ruby << EOF
+  require 'rubygems'
+  require 'bluecloth'
+  parser = BlueCloth
+  t = ""
+  VIM::Buffer.current.count.times {|i| t += "#{VIM::Buffer.current[i + 1]}\n"}
+  html_file = VIM::Buffer.current.name.gsub(/.(md|mkd)$/, '.html')
+  if html_file == VIM::Buffer.current.name
+    print "Error! - This file extension is not supported for Markdown previews"
+  end
+  File.open(html_file, 'w') do |f|
+    f.write(parser.new(t).to_html)
+  end
+  system("open #{html_file}")
+EOF
+endfunction
+
+map <Leader>p :call PreviewMKD()<CR>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -273,8 +346,8 @@ scriptencoding utf-8
   " Turn off rails bits of statusbar
   let g:rails_statusline=0
 
-  " quit NERDTree after openning a file
-  let NERDTreeQuitOnOpen=1
+  " Don't quit NERDTree after openning a file
+  let NERDTreeQuitOnOpen=0
   " colored NERD Tree
   let NERDChristmasTree = 1
   let NERDTreeHighlightCursorline = 1
@@ -284,11 +357,12 @@ scriptencoding utf-8
   let NERDTreeIgnore=['\.git','\.DS_Store']
 
   " limit number of results shown for performance
-  let g:fuzzy_matching_limit=30
+  let g:fuzzy_matching_limit=20
   " ignore stuff that can't be openned, and generated files
-  let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;vendor/**;coverage/**;tmp/**;rdoc/**"
+  " let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;vendor/**;coverage/**;tmp/**;rdoc/**"
+  let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;coverage/**;tmp/**;rdoc/**"
   " increase the number of files scanned for very large projects
-  let g:fuzzy_ceiling=20000
+  let g:fuzzy_ceiling=2000
   " display relative path, 
   " instead of abbrevated path 
   " (lib/jeweler.rb vs l/jeweler.rb)
@@ -434,7 +508,7 @@ scriptencoding utf-8
   map <silent> <leader>nh :nohls <CR>
 
   " toggle Quickfix window with <leader>q
-  "map <silent> <leader>q :QFix<CR>
+  map <silent> <leader>q :QFix<CR>
 
   " nnoremap <leader>irb :<C-u>below new<CR>:setfiletype irb<CR>:set syntax=ruby<CR>:set buftype=nofile<CR>:set bufhidden=delete<CR>i
 
