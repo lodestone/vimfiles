@@ -12,7 +12,7 @@ if exists("syntax_on")
    syntax reset
 endif
 
-let g:colors_name = "lodestone"
+let g:colors_name = "oldstone"
 
 if has("gui_running")
   " GUI Colors

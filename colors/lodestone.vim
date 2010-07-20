@@ -28,7 +28,7 @@ let colors_name="lodestone"
 " ----------
 " hi Normal           guifg=#e0e0e0           guibg=#202020
 hi Normal           guifg=#e0e0e0           guibg=#030303
-hi Normal           ctermfg=253             ctermbg=235
+hi Normal           ctermfg=253             ctermbg=000
 
 
 " Comment Group
@@ -65,7 +65,8 @@ hi Float            ctermfg=116                                     cterm=none
 " ----------------
 " any variable name
 " hi Identifier       guifg=#e6c080                                   gui=none
-hi Identifier       guifg=#C6C5FE     guibg=NONE        gui=NONE      ctermfg=cyan        ctermbg=NONE        cterm=NONE 
+hi Identifier       guifg=#C6C5FE     guibg=NONE        gui=NONE 
+" ctermfg=cyan        ctermbg=NONE        cterm=NONE 
 hi Identifier       ctermfg=216                                     cterm=none
 " function, method, class
 hi Function         guifg=#e6c080                                   gui=none
@@ -231,7 +232,7 @@ hi ErrorMsg         ctermfg=196             ctermbg=NONE            cterm=none
 " hi VertSplit        guifg=#777777           guibg=#363946           gui=none
 " hi VertSplit        ctermfg=242             ctermbg=237             cterm=none
 hi VertSplit        guifg=#777777           guibg=#000000           gui=none
-hi VertSplit        ctermfg=242             ctermbg=000             cterm=none
+hi VertSplit        ctermfg=242             ctermbg=none             cterm=none
 
  
 " columns where signs are displayed (used in IDEs)
@@ -242,7 +243,7 @@ hi SignColumn       ctermfg=145             ctermbg=233             cterm=none
 " hi LineNr           guifg=#818698           guibg=#363946
 " hi LineNr           ctermfg=102             ctermbg=237
 hi LineNr           guifg=#818698           guibg=#303030
-hi LineNr           ctermfg=102             ctermbg=333
+hi LineNr           ctermfg=244             
 
 " match parenthesis, brackets
 hi MatchParen       guifg=#00ff00           guibg=NONE              gui=bold
@@ -334,10 +335,13 @@ hi PMenuThumb                               ctermbg=102             cterm=none
 " status line for current window
 " hi StatusLine       guifg=#e0e0e0           guibg=#363946           gui=bold
 hi StatusLine       guifg=#222222           guibg=#eeeeee           gui=bold
-hi StatusLine       ctermfg=254             ctermbg=100            cterm=bold
+" hi StatusLine       ctermfg=244             ctermbg=186            cterm=bold
+hi StatusLine      ctermfg=238 ctermbg=233
+
 " status line for non-current windows
 hi StatusLineNC     guifg=#767986           guibg=#363946           gui=none
-hi StatusLineNC     ctermfg=244             ctermbg=237             cterm=none
+hi StatusLineNC    ctermfg=244 ctermbg=232
+" hi StatusLineNC     ctermfg=244             ctermbg=white             cterm=none
 
 
 " Tab Lines
@@ -350,7 +354,7 @@ hi TabLineFill      guifg=#cfcfaf           guibg=#363946           gui=none
 hi TabLineFill      ctermfg=187             ctermbg=236             cterm=none
 " tab pages line, active tab page label
 hi TabLineSel       guifg=#efefef           guibg=#414658           gui=bold
-hi TabLineSel       ctermfg=254             ctermbg=236             cterm=bold
+hi TabLineSel       ctermfg=254             ctermbg=black             cterm=bold
 
 
 " Visual
@@ -359,46 +363,35 @@ hi TabLineSel       ctermfg=254             ctermbg=236             cterm=bold
 hi Visual           guifg=NONE              guibg=#364458
 hi Visual           ctermfg=NONE            ctermbg=24
 " visual mode selection when vim is not owning the selection (x11 only)
-hi VisualNOS        guifg=fg                                        gui=underline
-hi VisualNOS        ctermfg=fg                                      cterm=underline
+" hi VisualNOS        guifg=fg                                        gui=underline
+" hi VisualNOS        ctermfg=fg                                      cterm=underline
 
 " Ruby/Rails customization
 " ------------------------
-hi rubyMethod guifg=#ee7777
-hi link railsMethod         PreProc
-hi link rubyDefine          Keyword
-hi link rubySymbol          Constant
-hi link rubyAccess          rubyMethod
-hi link rubyAttribute       rubyMethod
-hi link rubyEval            rubyMethod
-hi link rubyException       rubyMethod
-hi link rubyInclude         rubyMethod
-hi link rubyStringDelimiter rubyString
-hi link rubyRegexp          Regexp
-hi link rubyRegexpDelimiter rubyRegexp
-hi link rubyConstant        Identifier
-"hi link rubyGlobalVariable  Variable
-hi link rubyClassVariable Keyword
-" hi rubyClassVariable   guifg=#ff0000 ctermfg=189
-" hi link rubyInstanceVariable Variable
-hi rubyInstanceVariable      guifg=#D0D0FF ctermfg=189
-hi railsUserClass guifg=#aaaaaa ctermfg=255
-
-hi rubyLocalVariableOrMethod guifg=#D0D0FF ctermfg=189
-
-highlight Special                   guifg=#DA4939 ctermfg=167 
-" highlight pythonBuiltin             guifg=#6D9CBE ctermfg=73 gui=NONE cterm=NONE
-" highlight rubyBlockParameter        guifg=#FFFFFF ctermfg=15
-highlight rubyClass                 guifg=#FFFFFF ctermfg=15
-" highlight rubyConstant              guifg=#DA4939 ctermfg=167
-" highlight rubyInstanceVariable      guifg=#D0D0FF ctermfg=189
-" highlight rubyInterpolation         guifg=#519F50 ctermfg=107
-" highlight rubyLocalVariableOrMethod guifg=#D0D0FF ctermfg=189
-" highlight rubyPredefinedConstant    guifg=#DA4939 ctermfg=167
-highlight rubyPseudoVariable        guifg=#FFC66D ctermfg=221
-" highlight rubyStringDelimiter       guifg=#A5C261 ctermfg=143
-
-hi link javascriptRegexpString  Regexp
-hi link javascriptNumber        Number
-hi link javascriptNull          Constant
-
+" hi rubyMethod guifg=#ee7777
+" hi link railsMethod         PreProc
+" hi link rubyDefine          Keyword
+" hi link rubySymbol          Constant
+" hi link rubyAccess          rubyMethod
+" hi link rubyAttribute       rubyMethod
+" hi link rubyEval            rubyMethod
+" hi link rubyException       rubyMethod
+" hi link rubyInclude         rubyMethod
+" hi link rubyStringDelimiter rubyString
+" hi link rubyRegexp          Regexp
+" hi link rubyRegexpDelimiter rubyRegexp
+" hi link rubyConstant        Identifier
+" hi link rubyClassVariable Keyword
+" hi rubyInstanceVariable      guifg=#D0D0FF ctermfg=189
+" hi railsUserClass guifg=#aaaaaa ctermfg=255
+" 
+" hi rubyLocalVariableOrMethod guifg=#D0D0FF ctermfg=189
+" 
+" highlight Special                   guifg=#DA4939 ctermfg=167 
+" highlight rubyClass                 guifg=#FFFFFF ctermfg=15
+" highlight rubyPseudoVariable        guifg=#FFC66D ctermfg=221
+" 
+" hi link javascriptRegexpString  Regexp
+" hi link javascriptNumber        Number
+" hi link javascriptNull          Constant
+" 
