@@ -1,5 +1,6 @@
 " Lodestone's vimrc
 
+colorscheme vibrantink
 colorscheme lodestone
 " colorscheme molokai
 " colorscheme blackboard
