@@ -1,5 +1,10 @@
 " Lodestone's vimrc
 
+function ParseCommandT()
+  source ~/.vim/src/command-t-0.8b.vba
+  quit
+endfunction
+
 colorscheme vibrantink
 colorscheme lodestone
 " colorscheme molokai
