@@ -1,22 +1,7 @@
 " Lodestone's vimrc
 
-function ParseCommandT()
-  source ~/.vim/src/command-t-0.8b.vba
-  quit
-endfunction
-
-colorscheme vibrantink
-colorscheme lodestone
-" colorscheme molokai
-" colorscheme blackboard
-" colorscheme ir_black
-
-"set guifont=Monaco:h10
-" Turn on line numbering
-" set number
-
-" don't fake me out by appearing as if there is more than one line
-set nowrap
+" Several from: http://items.sjbach.com/319/configuring-vim-right
+" ---------------------------------------------------------------
 
 " These two enable syntax highlighting
 " We're running Vim, not Vi!
@@ -24,18 +9,62 @@ set nocompatible
 " Enable syntax highlighting
 syntax on
 
-" Several from: http://items.sjbach.com/319/configuring-vim-right
-" ---------------------------------------------------------------
+" function ParseCommandT()
+"   source ~/.vim/src/command-t-0.8b.vba
+"   quit
+" endfunction
+
+" For some reason my colorscheme only works if I do vibrantink first...
+colorscheme vibrantink
+colorscheme lodestone
+" Other nifty colorschemes
+" colorscheme molokai
+" colorscheme blackboard
+" colorscheme ir_black
+" colorscheme railscasts
+
+" don't fake me out by appearing as if there is more than one line
+set nowrap
+
+" When I go full screen, maximize both horizontally and vertically
+set fuoptions=maxvert,maxhorz
+
+" Softtabs, 2 spaces - I like 2 space indentation. 
+" I get to see more on the screen
+set tabstop=2
+set shiftwidth=2
+" don't use a real Tab, use spaces please.
+set expandtab
+
+" case-sensitive only if there is a capital letter in the search expression
+set ignorecase
+set smartcase
+
+" see :help shortmess
+set shortmess=atI
+
+" Don't ding
+" set visualbell
+      
+" make tabs and trailing spaces visible when requested:
+set list listchars=tab:»·,trail:· ",eol:$
+nmap <silent> <leader>ss :set nolist!<CR>
+
 set hidden
 
 " Change <leader> to ,
 let mapleader = ","
 
+" :W works like :w
 command WRITE write
-" Increase history
-" set history=1000
 
-" Send file to gist
+" Increase history
+set history=500
+
+" Quick timeouts on key combinations.
+set timeoutlen=500
+
+" Send contents of current file to private gist
 map gist :Gist -p<CR>
 let g:gist_open_browser_after_post = 1
 
@@ -49,8 +78,19 @@ map <leader>vc :e ~/.vimrc<CR>
 " nmap <space> 10<Down>
 " nmap <S-space> 10<Up>
 
+" Search in Project (Ack.vim)
+map <leader>a :Ack 
+" Find All
+map <leader>fa :Ack 
+map <leader>cn :cnext<CR>
+map <leader>cp :cprevious<CR>
+map <leader>cN :cprevious<CR>
 
-"map <leader>sh :!zsh<CR>
+
+" ` is more useful than ' but less accessible.
+" Makes ' move to line AND column
+nnoremap ' `
+nnoremap ` '
 
 " TextMate fuzzy finder with <leader>t
 let g:fuzzy_ignore = "*.log"
@@ -61,17 +101,12 @@ map <leader>rake :Rake<CR>
 
 "map <silent> <leader>t :FuzzyFinderTextMate<CR>
 " map <leader>t :FuzzyFinderTextMate<CR>
+" Find Buffer
 map <leader>fb :FuzzyFinderBuffer<CR>
+" Find Recent
 map <leader>fr :FuzzyFinderMruFile<CR>
 
-" TextMate fuzzy finder in a new horizontal split window
-"map <silent> <leader>st <C-w><C-s>:FuzzyFinderTextMate<CR>
-" TextMate fuzzy finder in a new vertical split window
-"map <silent> <leader>vt <C-w><C-v>:FuzzyFinderTextMate<CR>
-
 " Change directory for project:
-" map <C-k>p :cd ~/projects/
-" map <C-k><C-p> :cd ~/projects/
 map <leader>kp :cd ~/projects/
 
 " Open NERD Tree
@@ -80,10 +115,10 @@ map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 map <leader>dd :execute 'NERDTreeMirror'<CR>
 
 " Capitalize/Uncapitalize Current word
-map <leader>C mzb~`z
+" map <Leader>C mzb~`z
 
 " RIP joe, you were a great friend...
-" joe compatibility mode: 
+" entering joe (Joe's Own Editor, Wordstar clone) compatibility mode: 
 map <C-k>x :x<CR>
 map <C-k><C-x> :x<CR>
 map <C-k>e :e 
@@ -92,9 +127,11 @@ map <C-k>d :w<CR>
 map <C-k><C-d> :w<CR> 
 
 map <C-k>n :bn<CR>
+map <C-k><C-n> :bn<CR>
 map <C-k>p :bp<CR>
+map <C-k><C-p> :bp<CR>
 
-" These are standard bash/emacs/macos text movement/manipulation
+" These are standard bash/emacs/mac text movement/manipulation
 cmap <C-a> <Home>
 cmap <C-e> <End>
 imap <C-a> <Home>
@@ -114,27 +151,16 @@ imap <C-k> <C-o>d$
 "map <silent> <LocalLeader>rc :RunRubyFocusedContext<CR>
 "map <silent> <LocalLeader>rf :RunRubyFocusedUnitTest<CR>
 
-" Note: bde selects and deletes the current word.
-" Note: so does diw
 " Yank all -- Can also do standard: ggyG
 map <leader>ya :%y<CR>
 
-" FuzzyFinder tags with <leader>T
-"nnoremap <silent> <leader>T :FuzzyFinderTag!<CR>
-
-" For my sanity
-" Switch j k
-" noremap j k
-" noremap k j
- 
 " I can't seem to reach $ as easily as I "should" (double meaning)
 nmap - $
 
 autocmd BufRead,BufNewFile *.js set ft=javascript.jquery
 
-
 " Change which file opens after executing :Rails command
-let g:rails_default_file='config/database.yml'
+" let g:rails_default_file='config/database.yml'
 
 
 
@@ -142,7 +168,7 @@ let g:rails_default_file='config/database.yml'
 map <special> <F12> :ruby finder.rescan!<ENTER>
 
 " TODO Reload .vimrc (and .gvimrc)
-"map <special> <F11> :source $MYVIMRC<ENTER>:source $MYGVIMRC<ENTER>
+" map <special> <F11> :source $MYVIMRC<ENTER>:source $MYGVIMRC<ENTER>
 
 " I want this:
 "Adding #{} to AutoClose Plugin and activating it for String interpolation
@@ -152,6 +178,7 @@ map <special> <F12> :ruby finder.rescan!<ENTER>
 
 " highlight the current line and column the cursor is on
 set cursorline
+" Cursor column is a little to much...
 " set cursorcolumn!
 
 
@@ -174,69 +201,7 @@ ruby << EOF
 EOF
 endfunction
 
-map <Leader>p :call PreviewMKD()<CR>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-" mapclear <leader>tt           
-" 
-" mapclear <leader>tsq          
-" mapclear <leader>tsp          
-" mapclear <leader>tml          
-" mapclear <leader>tab          
-" 
-" mapclear <leader>t@           
-" mapclear <leader>t~           
-" mapclear <leader>t?           
-" mapclear <leader>ts=          
-" mapclear <leader>ts<          
-" mapclear <leader>ts;          
-" mapclear <leader>ts:          
-" mapclear <leader>ts,          
-" mapclear <leader>t=           
-" mapclear <leader>t<           
-" mapclear <leader>t;           
-" mapclear <leader>t:           
-" mapclear <leader>t,           
-" mapclear <leader>t#           
-" mapclear <leader>t|           
-" mapclear <leader>t<C-L>       
+map <leader>p :call PreviewMKD()<CR>
 
 " By default, pressing <TAB> in command mode will choose the first 
 " possible completion with no indication of how many others there might be. 
@@ -256,6 +221,7 @@ set directory=~/.vim/tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 
 " Intuitive backspacing in insert mode
+" (allow backspacing over everything in insert mode)
 set backspace=indent,eol,start
  
 " File-type highlighting and configuration.
@@ -285,96 +251,86 @@ set incsearch " ...dynamically as they are typed.
 scriptencoding utf-8
 
 
-  " Enable filetype-specific indenting and plugins
-  filetype plugin indent on
 
-  " show the `best match so far' as search strings are typed
-  set incsearch
+"sm:    flashes matching brackets or parentheses
+set showmatch
 
-  " Highlight search results once found:
-  set hlsearch
+"sta:   helps with backspacing because of expandtab
+set smarttab
 
-  "sm:    flashes matching brackets or parentheses
-  set showmatch
+" Set temporary directory (don't litter local dir with swp/tmp files)
+set directory=/tmp/
 
-  "sta:   helps with backspacing because of expandtab
-  set smarttab
+" When scrolling off-screen do so 3 lines at a time, not 1
+set scrolloff=3
 
-  " Set temporary directory (don't litter local dir with swp/tmp files)
-  set directory=/tmp/
+" enable line numbers 
+set number
+setlocal numberwidth=5
 
-  " When scrolling off-screen do so 3 lines at a time, not 1
-  set scrolloff=3
+" Enable tab complete for commands.
+" first tab shows all matches. next tab starts cycling through the matches
+set wildmenu
+set wildmode=list:longest,full
+" set wildignore=*.o,*.fasl
 
-  " enable line numbers 
-  set number
-  setlocal numberwidth=5
+" Display extra whitespace
+"set list listchars=tab:»·,trail:·
 
-  " Enable tab complete for commands.
-  " first tab shows all matches. next tab starts cycling through the matches
-  set wildmenu
-  set wildmode=list:longest,full
+" assume the /g flag on :s substitutions to replace all matches in a line:
+set gdefault
 
-  " Display extra whitespace
-  "set list listchars=tab:»·,trail:·
+" Load matchit (% to bounce from do to end, etc.)
+runtime! macros/matchit.vim
 
-  " assume the /g flag on :s substitutions to replace all matches in a line:
-  set gdefault
+" Nice statusbar
+set laststatus=2
+set statusline=\ "
+set statusline+=%f\ " file name
+set statusline+=[
+set statusline+=%{strlen(&ft)?&ft:'none'}, " filetype
+set statusline+=%{&fileformat}] " file format
+set statusline+=%h%1*%m%r%w%0* " flag
+set statusline+=%= " right align
+set statusline+=%-14.(%l,%c%V%)\ %<%P " offset
 
-  " Load matchit (% to bounce from do to end, etc.)
-  runtime! macros/matchit.vim
+" enable setting title
+set title
+" configure title to look like: Vim /path/to/file
+set titlestring=VIM:\ %-25.55F\ %a%r%m titlelen=70
 
-  " Nice statusbar
-  set laststatus=2
-  set statusline=\ "
-  set statusline+=%f\ " file name
-  set statusline+=[
-  set statusline+=%{strlen(&ft)?&ft:'none'}, " filetype
-  set statusline+=%{&fileformat}] " file format
-  set statusline+=%h%1*%m%r%w%0* " flag
-  set statusline+=%= " right align
-  set statusline+=%-14.(%l,%c%V%)\ %<%P " offset
-
-  " enable setting title
-  set title
-  " configure title to look like: Vim /path/to/file
-  set titlestring=VIM:\ %-25.55F\ %a%r%m titlelen=70
-
-  " Make backspace work in insert mode
-  set backspace=indent,eol,start
-
-  " can has foldin plz?
-  set foldenable
-  set foldmethod=syntax
-  set foldlevel=999 " make it really high, so they're not displayed by default
+" can has foldin plz?
+set foldenable
+set foldmethod=syntax
+set foldlevel=999 " make it really high, so they're not displayed by default
   
 
-  " Turn off rails bits of statusbar
-  let g:rails_statusline=0
+" Turn off rails bits of statusbar
+let g:rails_statusline=0
 
-  " Don't quit NERDTree after openning a file
-  let NERDTreeQuitOnOpen=0
-  " colored NERD Tree
-  let NERDChristmasTree = 1
-  let NERDTreeHighlightCursorline = 1
-  let NERDTreeShowHidden = 1
-  " map enter to activating a node
-  let NERDTreeMapActivateNode='<CR>'
-  let NERDTreeIgnore=['\.git','\.DS_Store']
+" Don't quit NERDTree after openning a file
+let NERDTreeQuitOnOpen=0
+" colored NERD Tree
+let NERDChristmasTree = 1
+let NERDTreeHighlightCursorline = 1
+let NERDTreeShowHidden = 1
+" map enter to activating a node
+let NERDTreeMapActivateNode='<CR>'
+let NERDTreeIgnore=['\.git','\.DS_Store']
 
-  " limit number of results shown for performance
-  let g:fuzzy_matching_limit=20
-  " ignore stuff that can't be openned, and generated files
-  " let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;vendor/**;coverage/**;tmp/**;rdoc/**"
-  let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;coverage/**;tmp/**;rdoc/**"
-  " increase the number of files scanned for very large projects
-  let g:fuzzy_ceiling=2000
-  " display relative path, 
-  " instead of abbrevated path 
-  " (lib/jeweler.rb vs l/jeweler.rb)
-  " let g:fuzzy_path_display = 'relative_path'
+" limit number of results shown for performance
+let g:fuzzy_matching_limit=20
+" ignore stuff that can't be openned, and generated files
+" let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;vendor/**;coverage/**;tmp/**;rdoc/**"
+let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;coverage/**;tmp/**;rdoc/**"
+" increase the number of files scanned for very large projects
+let g:fuzzy_ceiling=2000
+" display relative path, 
+" instead of abbrevated path 
+" (lib/jeweler.rb vs l/jeweler.rb)
+" let g:fuzzy_path_display = 'relative_path'
 
-  let g:browser = 'open '
+let g:browser = 'open '
 
   augroup myfiletypes
     
@@ -453,84 +409,74 @@ scriptencoding utf-8
     exec '!'.g:browser.' '.url
   endfunction
 
-" Section: commands
-
-  " Shell
-  " command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
-
-  " Ruby code metrics
-  " command! -complete=file -nargs=+ Reek :Shell reek <q-args>
-  " command! -complete=file -nargs=+ Roodi :Shell roodi <q-args>
-  " command! -complete=file -nargs=+ Flog :Shell flog -m -I lib <q-args> 2>/dev/null
 
 " Section: mappings
 
-  " Tab navigation
-  "nmap <leader>tn :tabnext<CR>
-  "nmap <leader>tp :tabprevious<CR>
-  "nmap <leader>te :tabedit
+" Tab navigation
+"nmap <leader>tn :tabnext<CR>
+"nmap <leader>tp :tabprevious<CR>
+"nmap <leader>te :tabedit
 
-  " Remap F1 from Help to ESC.  No more accidents.
-  " nmap <F1> <Esc>
-  " map! <F1> <Esc>
+" Exit Insert mode quickly without ESC
+imap ii <Esc>
 
-  nmap <leader>sh :Shell
+" insert hashrocket, =>, with control-l
+imap <C-l> <Space>=><Space>
 
-  " Quick way to leave insert mode, without leaving homerow
-  imap ii <Esc>
+" Toggle NERDTree with <leader>d
+map <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 
-  " insert hashrocket, =>, with control-l
-  imap <C-l> <Space>=><Space>
+" search next/previous -- center in page
+nmap n nzz
+nmap N Nzz
+nmap * *Nzz
+nmap # #nzz
 
-  " align hashrockets with <leader>t control-l
-  " vmap <leader>t<C-l> :Align =><CR>
+" Yank from the cursor to the end of the line, to be consistent with C and D.
+nnoremap Y y$
 
-  " Toggle NERDTree with <leader>d
-  map <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+" Hide search highlighting
+map <silent> <leader>nh :nohls <CR>
 
-  " TextMate fuzzy finder with <leader>t
-  "map <silent> <leader>t :FuzzyFinderTextMate<CR>
-  " TextMate fuzzy finder in a new horizontal split window
-  " map <silent> <leader>st <C-w><C-s>:FuzzyFinderTextMate<CR>
-  " TextMate fuzzy finder in a new vertical split window 
-  " map <silent> <leader>vt <C-w><C-v>:FuzzyFinderTextMate<CR>
+command -bang -nargs=? QFix call QFixToggle(<bang>0)
+function! QFixToggle(forced)
+  if exists("g:qfix_win") && a:forced == 0
+    cclose
+    unlet g:qfix_win
+  else
+    copen 10
+    let g:qfix_win = bufnr("$")
+  endif
+endfunction
 
-  " FuzzyFinder tags with <leader>T
-  " nnoremap <silent> <leader>T :FuzzyFinderTag!<CR>
+" toggle Quickfix window with <leader>q
+map <silent> <leader>q :QFix<CR>
 
-  " <leader>F to begin searching with ack
-  "map <leader>F :Ack<space>
-
-  " search next/previous -- center in page
-  nmap n nzz
-  nmap N Nzz
-  nmap * *Nzz
-  nmap # #nzz
-
-  " Yank from the cursor to the end of the line, to be consistent with C and D.
-  nnoremap Y y$
-
-  " Hide search highlighting
-  map <silent> <leader>nh :nohls <CR>
-
-  " toggle Quickfix window with <leader>q
-  map <silent> <leader>q :QFix<CR>
-
-  " nnoremap <leader>irb :<C-u>below new<CR>:setfiletype irb<CR>:set syntax=ruby<CR>:set buftype=nofile<CR>:set bufhidden=delete<CR>i
+" nnoremap <leader>irb :<C-u>below new<CR>:setfiletype irb<CR>:set syntax=ruby<CR>:set buftype=nofile<CR>:set bufhidden=delete<CR>i
 
 " Easily lookup documentation on apidock
-noremap <leader>rb :call OpenRubyDoc(expand('<cword>'))<CR>
-noremap <leader>rr :call OpenRailsDoc(expand('<cword>'))<CR>
+" noremap <leader>rb :call OpenRubyDoc(expand('<cword>'))<CR>
+" noremap <leader>rr :call OpenRailsDoc(expand('<cword>'))<CR>
 
+" Having this set will not leave any additional file(s) around after having closed VIM. This is what most people might be looking to have set.
+set nobackup
 
-" bind command-/ to toggle comment
-" requires NERD Commenter to be installed: http://www.vim.org/scripts/script.php?script_id=1218
-" nmap <D-/> ,c<space>
-" vmap <D-/> ,c<space>
-" imap <D-/> <C-O>,c<space>
+" 
+" The default is :set writebackup This will keep a backup file while the file is being worked. Once VIM is closed; the backup will vanish.
+set mowritebackup
 
-"Simplify window navigation
-"vim supports splitting a window vertically and horizontally, and then navigating between them. The default way kinda hurts my hands. Let’s reduce it to \s to split horizontally, \v to split vertically, and \w to cycle to the next window.
+ 
+" From the VIM help file.
+" - Don’t use this for big files.
+" - Recovery will be impossible!
+" In essence; if security is a concern, use noswapfile. Keep in mind that this option will keep everything in memory.
+" set noswapfile
+
+" Simplify window navigation
+" vim supports splitting a window vertically and horizontally, and then navigating between them. 
+" The default way kinda hurts my hands.
+" Let’s reduce it to <leader>s to split horizontally,
+" <leader>v to split vertically, and <leader>w to cycle to the next window.
 
 " window splitting mappings
 " split vertically with <leader> v
@@ -539,26 +485,12 @@ noremap <leader>rr :call OpenRailsDoc(expand('<cword>'))<CR>
 "nmap <leader>s :split<CR> <C-w><C-w>
 
 " Make it way easier to switch windows (<leader>w)
-"nmap <leader>w <C-w><C-w>_
+nmap <leader>w <C-w><C-w>_
+
+" Show only the current window/tab/whatevers
+nmap <leader>o :only<CR>
 
 " http://github.com/jferris/config_files/ Joe Ferris
-" " Use Vim settings, rather then Vi settings (much better!).
-" " This must be first, because it changes other options as a side effect.
-" set nocompatible
-" 
-" " allow backspacing over everything in insert mode
-" set backspace=indent,eol,start
-" 
-" set nobackup
-" set nowritebackup
-" set history=50		" keep 50 lines of command line history
-" set ruler		" show the cursor position all the time
-" set showcmd		" display incomplete commands
-" set incsearch		" do incremental searching
-" 
-" " Don't use Ex mode, use Q for formatting
-" map Q gq
-" 
 " " This is an alternative that also works in block mode, but the deleted
 " " text is lost and it only works for putting the current register.
 " "vnoremap p "_dp
@@ -610,24 +542,11 @@ noremap <leader>rr :call OpenRailsDoc(expand('<cword>'))<CR>
 "   " set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
 " " endif
 " 
-" " Softtabs, 2 spaces
-" set tabstop=2
-" set shiftwidth=2
-" set expandtab
-" 
-" " Always display the status line
-" set laststatus=2
-" 
-" " \ is the leader character
-" let mapleader = "\\"
-" 
-" " Edit the README_FOR_APP (makes :R commands work)
-" map <Leader>R :e doc/README_FOR_APP<CR>
 " 
 " " Leader shortcuts for Rails commands
-" map <Leader>m :Rmodel 
-" map <Leader>c :Rcontroller 
-" map <Leader>v :Rview 
+map <leader>m :Rmodel 
+map <leader>c :Rcontroller 
+map <leader>v :Rview 
 " map <Leader>u :Runittest 
 " map <Leader>f :Rfunctionaltest 
 " map <Leader>tm :RTmodel 
@@ -663,12 +582,6 @@ noremap <leader>rr :call OpenRailsDoc(expand('<cword>'))<CR>
 " " Visual mode: D
 " vmap D y'>p
 " 
-" " For Haml
-" au! BufRead,BufNewFile *.haml         setfiletype haml
-" 
-" " No Help, please
-" nmap <F1> <Esc>
-" 
 " " Press ^F from insert mode to insert the current file name
 " imap <C-F> <C-R>=expand("%")<CR>
 " 
@@ -693,17 +606,7 @@ noremap <leader>rr :call OpenRailsDoc(expand('<cword>'))<CR>
 "   set grepprg=ack\ -H\ --nogroup\ --nocolor
 " endif
 " 
-" " Color scheme
-" colorscheme vividchalk
-" highlight NonText guibg=#060606
-" highlight Folded  guibg=#0A0A0A guifg=#9090D0
 " 
-" " Numbers
-" set number
-" set numberwidth=5
-" 
-" " Snippets are activated by Shift+Tab
-" let g:snippetsEmu_key = "<S-Tab>"
 " 
 " " Tab completion options
 " " (only complete to the longest unambiguous match, and show a menu)
@@ -711,9 +614,6 @@ noremap <leader>rr :call OpenRailsDoc(expand('<cword>'))<CR>
 " set wildmode=list:longest,list:full
 " set complete=.,t
 " 
-" " case only matters with mixed case expressions
-" set ignorecase
-" set smartcase
 " 
 " " Tags
 " let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"

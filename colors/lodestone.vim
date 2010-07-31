@@ -2,7 +2,7 @@
 "
 " Name:         lodestone.vim
 " Maintainer:   Matt Petty <matt@kizmeta.com> 
-" Last Change:  11 February 2010
+" Last Change:  30 July 2010
 " License:      public domain
 " Version:      4.0
 "
