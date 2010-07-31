@@ -463,7 +463,7 @@ set nobackup
 
 " 
 " The default is :set writebackup This will keep a backup file while the file is being worked. Once VIM is closed; the backup will vanish.
-set mowritebackup
+set nowritebackup
 
  
 " From the VIM help file.
