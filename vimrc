@@ -47,8 +47,8 @@ set shortmess=atI
 " set visualbell
       
 " make tabs and trailing spaces visible when requested:
-set list listchars=tab:»·,trail:· ",eol:$
-nmap <silent> <leader>ss :set nolist!<CR>
+" set list listchars=tab:»·,trail:· ",eol:$
+" nmap <silent> <leader>ss :set nolist!<CR>
 
 set hidden
 
@@ -56,7 +56,9 @@ set hidden
 let mapleader = ","
 
 " :W works like :w
-command WRITE write
+" adding the ! overwrites a command, this gives a polite error upon reparsing
+" if not set
+command! WRITE write
 
 " Increase history
 set history=500
@@ -96,6 +98,9 @@ nnoremap ` '
 let g:fuzzy_ignore = "*.log"
 let g:fuzzy_matching_limit = 30
 
+
+" make mouse work in console mode vim
+set mouse=nv
 
 map <leader>rake :Rake<CR>
 
@@ -162,7 +167,9 @@ autocmd BufRead,BufNewFile *.js set ft=javascript.jquery
 " Change which file opens after executing :Rails command
 " let g:rails_default_file='config/database.yml'
 
-
+" current directory is always matching the
+" content of the active window
+" set autochdir
 
 " Set up a key to refresh FuzzyFinder list:
 map <special> <F12> :ruby finder.rescan!<ENTER>
@@ -284,6 +291,7 @@ set gdefault
 runtime! macros/matchit.vim
 
 " Nice statusbar
+" set statusline+=%B\  " shows hex byte of char under cursor
 set laststatus=2
 set statusline=\ "
 set statusline+=%f\ " file name
@@ -292,7 +300,7 @@ set statusline+=%{strlen(&ft)?&ft:'none'}, " filetype
 set statusline+=%{&fileformat}] " file format
 set statusline+=%h%1*%m%r%w%0* " flag
 set statusline+=%= " right align
-set statusline+=%-14.(%l,%c%V%)\ %<%P " offset
+set statusline+=%-16.(%l/%L,%c%V%)\ %<%P\  " offset
 
 " enable setting title
 set title
@@ -438,7 +446,7 @@ nnoremap Y y$
 " Hide search highlighting
 map <silent> <leader>nh :nohls <CR>
 
-command -bang -nargs=? QFix call QFixToggle(<bang>0)
+command! -bang -nargs=? QFix call QFixToggle(<bang>0)
 function! QFixToggle(forced)
   if exists("g:qfix_win") && a:forced == 0
     cclose
@@ -592,9 +600,9 @@ map <leader>v :Rview
 " " Display extra whitespace
 " set list listchars=tab:»·,trail:·
 " 
-" " Edit routes
-" command! Rroutes :e config/routes.rb
-" command! RTroutes :tabe config/routes.rb
+" Edit routes
+command! Rroutes :e config/routes.rb
+command! RTroutes :tabe config/routes.rb
 " 
 " " Local config
 " if filereadable(".vimrc.local")
