@@ -26,8 +26,6 @@ colorscheme lodestone
 " don't fake me out by appearing as if there is more than one line
 set nowrap
 
-" When I go full screen, maximize both horizontally and vertically
-set fuoptions=maxvert,maxhorz
 
 " Softtabs, 2 spaces - I like 2 space indentation. 
 " I get to see more on the screen
