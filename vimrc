@@ -9,6 +9,15 @@ set nocompatible
 " Enable syntax highlighting
 syntax on
 
+" Set a temporary background color.
+"  I use this to differentiate 
+"  visually between windows easily.
+function! SetBackground(color)
+  let setbg=':highlight Normal guibg=' . a:color
+  exec setbg
+endfunction
+command! -nargs=? BackgroundColor :call SetBackground(<f-args>)
+
 " function ParseCommandT()
 "   source ~/.vim/src/command-t-0.8b.vba
 "   quit
