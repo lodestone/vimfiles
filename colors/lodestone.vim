@@ -221,8 +221,10 @@ hi CursorLine       cterm=NONE              ctermbg=236             cterm=none
 " Misc
 " ----
 " NerdTREE "|"
-hi treePart        guifg=#c0e0FF                                   gui=none
+hi treePart        guifg=#c0e0FF    gui=none
+hi treePart        ctermfg=069      gui=none
 hi treeDir         guifg=#c0e0b0    gui=none
+hi treeDir         ctermfg=069      gui=none
 
 " directory names and other special names in listings
 hi Directory        guifg=#c0e0b0                                   gui=none

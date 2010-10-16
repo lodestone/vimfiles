@@ -282,6 +282,9 @@ set scrolloff=3
 set number
 setlocal numberwidth=5
 
+" Turn off local file indentation
+nnoremap <F8> :setl noai nocin nosi inde=<CR>
+
 " Enable tab complete for commands.
 " first tab shows all matches. next tab starts cycling through the matches
 set wildmenu
