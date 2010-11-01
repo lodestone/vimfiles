@@ -9,6 +9,11 @@ set nocompatible
 " Enable syntax highlighting
 syntax on
 
+" This fixes the Command-T Arrow keys in vim console
+set notimeout		    " don't timeout on mappings
+set ttimeout		    " do timeout on terminal key codes
+set timeoutlen=100	" timeout after 100 msec
+
 " Set a temporary background color.
 "  I use this to differentiate 
 "  visually between windows easily.
