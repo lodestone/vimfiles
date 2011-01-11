@@ -85,6 +85,9 @@ let g:gist_open_browser_after_post = 1
 " Quick edit .vimrc
 map <leader>vc :e ~/.vimrc<CR>
 
+vmap > >gv
+vmap < <gv
+
 " Use TAB to switch to next buffer
 " nmap <tab> :bn<CR>
 
@@ -100,6 +103,7 @@ map <leader>cn :cnext<CR>
 map <leader>cp :cprevious<CR>
 map <leader>cN :cprevious<CR>
 
+" nmap lj :BufExplorerHorizontalSplit<CR>
 
 " ` is more useful than ' but less accessible.
 " Makes ' move to line AND column
@@ -108,7 +112,7 @@ nnoremap ` '
 
 " TextMate fuzzy finder with <leader>t
 let g:fuzzy_ignore = "*.log"
-let g:fuzzy_matching_limit = 30
+let g:fuzzy_matching_limit = 20
 
 
 " make mouse work in console mode vim
@@ -122,6 +126,8 @@ map <leader>rake :Rake<CR>
 map <leader>fb :FuzzyFinderBuffer<CR>
 " Find Recent
 map <leader>fr :FuzzyFinderMruFile<CR>
+" Set default quick-switch with double leader
+map <leader><leader> :BufExplorerHorizontalSplit<CR>
 
 " Change directory for project:
 map <leader>kp :cd ~/projects/
@@ -129,7 +135,7 @@ map <leader>kp :cd ~/projects/
 " Open NERD Tree
 map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 " Mirror NERD Tree
-map <leader>dd :execute 'NERDTreeMirror'<CR>
+" map <leader>dd :execute 'NERDTreeMirror'<CR>
 
 " Capitalize/Uncapitalize Current word
 " map <Leader>C mzb~`z
