@@ -9,10 +9,14 @@ set nocompatible
 " Enable syntax highlighting
 syntax on
 
+
+" Change <leader> to ,
+let mapleader = ","
+
 " This fixes the Command-T Arrow keys in vim console
-set notimeout		    " don't timeout on mappings
-set ttimeout		    " do timeout on terminal key codes
-set timeoutlen=100	" timeout after 100 msec
+" set notimeout		    " don't timeout on mappings
+" set ttimeout		    " do timeout on terminal key codes
+" set timeoutlen=100	" timeout after 100 msec
 
 " Set a temporary background color.
 "  I use this to differentiate 
@@ -21,14 +25,23 @@ function! SetBackground(color)
   let setbg=':highlight Normal guibg=' . a:color
   exec setbg
 endfunction
-command! -nargs=? BackgroundColor :call SetBackground(<f-args>)
 
-" function ParseCommandT()
-"   source ~/.vim/src/command-t-0.8b.vba
-"   quit
-" endfunction
+command! -nargs=? BackgroundColor :call SetBackground(<f-args>)
+" nmap bg :call s:colour_hex()
+" nmap bg :BackgroundColor #
+
+"Show syntax highlighting groups for word under cursor
+map <C-S-I> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val,  "name")')
+endfunc
+
 
 " For some reason my colorscheme only works if I do vibrantink first...
+" TODO: Investigate why this is
 colorscheme vibrantink
 colorscheme lodestone
 " Other nifty colorschemes
@@ -45,6 +58,7 @@ set nowrap
 " I get to see more on the screen
 set tabstop=2
 set shiftwidth=2
+
 " don't use a real Tab, use spaces please.
 set expandtab
 
@@ -64,8 +78,6 @@ set shortmess=atI
 
 set hidden
 
-" Change <leader> to ,
-let mapleader = ","
 
 " :W works like :w
 " adding the ! overwrites a command, this gives a polite error upon reparsing
@@ -76,7 +88,7 @@ command! WRITE write
 set history=500
 
 " Quick timeouts on key combinations.
-set timeoutlen=500
+set timeoutlen=600
 
 " Send contents of current file to private gist
 map gist :Gist -p<CR>
@@ -84,6 +96,11 @@ let g:gist_open_browser_after_post = 1
 
 " Quick edit .vimrc
 map <leader>vc :e ~/.vimrc<CR>
+" Quick edit my color scheme
+map <leader>vl :e ~/.vim/colors/lodestone.vim<CR>
+
+" Quick switch to last buffer without reaching up to the caret ^
+map <C-k><C-k> :b#<CR>
 
 vmap > >gv
 vmap < <gv
@@ -127,7 +144,10 @@ map <leader>fb :FuzzyFinderBuffer<CR>
 " Find Recent
 map <leader>fr :FuzzyFinderMruFile<CR>
 " Set default quick-switch with double leader
-map <leader><leader> :BufExplorerHorizontalSplit<CR>
+" map <leader><leader> :BufExplorerHorizontalSplit<CR>
+map <leader><leader> :BufExplorer<CR>
+let g:bufExplorerSplitVertSize=20
+" let g:bufExplorerSplitHorizSize=20
 
 " Change directory for project:
 map <leader>kp :cd ~/projects/
@@ -157,6 +177,7 @@ map <C-k><C-p> :bp<CR>
 " These are standard bash/emacs/mac text movement/manipulation
 cmap <C-a> <Home>
 cmap <C-e> <End>
+cmap <C-k> <C-o>d$
 imap <C-a> <Home>
 vmap <C-a> <Home>
 omap <C-a> <Home>
@@ -166,6 +187,7 @@ omap <C-e> <End>
 inoremap <C-d> <Del>
 vnoremap <C-d> <Del>
 onoremap <C-d> <Del>
+cnoremap <C-d> <Del>
 cnoremap <C-k> <C-f>d$<C-c><End>
 imap <C-k> <C-o>d$
 
@@ -175,15 +197,15 @@ imap <C-k> <C-o>d$
 "map <silent> <LocalLeader>rf :RunRubyFocusedUnitTest<CR>
 
 " Yank all -- Can also do standard: ggyG
-map <leader>ya :%y<CR>
+map <leader>yall :%y<CR>
 
-" I can't seem to reach $ as easily as I "should" (double meaning)
+" I can't seem to reach $ as easily as I _should_ (double meaning)
 nmap - $
 
 autocmd BufRead,BufNewFile *.js set ft=javascript.jquery
 
 " Change which file opens after executing :Rails command
-" let g:rails_default_file='config/database.yml'
+" let g:rails_default_file='config/routes.rb
 
 " current directory is always matching the
 " content of the active window
@@ -193,40 +215,39 @@ autocmd BufRead,BufNewFile *.js set ft=javascript.jquery
 map <special> <F12> :ruby finder.rescan!<ENTER>
 
 " TODO Reload .vimrc (and .gvimrc)
-" map <special> <F11> :source $MYVIMRC<ENTER>:source $MYGVIMRC<ENTER>
+map <special> <F8> :source $MYVIMRC<CR> 
+" :source $MYGVIMRC<ENTER>
 
 " I want this:
 "Adding #{} to AutoClose Plugin and activating it for String interpolation
-"let g:AutoClosePairs = {'(': ')', '{': '}', '[': ']', '"': '"', "'": "'", '#{': '}'} 
-"let g:AutoCloseProtectedRegions = ["Character"] 
+" using delimitMate now
  
 
 " highlight the current line and column the cursor is on
-set cursorline
-" Cursor column is a little to much...
+" set cursorline
+set nocursorline
 " set cursorcolumn!
 
+" 
+" function! PreviewMKD()
+" ruby << EOF
+"   require 'rubygems'
+"   require 'bluecloth'
+"   parser = BlueCloth
+"   t = ""
+"   VIM::Buffer.current.count.times {|i| t += "#{VIM::Buffer.current[i + 1]}\\n"}
+"   html_file = VIM::Buffer.current.name.gsub(/.(md|mkd)$/, '.html')
+"   if html_file == VIM::Buffer.current.name
+"     print "Error! - This file extension is not supported for Markdown previews"
+"   end
+"   File.open(html_file, 'w') do |f|
+"     f.write(parser.new(t).to_html)
+"   end
+"   system("open #{html_file}")
+" EOF
+" endfunction
 
-
-function! PreviewMKD()
-ruby << EOF
-  require 'rubygems'
-  require 'bluecloth'
-  parser = BlueCloth
-  t = ""
-  VIM::Buffer.current.count.times {|i| t += "#{VIM::Buffer.current[i + 1]}\n"}
-  html_file = VIM::Buffer.current.name.gsub(/.(md|mkd)$/, '.html')
-  if html_file == VIM::Buffer.current.name
-    print "Error! - This file extension is not supported for Markdown previews"
-  end
-  File.open(html_file, 'w') do |f|
-    f.write(parser.new(t).to_html)
-  end
-  system("open #{html_file}")
-EOF
-endfunction
-
-map <leader>p :call PreviewMKD()<CR>
+" map <leader>p :call PreviewMKD()<CR>
 
 " By default, pressing <TAB> in command mode will choose the first 
 " possible completion with no indication of how many others there might be. 
@@ -239,7 +260,7 @@ set wildmenu
 " This is set in the Pickles section below
 " set wildmode=list:longest
 
-set title
+" set title
 
 set backupdir=~/.vim/tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim/tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -276,7 +297,6 @@ set incsearch " ...dynamically as they are typed.
 scriptencoding utf-8
 
 
-
 "sm:    flashes matching brackets or parentheses
 set showmatch
 
@@ -294,7 +314,7 @@ set number
 setlocal numberwidth=5
 
 " Turn off local file indentation
-nnoremap <F8> :setl noai nocin nosi inde=<CR>
+" nnoremap <F8> :setl noai nocin nosi inde=<CR>
 
 " Enable tab complete for commands.
 " first tab shows all matches. next tab starts cycling through the matches
@@ -307,9 +327,6 @@ set wildmode=list:longest,full
 
 " assume the /g flag on :s substitutions to replace all matches in a line:
 set gdefault
-
-" Load matchit (% to bounce from do to end, etc.)
-runtime! macros/matchit.vim
 
 " Nice statusbar
 " set statusline+=%B\  " shows hex byte of char under cursor
@@ -324,9 +341,9 @@ set statusline+=%= " right align
 set statusline+=%-16.(%l/%L,%c%V%)\ %<%P\  " offset
 
 " enable setting title
-set title
+" set title
 " configure title to look like: Vim /path/to/file
-set titlestring=VIM:\ %-25.55F\ %a%r%m titlelen=70
+" set titlestring=VIM:\\ %-25.55F\\ %a%r%m titlelen=70
 
 " can has foldin plz?
 set foldenable
@@ -334,8 +351,9 @@ set foldmethod=syntax
 set foldlevel=999 " make it really high, so they're not displayed by default
   
 
-" Turn off rails bits of statusbar
+" Turn on rails bits of statusbar
 let g:rails_statusline=0
+let g:rails_defalt_file="config/routes.rb"
 
 " Don't quit NERDTree after openning a file
 let NERDTreeQuitOnOpen=0
@@ -350,7 +368,6 @@ let NERDTreeIgnore=['\.git','\.DS_Store']
 " limit number of results shown for performance
 let g:fuzzy_matching_limit=20
 " ignore stuff that can't be openned, and generated files
-" let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;vendor/**;coverage/**;tmp/**;rdoc/**"
 let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;coverage/**;tmp/**;rdoc/**"
 " increase the number of files scanned for very large projects
 let g:fuzzy_ceiling=2000
@@ -374,6 +391,7 @@ let g:browser = 'open '
     au BufRead,BufNewFile *etc/nginx/* set ft=nginx 
     " treat rackup files like ruby
     au BufRead,BufNewFile *.ru set ft=ruby
+    au BufRead,BufNewFile *.coffee set ft=coffee
   augroup END
 
 
@@ -394,49 +412,47 @@ let g:browser = 'open '
   autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
   autocmd FileType php set omnifunc=phpcomplete#CompletePHP
   autocmd FileType c set omnifunc=ccomplete#Complete
-  let g:rubycomplete_rails = 1
+  autocmd FileType coffee set omnifunc=javascriptcomplete#CompleteJS
+  " let g:rubycomplete_rails = 1
 
 
   " have some fun with bufexplorer
   " let g:bufExplorerDefaultHelp=0       " Do not show default help.
   let g:bufExplorerShowRelativePath=1  " Show relative paths.
 
-" IRB {{{
-  " autocmd FileType irb inoremap <buffer> <silent> <CR> <Esc>:<C-u>ruby v=VIM::Buffer.current;v.append(v.line_number, eval(v[v.line_number]).inspect)<CR>
-
 " Section: functions
 
-  function! s:RunShellCommand(cmdline)
-    botright new
+  " function! s:RunShellCommand(cmdline)
+  "   botright new
 
-    setlocal buftype=nofile
-    setlocal bufhidden=delete
-    setlocal nobuflisted
-    setlocal noswapfile
-    setlocal nowrap
-    setlocal filetype=shell
-    setlocal syntax=shell
+  "   setlocal buftype=nofile
+  "   setlocal bufhidden=delete
+  "   setlocal nobuflisted
+  "   setlocal noswapfile
+  "   setlocal nowrap
+  "   setlocal filetype=shell
+  "   setlocal syntax=shell
 
-    call setline(1,a:cmdline)
-    call setline(2,substitute(a:cmdline,'.','=','g'))
-    execute 'silent $read !'.escape(a:cmdline,'%#')
-    setlocal nomodifiable
-    1
-  endfunction
+  "   call setline(1,a:cmdline)
+  "   call setline(2,substitute(a:cmdline,'.','=','g'))
+  "   execute 'silent $read !'.escape(a:cmdline,'%#')
+  "   setlocal nomodifiable
+  "   1
+  " endfunction
 
   " Open the Rails ApiDock page for the word under cursor, using the 'open'
   " command
-  function! OpenRailsDoc(keyword)
-    let url = 'http://apidock.com/rails/'.a:keyword
-    exec '!'.g:browser.' '.url
-  endfunction
+  " function! OpenRailsDoc(keyword)
+  "   let url = 'http://apidock.com/rails/'.a:keyword
+  "   exec '!'.g:browser.' '.url
+  " endfunction
 
   " Open the Ruby ApiDock page for the word under cursor, using the 'open'
   " command
-  function! OpenRubyDoc(keyword)
-    let url = 'http://apidock.com/ruby/'.a:keyword
-    exec '!'.g:browser.' '.url
-  endfunction
+  " function! OpenRubyDoc(keyword)
+  "   let url = 'http://apidock.com/ruby/'.a:keyword
+  "   exec '!'.g:browser.' '.url
+  " endfunction
 
 
 " Section: mappings
@@ -447,7 +463,7 @@ let g:browser = 'open '
 "nmap <leader>te :tabedit
 
 " Exit Insert mode quickly without ESC
-imap ii <Esc>
+imap jl <Esc>
 
 " insert hashrocket, =>, with control-l
 imap <C-l> <Space>=><Space>
@@ -514,7 +530,7 @@ set nowritebackup
 "nmap <leader>s :split<CR> <C-w><C-w>
 
 " Make it way easier to switch windows (<leader>w)
-nmap <leader>w <C-w><C-w>_
+" nmap <leader>w <C-w><C-w>_
 
 " Show only the current window/tab/whatevers
 nmap <leader>o :only<CR>
@@ -552,7 +568,6 @@ nmap <leader>o :only<CR>
 "   " (happens when dropping a file on gvim).
 "   autocmd BufReadPost *
 "     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-"     \   exe "normal g`\"" |
 "     \ endif
 " 
 "   augroup END
@@ -647,3 +662,5 @@ command! RTroutes :tabe config/routes.rb
 " " Tags
 " let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
 " 
+call pathogen#runtime_append_all_bundles() 
+

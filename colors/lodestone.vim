@@ -341,11 +341,11 @@ hi PMenuThumb                               ctermbg=102             cterm=none
 " hi StatusLine       guifg=#e0e0e0           guibg=#363946           gui=bold
 hi StatusLine       guifg=#222222           guibg=#eeeeee           gui=bold
 " hi StatusLine       ctermfg=244             ctermbg=186            cterm=bold
-hi StatusLine      ctermfg=238 ctermbg=233
+hi StatusLine       ctermfg=244 ctermbg=232
 
 " status line for non-current windows
 hi StatusLineNC     guifg=#767986           guibg=#363946           gui=none
-hi StatusLineNC    ctermfg=244 ctermbg=232
+hi StatusLineNC     ctermfg=238 ctermbg=233
 " hi StatusLineNC     ctermfg=244             ctermbg=white             cterm=none
 
 
@@ -377,19 +377,27 @@ hi Visual           ctermfg=NONE            ctermbg=24
 " hi link railsMethod         PreProc
 " hi link rubyDefine          Keyword
 " hi link rubySymbol          Constant
-hi rubySymbol guifg=#800000 ctermfg=124
+" hi rubySymbol guifg=#fd1122 ctermfg=124
+hi rubySymbol guifg=#c2130e ctermfg=124
+" hi rubyDoBlock guifg=#dedede ctermfg=124
+" hi rubyArrayDelimiter guifg=#9090dd ctermfg=189
+" hi rubyArrayLiteral guifg=#9f9fbd ctermfg=189
+" hi rubyCurlyDelimiter guifg=#9090dd ctermfg=189
+hi rubyRailsARAssociationMethod guifg=#fd0011 ctermfg=124
+hi rubyRailsARValidationMethod guifg=#fd0011 ctermfg=124
+" hi rubyLocalVariableOrMethod guifg=#9090ff ctermfg=124
 " hi link rubyAccess          rubyMethod
 " hi link rubyAttribute       rubyMethod
 " hi link rubyEval            rubyMethod
 " hi link rubyException       rubyMethod
 " hi link rubyInclude         rubyMethod
-hi rubyString guifg=#60e000 ctermfg=28
+hi rubyString guifg=#00942c ctermfg=28
 hi link rubyStringDelimiter rubyString
 " hi link rubyRegexp          Regexp
 " hi link rubyRegexpDelimiter rubyRegexp
 " hi link rubyConstant        Identifier
 " hi link rubyClassVariable Keyword
-" hi rubyInstanceVariable      guifg=#D0D0FF ctermfg=189
+hi rubyInstanceVariable      guifg=#9090FF ctermfg=189
 " hi railsUserClass guifg=#aaaaaa ctermfg=255
 " 
 " hi rubyLocalVariableOrMethod guifg=#D0D0FF ctermfg=189

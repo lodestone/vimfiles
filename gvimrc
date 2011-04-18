@@ -10,11 +10,19 @@ set lines=40
 " color ir_black
 " For normal, dark background
 color lodestone
-BackgroundColor #151525
+" BackgroundColor(#151525)
 
 " When I go full screen, maximize both horizontally and vertically
 set fuoptions=maxvert,maxhorz
 
 " For bright sun:
 " color github
+
+" Command-T for CommandT
+  macmenu &File.New\ Tab key=<D-T>
+  map <D-t> :tabnew<CR>:CommandT<CR>
+  imap <D-t> <Esc>:tabnew<CR>:CommandT<CR>
+
+
+map <D-/> :TComment<CR>
 
