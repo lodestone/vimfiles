@@ -12,7 +12,6 @@ syntax on
 
 " Change <leader> to ,
 let mapleader = ","
-
 " This fixes the Command-T Arrow keys in vim console
 " set notimeout		    " don't timeout on mappings
 " set ttimeout		    " do timeout on terminal key codes
@@ -27,8 +26,12 @@ function! SetBackground(color)
 endfunction
 
 command! -nargs=? BackgroundColor :call SetBackground(<f-args>)
-" nmap bg :call s:colour_hex()
-" nmap bg :BackgroundColor #
+" nmap <leader>bg :call s:colour_hex()
+nmap <leader>bg :BackgroundColor #
+
+" Autoload and save session
+let g:session_autosave = 1
+let g:session_autoload = 1
 
 "Show syntax highlighting groups for word under cursor
 map <C-S-I> :call <SID>SynStack()<CR>
@@ -316,14 +319,12 @@ setlocal numberwidth=5
 " Turn off local file indentation
 " nnoremap <F8> :setl noai nocin nosi inde=<CR>
 
-" Enable tab complete for commands.
 " first tab shows all matches. next tab starts cycling through the matches
-set wildmenu
 set wildmode=list:longest,full
 " set wildignore=*.o,*.fasl
 
 " Display extra whitespace
-"set list listchars=tab:»·,trail:·
+set list listchars=tab:»·,trail:·
 
 " assume the /g flag on :s substitutions to replace all matches in a line:
 set gdefault

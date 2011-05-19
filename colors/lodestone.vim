@@ -378,12 +378,16 @@ hi Visual           ctermfg=NONE            ctermbg=24
 " hi link rubyDefine          Keyword
 " hi link rubySymbol          Constant
 " hi rubySymbol guifg=#fd1122 ctermfg=124
-hi rubySymbol guifg=#c2130e ctermfg=124
+" hi rubySymbol guifg=#c2130e ctermfg=124
+                    " Purple
+hi rubySymbol guifg=#9B7EF6 ctermfg=099
+
 " hi rubyDoBlock guifg=#dedede ctermfg=124
 " hi rubyArrayDelimiter guifg=#9090dd ctermfg=189
 " hi rubyArrayLiteral guifg=#9f9fbd ctermfg=189
 " hi rubyCurlyDelimiter guifg=#9090dd ctermfg=189
 hi rubyRailsARAssociationMethod guifg=#fd0011 ctermfg=124
+" hi rubyRailsARAssociationMethod guifg=#6666ff ctermfg=099
 hi rubyRailsARValidationMethod guifg=#fd0011 ctermfg=124
 " hi rubyLocalVariableOrMethod guifg=#9090ff ctermfg=124
 " hi link rubyAccess          rubyMethod

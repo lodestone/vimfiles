@@ -2,6 +2,8 @@ set guioptions-=T
 " set guifont=Monaco:h10
 " set guifont=Inconsolata:h14
 set guifont=Envy_Code_R:h13
+" How you set this on Linux
+" set guifont=Monospace\ 9
 set linespace=0
 set noantialias
 
