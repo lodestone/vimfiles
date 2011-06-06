@@ -144,11 +144,18 @@ map <leader>rake :Rake<CR>
 " map <leader>t :FuzzyFinderTextMate<CR>
 " Find Buffer
 map <leader>fb :FuzzyFinderBuffer<CR>
+map <leader>ff :FuzzyFinderBuffer<CR>
+
+" Find file in current buffer's Directory
+map <leader>fd :FuzzyFinderFileWithCurrentBufferDir<CR>
+
 " Find Recent
 map <leader>fr :FuzzyFinderMruFile<CR>
+
 " Set default quick-switch with double leader
 " map <leader><leader> :BufExplorerHorizontalSplit<CR>
-map <leader><leader> :BufExplorer<CR>
+" map <leader><leader> :BufExplorer<CR>
+map <leader><leader> :CommandTBuffer<CR>
 let g:bufExplorerSplitVertSize=20
 " let g:bufExplorerSplitHorizSize=20
 
@@ -356,6 +363,8 @@ set foldlevel=999 " make it really high, so they're not displayed by default
 let g:rails_statusline=0
 let g:rails_defalt_file="config/routes.rb"
 
+let g:delimitMate_autoclose=0
+let g:delimitMate_smart_quotes=0
 " Don't quit NERDTree after openning a file
 let NERDTreeQuitOnOpen=0
 " colored NERD Tree
