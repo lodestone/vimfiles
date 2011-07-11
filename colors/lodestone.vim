@@ -348,6 +348,8 @@ hi StatusLineNC     guifg=#767986           guibg=#363946           gui=none
 hi StatusLineNC     ctermfg=238 ctermbg=233
 " hi StatusLineNC     ctermfg=244             ctermbg=white             cterm=none
 
+hi StatusLine ctermbg=LightGray ctermfg=Black guibg=#334b7d guifg=fg gui=bold
+hi StatusLineNC ctermbg=DarkGray ctermfg=Black guibg=#25365a guifg=fg gui=none
 
 " Tab Lines
 " ---------
@@ -362,6 +364,8 @@ hi TabLineSel       guifg=#efefef           guibg=#414658           gui=bold
 hi TabLineSel       ctermfg=254             ctermbg=black             cterm=bold
 
 
+hi TabLine guibg=#41609e guifg=fg gui=underline
+hi TabLineFill guibg=#41609e guifg=fg gui=underline
 " Visual
 " ------
 " visual mode selection

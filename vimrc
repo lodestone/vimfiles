@@ -9,9 +9,13 @@ set nocompatible
 " Enable syntax highlighting
 syntax on
 
+" set noswapfile
 
 " Change <leader> to ,
 let mapleader = ","
+map ; :
+noremap ;; ;
+
 " This fixes the Command-T Arrow keys in vim console
 " set notimeout		    " don't timeout on mappings
 " set ttimeout		    " do timeout on terminal key codes
@@ -155,7 +159,9 @@ map <leader>fr :FuzzyFinderMruFile<CR>
 " Set default quick-switch with double leader
 " map <leader><leader> :BufExplorerHorizontalSplit<CR>
 " map <leader><leader> :BufExplorer<CR>
-map <leader><leader> :CommandTBuffer<CR>
+map <leader>bl :BufExplorer<CR>
+" map <leader><leader> :CommandTBuffer<CR>
+map <leader><leader> :FuzzyFinderBuffer<CR>
 let g:bufExplorerSplitVertSize=20
 " let g:bufExplorerSplitHorizSize=20
 
@@ -169,6 +175,10 @@ map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 
 " Capitalize/Uncapitalize Current word
 " map <Leader>C mzb~`z
+nmap <C-j> :bp<CR>
+nmap <C-h> :bp<CR>
+nmap <C-k> :bn<CR>
+nmap <C-l> :bn<CR>
 
 " RIP joe, you were a great friend...
 " entering joe (Joe's Own Editor, Wordstar clone) compatibility mode: 
