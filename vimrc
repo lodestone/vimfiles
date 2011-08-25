@@ -13,7 +13,7 @@ syntax on
 
 " Change <leader> to ,
 let mapleader = ","
-map ; :
+nmap ; :
 noremap ;; ;
 
 " This fixes the Command-T Arrow keys in vim console
@@ -34,8 +34,8 @@ command! -nargs=? BackgroundColor :call SetBackground(<f-args>)
 nmap <leader>bg :BackgroundColor #
 
 " Autoload and save session
-let g:session_autosave = 1
-let g:session_autoload = 1
+let g:session_autosave = 'yes'
+let g:session_autoload = 'no'
 
 "Show syntax highlighting groups for word under cursor
 map <C-S-I> :call <SID>SynStack()<CR>
@@ -293,9 +293,9 @@ set backspace=indent,eol,start
 " File-type highlighting and configuration.
 " Run :filetype (without args) to see what you may have
 " to turn on yourself, or just set them all to be sure.
-filetype on
-filetype plugin on
-filetype indent on
+filetype plugin indent on
+" filetype plugin on
+" filetype indent on
 
 " Omnicomplete mode on
 set ofu=syntaxcomplete#Complete

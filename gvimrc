@@ -27,4 +27,7 @@ set fuoptions=maxvert,maxhorz
 
 
 map <D-/> :TComment<CR>
+map <D-Left> :BufSurfBack<CR>
+map <D-Right> :BufSurfForward<CR>
 
+set noballooneval
