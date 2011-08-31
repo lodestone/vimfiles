@@ -122,7 +122,7 @@ vmap < <gv
 " Search in Project (Ack.vim)
 map <leader>a :Ack 
 " Find All
-map <leader>fa :Ack 
+map <leader>fa :Ack ""<LEFT>
 map <leader>cn :cnext<CR>
 map <leader>cp :cprevious<CR>
 map <leader>cN :cprevious<CR>
@@ -146,15 +146,17 @@ map <leader>rake :Rake<CR>
 
 "map <silent> <leader>t :FuzzyFinderTextMate<CR>
 " map <leader>t :FuzzyFinderTextMate<CR>
-" Find Buffer
+" _find _buffer
 map <leader>fb :FuzzyFinderBuffer<CR>
 map <leader>ff :FuzzyFinderBuffer<CR>
-
-" Find file in current buffer's Directory
+" _find file in current buffer's _directory
 map <leader>fd :FuzzyFinderFileWithCurrentBufferDir<CR>
-
-" Find Recent
+" _find _recent
 map <leader>fr :FuzzyFinderMruFile<CR>
+" _find _tag
+map <leader>ft :FuzzyFinderTag<CR>
+" _find _Tag with cursor word
+map <leader>fT :FuzzyFinderTagWithCursorWord<CR>
 
 " Set default quick-switch with double leader
 " map <leader><leader> :BufExplorerHorizontalSplit<CR>
@@ -503,19 +505,35 @@ nnoremap Y y$
 " Hide search highlighting
 map <silent> <leader>nh :nohls <CR>
 
-command! -bang -nargs=? QFix call QFixToggle(<bang>0)
-function! QFixToggle(forced)
-  if exists("g:qfix_win") && a:forced == 0
-    cclose
-    unlet g:qfix_win
-  else
-    copen 10
-    let g:qfix_win = bufnr("$")
+" toggle Quickfix window with <leader>q
+function! GetBufferList()
+  redir =>buflist
+  silent! ls
+  redir END
+  return buflist
+endfunction
+
+function! ToggleList(bufname, pfx)
+  let buflist = GetBufferList()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      exec(a:pfx.'close')
+      return
+    endif
+  endfor
+  if a:pfx == 'l' && len(getloclist(0)) == 0
+      echohl ErrorMsg
+      echo "Location List is Empty."
+      return
+  endif
+  let winnr = winnr()
+  exec(a:pfx.'open')
+  if winnr() != winnr
+    wincmd p
   endif
 endfunction
 
-" toggle Quickfix window with <leader>q
-map <silent> <leader>q :QFix<CR>
+nmap <silent> <leader>q :call ToggleList("Quickfix List", 'c')<CR>
 
 " nnoremap <leader>irb :<C-u>below new<CR>:setfiletype irb<CR>:set syntax=ruby<CR>:set buftype=nofile<CR>:set bufhidden=delete<CR>i
 
