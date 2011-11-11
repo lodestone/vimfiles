@@ -1,7 +1,7 @@
 set guioptions-=T
-" set guifont=Monaco:h10
+set guifont=Monaco:h10
 " set guifont=Inconsolata:h14
-set guifont=Envy_Code_R:h13
+" set guifont=Envy_Code_R:h13
 " How you set this on Linux
 " set guifont=Monospace\ 9
 set linespace=0
@@ -11,7 +11,9 @@ set columns=160
 set lines=40
 " color ir_black
 " For normal, dark background
-color lodestone
+" color lodestone
+" color denseloot
+
 " BackgroundColor(#151525)
 
 " When I go full screen, maximize both horizontally and vertically

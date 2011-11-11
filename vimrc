@@ -51,6 +51,8 @@ endfunc
 " TODO: Investigate why this is
 colorscheme vibrantink
 colorscheme lodestone
+" colorscheme denseloot
+
 " Other nifty colorschemes
 " colorscheme molokai
 " colorscheme blackboard
@@ -101,6 +103,9 @@ set timeoutlen=600
 map gist :Gist -p<CR>
 let g:gist_open_browser_after_post = 1
 
+" Set yankring history file
+let g:yankring_history_file = '.vim_yankring_history'
+
 " Quick edit .vimrc
 map <leader>vc :e ~/.vimrc<CR>
 " Quick edit my color scheme
@@ -111,6 +116,9 @@ map <C-k><C-k> :b#<CR>
 
 vmap > >gv
 vmap < <gv
+nmap > >>
+nmap < <<
+
 
 " Use TAB to switch to next buffer
 " nmap <tab> :bn<CR>
@@ -131,13 +139,17 @@ map <leader>cN :cprevious<CR>
 
 " ` is more useful than ' but less accessible.
 " Makes ' move to line AND column
-nnoremap ' `
-nnoremap ` '
+nmap ' `
+nmap ` '
+nmap ; :
 
 " TextMate fuzzy finder with <leader>t
 let g:fuzzy_ignore = "*.log"
 let g:fuzzy_matching_limit = 20
 
+
+" let g:CommandTMaxHeight=20
+let g:CommandTMatchWindowReverse=1
 
 " make mouse work in console mode vim
 set mouse=nv
