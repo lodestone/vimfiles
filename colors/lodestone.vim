@@ -30,7 +30,7 @@ let colors_name="lodestone"
 " Base color
 " ----------
 " hi Normal           guifg=#e0e0e0           guibg=#202020
-hi Normal           guifg=#e0e0e0           guibg=#030303
+hi Normal           guifg=#e0e0e0           guibg=#151515
 hi Normal           ctermfg=253             ctermbg=000
 
 
