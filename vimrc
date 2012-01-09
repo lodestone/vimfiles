@@ -6,6 +6,8 @@
 " These two enable syntax highlighting
 " We're running Vim, not Vi!
 set nocompatible
+" No wrap mutherfuckah
+set nowrap
 " Enable syntax highlighting
 syntax on
 
@@ -15,6 +17,9 @@ syntax on
 let mapleader = ","
 nmap ; :
 noremap ;; ;
+
+" Set CtrlP's extensions
+let g:ctrlp_extensions = ['tag', 'buffertag']
 
 " This fixes the Command-T Arrow keys in vim console
 " set notimeout		    " don't timeout on mappings
@@ -60,7 +65,15 @@ colorscheme lodestone
 " colorscheme railscasts
 
 " don't fake me out by appearing as if there is more than one line
-set nowrap
+set wrap
+
+" This sets up breaking lines at words instead of
+" mid-word by simply doing :set wrap
+set linebreak
+set nolist
+set textwidth=0
+set wrapmargin=0
+set formatoptions+=l
 
 
 " Softtabs, 2 spaces - I like 2 space indentation. 
@@ -148,8 +161,9 @@ let g:fuzzy_ignore = "*.log"
 let g:fuzzy_matching_limit = 20
 
 
-" let g:CommandTMaxHeight=20
-let g:CommandTMatchWindowReverse=1
+let g:CommandTMatchWindowAtTop=1
+let g:CommandTMaxHeight=20
+" let g:CommandTMatchWindowReverse=0
 
 " make mouse work in console mode vim
 set mouse=nv
@@ -355,7 +369,7 @@ set wildmode=list:longest,full
 " set wildignore=*.o,*.fasl
 
 " Display extra whitespace
-set list listchars=tab:»·,trail:·
+" set list listchars=tab:»·,trail:·
 
 " assume the /g flag on :s substitutions to replace all matches in a line:
 set gdefault

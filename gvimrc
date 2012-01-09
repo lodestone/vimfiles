@@ -1,11 +1,12 @@
 set guioptions-=T
-set guifont=Monaco:h10
+" set guifont=Monaco:h10
 " set guifont=Inconsolata:h14
-" set guifont=Envy_Code_R:h13
+set guifont=Envy_Code_R:h13
 " How you set this on Linux
 " set guifont=Monospace\ 9
 set linespace=0
-set noantialias
+" set noantialias
+set antialias
 
 set columns=160
 set lines=40
@@ -27,7 +28,7 @@ set fuoptions=maxvert,maxhorz
   map <D-t> :tabnew<CR>:CommandT<CR>
   imap <D-t> <Esc>:tabnew<CR>:CommandT<CR>
 
-
+map <D-r> :Rake<CR>
 map <D-/> :TComment<CR>
 map <D-Left> :BufSurfBack<CR>
 map <D-Right> :BufSurfForward<CR>

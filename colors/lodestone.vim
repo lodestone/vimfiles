@@ -1,15 +1,13 @@
 " Vim color scheme
 "
 " Name:         lodestone.vim
-" Maintainer:   Matt Petty <matt@kizmeta.com> 
-" Last Change:  16 September 2010
-" License:      public domain
-" Version:      4.1a
+" Maintainer:   Matt Petty <matt@kizmeta.com> @mattpetty
+" Last Change:  2011-11-22
+" License:      MIT, public domain, who cares
+" Version:      4.1.1
 "
 " 256 color scheme based on lucius, railscasts, many others.
-" Looks good 
-" This file is also kept here:
-" http://github.com/lodestone/vimfiles/raw/master/colors/lodestone.vim
+" http://github.com/lodestone/lodestone.vim
 
 
 set background=dark
@@ -37,8 +35,8 @@ hi Normal           ctermfg=253             ctermbg=000
 " Comment Group
 " -------------
 " any comment
-hi Comment          guifg=#606060                                   gui=none
-hi Comment          ctermfg=240                                     cterm=none
+hi Comment          guifg=#606060                                   gui=italic
+hi Comment          ctermfg=240                                     cterm=italic
 
 
 " Constant Group
@@ -339,7 +337,7 @@ hi PMenuThumb                               ctermbg=102             cterm=none
 " -----------
 " status line for current window
 " hi StatusLine       guifg=#e0e0e0           guibg=#363946           gui=bold
-hi StatusLine       guifg=#222222           guibg=#eeeeee           gui=bold
+hi StatusLine       guifg=#222222           guibg=#eeeeee           gui=none
 " hi StatusLine       ctermfg=244             ctermbg=186            cterm=bold
 hi StatusLine       ctermfg=244 ctermbg=232
 
@@ -348,7 +346,7 @@ hi StatusLineNC     guifg=#767986           guibg=#363946           gui=none
 hi StatusLineNC     ctermfg=238 ctermbg=233
 " hi StatusLineNC     ctermfg=244             ctermbg=white             cterm=none
 
-hi StatusLine ctermbg=LightGray ctermfg=Black guibg=#334b7d guifg=fg gui=bold
+hi StatusLine ctermbg=LightGray ctermfg=Black guibg=#334b7d guifg=fg gui=none
 hi StatusLineNC ctermbg=DarkGray ctermfg=Black guibg=#25365a guifg=fg gui=none
 
 " Tab Lines
@@ -385,6 +383,8 @@ hi Visual           ctermfg=NONE            ctermbg=24
 " hi rubySymbol guifg=#c2130e ctermfg=124
                     " Purple
 hi rubySymbol guifg=#9B7EF6 ctermfg=099
+
+
 
 " hi rubyDoBlock guifg=#dedede ctermfg=124
 " hi rubyArrayDelimiter guifg=#9090dd ctermfg=189
