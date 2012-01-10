@@ -385,15 +385,15 @@ set gdefault
 
 " Nice statusbar
 " set statusline+=%B\  " shows hex byte of char under cursor
-set laststatus=2
-set statusline=\ "
-set statusline+=%f\ " file name
-set statusline+=[
-set statusline+=%{strlen(&ft)?&ft:'none'}, " filetype
-set statusline+=%{&fileformat}] " file format
-set statusline+=%h%1*%m%r%w%0* " flag
-set statusline+=%= " right align
-set statusline+=%-16.(%l/%L,%c%V%)\ %<%P\  " offset
+" set laststatus=2
+" set statusline=\\ "
+" set statusline+=%f\\ " file name
+" set statusline+=[
+" set statusline+=%{strlen(&ft)?&ft:'none'}, " filetype
+" set statusline+=%{&fileformat}] " file format
+" set statusline+=%h%1*%m%r%w%0* " flag
+" set statusline+=%= " right align
+" set statusline+=%-16.(%l/%L,%c%V%)\\ %<%P\\  " offset
 
 " enable setting title
 " set title
