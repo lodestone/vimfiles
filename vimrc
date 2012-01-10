@@ -33,10 +33,19 @@ function! SetBackground(color)
   let setbg=':highlight Normal guibg=' . a:color
   exec setbg
 endfunction
-
 command! -nargs=? BackgroundColor :call SetBackground(<f-args>)
+
+function! ChangeToProject(project)
+  let setdir=':cd ~/projects/' . a:project
+  let settree=':NERDTree ~/projects/' . a:project
+  exec setdir
+  exec settree
+endfunction
+command! -nargs=? ChangeProject :call ChangeToProject(<f-args>)
+
 " nmap <leader>bg :call s:colour_hex()
 nmap <leader>bg :BackgroundColor #
+nmap <leader>kp :ChangeProject 
 
 " Autoload and save session
 let g:session_autosave = 'yes'
@@ -194,7 +203,7 @@ let g:bufExplorerSplitVertSize=20
 " let g:bufExplorerSplitHorizSize=20
 
 " Change directory for project:
-map <leader>kp :cd ~/projects/
+" map <leader>kp :cd ~/projects/
 
 " Open NERD Tree
 map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
