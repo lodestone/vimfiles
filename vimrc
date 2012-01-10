@@ -74,7 +74,6 @@ colorscheme lodestone
 " colorscheme railscasts
 
 " don't fake me out by appearing as if there is more than one line
-set wrap
 
 " This sets up breaking lines at words instead of
 " mid-word by simply doing :set wrap
