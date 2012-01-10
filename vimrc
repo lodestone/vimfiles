@@ -207,7 +207,7 @@ let g:bufExplorerSplitVertSize=20
 " map <leader>kp :cd ~/projects/
 
 " Open NERD Tree
-map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+" map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 " Mirror NERD Tree
 " map <leader>dd :execute 'NERDTreeMirror'<CR>
 
@@ -414,7 +414,7 @@ let g:rails_defalt_file="config/routes.rb"
 let g:delimitMate_autoclose=0
 let g:delimitMate_smart_quotes=0
 " Don't quit NERDTree after openning a file
-let NERDTreeQuitOnOpen=0
+" let NERDTreeQuitOnOpen=0
 " colored NERD Tree
 let NERDChristmasTree = 1
 let NERDTreeHighlightCursorline = 1
