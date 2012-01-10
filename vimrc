@@ -127,6 +127,8 @@ let g:gist_open_browser_after_post = 1
 " Set yankring history file
 let g:yankring_history_file = '.vim_yankring_history'
 
+let g:yankring_replace_n_pkey = '<C-v>'
+
 " Quick edit .vimrc
 map <leader>vc :e ~/.vimrc<CR>
 " Quick edit my color scheme
@@ -418,7 +420,7 @@ let NERDChristmasTree = 1
 let NERDTreeHighlightCursorline = 1
 let NERDTreeShowHidden = 1
 " map enter to activating a node
-let NERDTreeMapActivateNode='<CR>'
+" let NERDTreeMapActivateNode='<CR>'
 let NERDTreeIgnore=['\.git','\.DS_Store']
 
 " limit number of results shown for performance
