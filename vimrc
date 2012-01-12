@@ -342,7 +342,7 @@ filetype plugin indent on
 set ofu=syntaxcomplete#Complete
 
 " Let SuperTab determine the completion mode
-let g:SuperTabDefaultCompletionType = "context" 
+let g:SuperTabDefaultCompletionType = "omni" 
 let g:SuperTabContextDefaultCompletionType = "<c-x><c-u>"
 
 " Disable's <c-k> in insert mode as an autocomplete call 
