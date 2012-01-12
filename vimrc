@@ -63,7 +63,7 @@ endfunc
 
 " For some reason my colorscheme only works if I do vibrantink first...
 " TODO: Investigate why this is
-colorscheme vibrantink
+" colorscheme vibrantink
 colorscheme lodestone
 " colorscheme denseloot
 
@@ -145,7 +145,6 @@ nmap < <<
 
 " Use TAB to switch to next buffer
 " nmap <tab> :bn<CR>
-
 " Make spacebar behave like a webpage
 " nmap <space> 10<Down>
 " nmap <S-space> 10<Up>
@@ -158,6 +157,8 @@ map <leader>cn :cnext<CR>
 map <leader>cp :cprevious<CR>
 map <leader>cN :cprevious<CR>
 
+" Show only the current window/tab/whatevers
+nmap <leader>o :only<CR>
 " nmap lj :BufExplorerHorizontalSplit<CR>
 
 " ` is more useful than ' but less accessible.
@@ -282,8 +283,8 @@ map <special> <F8> :source $MYVIMRC<CR>
  
 
 " highlight the current line and column the cursor is on
-" set cursorline
-set nocursorline
+set cursorline
+" set nocursorline
 " set cursorcolumn!
 
 " 
@@ -606,8 +607,7 @@ set nowritebackup
 " Make it way easier to switch windows (<leader>w)
 " nmap <leader>w <C-w><C-w>_
 
-" Show only the current window/tab/whatevers
-nmap <leader>o :only<CR>
+
 
 " http://github.com/jferris/config_files/ Joe Ferris
 " " This is an alternative that also works in block mode, but the deleted
@@ -711,13 +711,15 @@ map <leader>v :Rview
 " set list listchars=tab:»·,trail:·
 " 
 " Edit routes
-command! Rroutes :e config/routes.rb
-command! RTroutes :tabe config/routes.rb
+" command! Rroutes :e config/routes.rb
+" command! RTroutes :tabe config/routes.rb
 " 
-" " Local config
-" if filereadable(".vimrc.local")
-"   source .vimrc.local
-" endif
+"
+" Local config
+if filereadable(".vimrc.local")
+  source .vimrc.local
+endif
+
 " 
 " " Use Ack instead of Grep when available
 " if executable("ack")
@@ -736,5 +738,6 @@ command! RTroutes :tabe config/routes.rb
 " " Tags
 " let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
 " 
-call pathogen#runtime_append_all_bundles() 
-
+" call pathogen#runtime_append_all_bundles() 
+call pathogen#infect()
+call pathogen#helptags()

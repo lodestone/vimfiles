@@ -36,11 +36,6 @@
 :LAckAdd	ack.txt	/*:LAckAdd*
 :MkVimball	pi_vimball.txt	/*:MkVimball*
 :RmVimball	pi_vimball.txt	/*:RmVimball*
-:TComment	tComment.txt	/*:TComment*
-:TCommentAs	tComment.txt	/*:TCommentAs*
-:TCommentBlock	tComment.txt	/*:TCommentBlock*
-:TCommentInline	tComment.txt	/*:TCommentInline*
-:TCommentRight	tComment.txt	/*:TCommentRight*
 :TlistAddFiles	taglist.txt	/*:TlistAddFiles*
 :TlistAddFilesRecursive	taglist.txt	/*:TlistAddFilesRecursive*
 :TlistClose	taglist.txt	/*:TlistClose*
@@ -61,7 +56,6 @@
 :VimballList	pi_vimball.txt	/*:VimballList*
 <Space>	space.txt	/*<Space>*
 Align-copyright	Align.txt	/*Align-copyright*
-TCommentDefineType()	tComment.txt	/*TCommentDefineType()*
 TabIndent-1.0	tab-indent.txt	/*TabIndent-1.0*
 TabIndent-author	tab-indent.txt	/*TabIndent-author*
 TabIndent-changelog	tab-indent.txt	/*TabIndent-changelog*
@@ -233,11 +227,6 @@ g:bufExplorerSortBy	bufexplorer.txt	/*g:bufExplorerSortBy*
 g:bufExplorerSplitBelow	bufexplorer.txt	/*g:bufExplorerSplitBelow*
 g:bufExplorerSplitOutPathName	bufexplorer.txt	/*g:bufExplorerSplitOutPathName*
 g:bufExplorerSplitRight	bufexplorer.txt	/*g:bufExplorerSplitRight*
-g:tcommentMapLeader1	tComment.txt	/*g:tcommentMapLeader1*
-g:tcommentMapLeader2	tComment.txt	/*g:tcommentMapLeader2*
-g:tcommentMapLeaderOp1	tComment.txt	/*g:tcommentMapLeaderOp1*
-g:tcommentMapLeaderOp2	tComment.txt	/*g:tcommentMapLeaderOp2*
-g:tcommentOpModeExtra	tComment.txt	/*g:tcommentOpModeExtra*
 g:vimball_home	pi_vimball.txt	/*g:vimball_home*
 g:vimball_mkdir	pi_vimball.txt	/*g:vimball_mkdir*
 g:vimball_path_escape	pi_vimball.txt	/*g:vimball_path_escape*
@@ -261,11 +250,6 @@ surround-mappings	surround.txt	/*surround-mappings*
 surround-replacements	surround.txt	/*surround-replacements*
 surround-targets	surround.txt	/*surround-targets*
 surround.txt	surround.txt	/*surround.txt*
-tComment-Installation	tComment.txt	/*tComment-Installation*
-tComment-Key-Bindings	tComment.txt	/*tComment-Key-Bindings*
-tComment-Usage	tComment.txt	/*tComment-Usage*
-tComment-commands	tComment.txt	/*tComment-commands*
-tComment.txt	tComment.txt	/*tComment.txt*
 tab-indent.txt	tab-indent.txt	/*tab-indent.txt*
 taglist-commands	taglist.txt	/*taglist-commands*
 taglist-debug	taglist.txt	/*taglist-debug*
