@@ -146,8 +146,8 @@ nmap < <<
 " Use TAB to switch to next buffer
 " nmap <tab> :bn<CR>
 " Make spacebar behave like a webpage
-" nmap <space> 10<Down>
-" nmap <S-space> 10<Up>
+nmap <space> 10<Down>
+nmap <S-space> 10<Up>
 
 " Search in Project (Ack.vim)
 map <leader>a :Ack 
@@ -214,10 +214,12 @@ let g:bufExplorerSplitVertSize=20
 
 " Capitalize/Uncapitalize Current word
 " map <Leader>C mzb~`z
-nmap <C-j> :bp<CR>
-nmap <C-h> :bp<CR>
-nmap <C-k> :bn<CR>
-nmap <C-l> :bn<CR>
+
+" Buffer movement
+nmap <C-j> :BufSurfBack<CR>
+nmap <C-h> :BufSurfBack<CR>
+nmap <C-k> :BufSurfForward<CR>
+nmap <C-l> :BufSurfForward<CR>
 
 " RIP joe, you were a great friend...
 " entering joe (Joe's Own Editor, Wordstar clone) compatibility mode: 
@@ -282,7 +284,7 @@ map <special> <F8> :source $MYVIMRC<CR>
 " using delimitMate now
  
 
-" highlight the current line and column the cursor is on
+" highlight the current line 
 set cursorline
 " set nocursorline
 " set cursorcolumn!
@@ -341,6 +343,11 @@ set ofu=syntaxcomplete#Complete
 
 " Let SuperTab determine the completion mode
 let g:SuperTabDefaultCompletionType = "context" 
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-u>"
+
+" Disable's <c-k> in insert mode as an autocomplete call 
+" (From WordFuzzyCompletion)
+let g:fuzzywordcompletion_disable_keybinding = 1
 
 " Highlight search terms...
 set hlsearch
@@ -352,7 +359,6 @@ set incsearch " ...dynamically as they are typed.
 " Thanks technicalpickles
 
 " Section: configuration
-"
 scriptencoding utf-8
 
 
@@ -414,12 +420,15 @@ let g:rails_defalt_file="config/routes.rb"
 
 let g:delimitMate_autoclose=0
 let g:delimitMate_smart_quotes=0
+
+" NERDTree Options
 " Don't quit NERDTree after openning a file
 " let NERDTreeQuitOnOpen=0
 " colored NERD Tree
 let NERDChristmasTree = 1
 let NERDTreeHighlightCursorline = 1
-let NERDTreeShowHidden = 1
+" let NERDTreeShowHidden = 1
+let NERDTreeShowHidden = 0
 " map enter to activating a node
 " let NERDTreeMapActivateNode='<CR>'
 let NERDTreeIgnore=['\.git','\.DS_Store']
@@ -516,12 +525,8 @@ let g:browser = 'open '
 
 " Section: mappings
 
-" Tab navigation
-"nmap <leader>tn :tabnext<CR>
-"nmap <leader>tp :tabprevious<CR>
-"nmap <leader>te :tabedit
-
-" Exit Insert mode quickly without ESC
+" Insert mode: jl 
+"   Exit Insert mode quickly without ESC
 imap jl <Esc>
 
 " insert hashrocket, =>, with control-l
