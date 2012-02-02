@@ -35,24 +35,44 @@ function! SetBackground(color)
 endfunction
 command! -nargs=? BackgroundColor :call SetBackground(<f-args>)
 
+
+
+
+
+
+
+
+
 function! ChangeToProject(project)
-  let setdir=':cd ~/projects/' . a:project
-  let settree=':NERDTree ~/projects/' . a:project
+  let setdir=':cd ~/' . a:project
+  let settree=':NERDTree ~/' . a:project
   exec setdir
   exec settree
 endfunction
-command! -nargs=? ChangeProject :call ChangeToProject(<f-args>)
+command! -complete=file -nargs=? ChangeProject :call ChangeToProject(<f-args>)
+
 
 " nmap <leader>bg :call s:colour_hex()
 nmap <leader>bg :BackgroundColor #
 nmap <leader>kp :ChangeProject 
 
+
 " Autoload and save session
 let g:session_autosave = 'yes'
-let g:session_autoload = 'yes'
+let g:session_autoload = 'no'
+
+" Keep buffer gator list open
+let g:buffergator_autodismiss_on_select=0
+let g:buffergator_split_size=30
+let g:buffergator_sort_regime="mru"
+let g:buffergator_suppress_keymaps=1
+let g:buffergator_viewport_split_policy="R"
+nmap <leader>b :BuffergatorToggle<CR>
+nmap <leader>B :BuffergatorToggle<CR>
+
 
 "Show syntax highlighting groups for word under cursor
-map <C-S-I> :call <SID>SynStack()<CR>
+map <C-i><C-i> :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists("*synstack")
     return
@@ -122,7 +142,7 @@ let g:gist_open_browser_after_post = 1
 " Set yankring history file
 let g:yankring_history_file = '.vim_yankring_history'
  
-let g:yankring_replace_n_pkey = '<C-v>'
+" let g:yankring_replace_n_pkey = '<C-v>'
  
 " Quick edit .vimrc
 map <leader>vc :e ~/.vimrc<CR>
@@ -220,11 +240,16 @@ onoremap <C-d> <Del>
 cnoremap <C-d> <Del>
 cnoremap <C-k> <C-f>d$<C-c><End>
 imap <C-k> <C-o>d$
+" Used by autocomplete
+" imap <C-n> <Down>
+" imap <C-p> <Up>
 
 " Yank all -- Can also do standard: ggyG
 map <leader>yall :%y<CR>
 " 
 " 
+map <C-t> :CtrlP<CR>
+
 autocmd BufRead,BufNewFile *.js set ft=javascript.jquery
  
  
@@ -264,7 +289,7 @@ filetype plugin indent on
 set ofu=syntaxcomplete#Complete
 
 " Let SuperTab determine the completion mode
-let g:SuperTabDefaultCompletionType = "omni" 
+" let g:SuperTabDefaultCompletionType = "omni" 
 let g:SuperTabContextDefaultCompletionType = "<c-x><c-u>"
 
 " Disable's <c-k> in insert mode as an autocomplete call 
@@ -327,6 +352,7 @@ let g:delimitMate_smart_quotes=0
 
 " NERDTree Options
 " colored NERD Tree
+let g:nerdtree_tabs_open_on_gui_startup = 0
 let NERDChristmasTree = 1
 let NERDTreeHighlightCursorline = 1
 " let NERDTreeShowHidden = 1
@@ -348,47 +374,47 @@ let g:fuzzy_ceiling=2000
 
 let g:browser = 'open '
 
-  augroup myfiletypes
-    
-    " Clear old autocmds in group
-    autocmd!
-    " autoindent with two spaces, always expand tabs
-    autocmd FileType ruby,eruby,yaml set autoindent shiftwidth=2 softtabstop=2 expandtab
-    autocmd FileType vim set autoindent tabstop=2 shiftwidth=2 softtabstop=2 expandtab
-    autocmd FileType cucumber set autoindent tabstop=2 shiftwidth=2 softtabstop=2 expandtab
-    " markdown goodness
-    autocmd BufRead *.mkd  set autoindent formatoptions=tcroqn2 comments=n:>
-    au BufRead,BufNewFile *etc/nginx/* set ft=nginx 
-    " treat rackup files like ruby
-    au BufRead,BufNewFile *.ru set ft=ruby
-    au BufRead,BufNewFile *.coffee set ft=coffee
-  augroup END
+augroup myfiletypes
+  
+  " Clear old autocmds in group
+  autocmd!
+  " autoindent with two spaces, always expand tabs
+  autocmd FileType ruby,eruby,yaml set autoindent shiftwidth=2 softtabstop=2 expandtab
+  autocmd FileType vim set autoindent tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+  autocmd FileType cucumber set autoindent tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+  " markdown goodness
+  autocmd BufRead *.mkd  set autoindent formatoptions=tcroqn2 comments=n:>
+  au BufRead,BufNewFile *etc/nginx/* set ft=nginx 
+  " treat rackup files like ruby
+  au BufRead,BufNewFile *.ru set ft=ruby
+  au BufRead,BufNewFile *.coffee set ft=coffee
+augroup END
 
 
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  autocmd BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-        \   exe "normal g`\"" |
-        \ endi
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+autocmd BufReadPost *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal g`\"" |
+      \ endi
 
-  " Turn on language specific omnifuncs
-  autocmd FileType ruby set omnifunc=rubycomplete#Complete
-  autocmd FileType python set omnifunc=pythoncomplete#Complete
-  autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-  autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-  autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-  autocmd FileType c set omnifunc=ccomplete#Complete
-  autocmd FileType coffee set omnifunc=javascriptcomplete#CompleteJS
-  " let g:rubycomplete_rails = 1
+" Turn on language specific omnifuncs
+autocmd FileType ruby set omnifunc=rubycomplete#Complete
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
+autocmd FileType coffee set omnifunc=javascriptcomplete#CompleteJS
+" let g:rubycomplete_rails = 1
 
 
-  " have some fun with bufexplorer
-  " let g:bufExplorerDefaultHelp=0       " Do not show default help.
-  let g:bufExplorerShowRelativePath=1  " Show relative paths.
+" have some fun with bufexplorer
+" let g:bufExplorerDefaultHelp=0       " Do not show default help.
+let g:bufExplorerShowRelativePath=1  " Show relative paths.
 
 " Section: mappings
 "   Exit Insert mode quickly without ESC
@@ -464,3 +490,6 @@ endif
 
 call pathogen#infect()
 call pathogen#helptags()
+
+" Let tab move between open windows
+nmap <Tab> <C-w><C-w>
