@@ -28,7 +28,8 @@ let colors_name="lodestone"
 " Base color
 " ----------
 " hi Normal           guifg=#e0e0e0           guibg=#202020
-hi Normal           guifg=#e0e0e0           guibg=#151515
+" hi Normal           guifg=#e0e0e0           guibg=#151515
+hi Normal           guifg=#e0e0e0           guibg=#2a2a2a
 hi Normal           ctermfg=253             ctermbg=000
 
 
@@ -36,7 +37,8 @@ hi Normal           ctermfg=253             ctermbg=000
 " -------------
 " any comment
 hi Comment          guifg=#606060                                   gui=italic
-hi Comment          ctermfg=240                                     cterm=italic
+hi Comment          ctermfg=240                                  
+" cterm=italic
 
 
 " Constant Group
@@ -46,7 +48,8 @@ hi Constant         guifg=#8cd0d3                                   gui=none
 hi Constant         ctermfg=116                                     cterm=none
 " strings
 " hi String           guifg=#80c0d9                                   gui=none
-hi String           guifg=#60e000                                   gui=none
+" hi String           guifg=#60e000                                   gui=none
+hi String           guifg=#00a460                                   gui=none
 hi String           ctermfg=110                                     cterm=none
 " character constant
 hi Character        guifg=#80c0d9                                   gui=none
@@ -170,6 +173,12 @@ hi Ignore           guifg=bg
 hi Ignore           ctermfg=bg
 
 
+"    NERDTree
+hi   NERDTreeDir    guifg=#7c97a9   gui=bold ctermfg=069
+hi   NERDTreeCWD    guifg=#7c97a9   gui=bold ctermfg=069
+hi   NERDTreeUp     guifg=#7c97a9   gui=bold ctermfg=069
+hi   NERDTreeHelp   guifg=#7c97a9   ctermfg=069
+
 " Error Group
 " -----------
 " any erroneous construct
@@ -235,8 +244,9 @@ hi ErrorMsg         ctermfg=196             ctermbg=NONE            cterm=none
 " column separating vertically split windows
 " hi VertSplit        guifg=#777777           guibg=#363946           gui=none
 " hi VertSplit        ctermfg=242             ctermbg=237             cterm=none
-hi VertSplit        guifg=#777777           guibg=#000000           gui=none
-hi VertSplit        ctermfg=242             ctermbg=none             cterm=none
+" hi VertSplit        guifg=#000000           guibg=#000000           gui=none
+hi VertSplit        guifg=#2a2a2a           guibg=#2a2a2a           gui=none
+hi VertSplit        ctermfg=255             ctermbg=none             cterm=none
 
  
 " columns where signs are displayed (used in IDEs)
@@ -400,7 +410,8 @@ hi rubyRailsARValidationMethod guifg=#fd0011 ctermfg=124
 " hi link rubyEval            rubyMethod
 " hi link rubyException       rubyMethod
 " hi link rubyInclude         rubyMethod
-hi rubyString guifg=#00942c ctermfg=28
+" hi rubyString guifg=#00942c ctermfg=28
+hi rubyString guifg=#00a460 ctermfg=28
 hi link rubyStringDelimiter rubyString
 " hi link rubyRegexp          Regexp
 " hi link rubyRegexpDelimiter rubyRegexp
@@ -416,9 +427,14 @@ hi rubyInstanceVariable      guifg=#9090FF ctermfg=189
 hi rubyClass guifg=#905000 ctermfg=166
 syn keyword Identifier context
 
-" highlight rubyPseudoVariable        guifg=#FFC66D ctermfg=221
+highlight rubyPseudoVariable        guifg=#b2d5ee
 " 
 " hi link javascriptRegexpString  Regexp
 " hi link javascriptNumber        Number
 " hi link javascriptNull          Constant
-" 
+
+hi htmlTag guifg=#b2d5ee
+hi htmlEndTag guifg=#b2d5ee
+hi htmlTagName guifg=#b2d5ee
+hi erubyDelimiter guifg=#b2d5ee
+
