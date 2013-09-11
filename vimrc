@@ -1,4 +1,4 @@
-" Lodestone's vimrc
+                                                           " Lodestone's vimrc
 
 " These two enable syntax highlighting
 " We're running Vim, not Vi!
@@ -12,7 +12,6 @@ call vundle#rc()
 Bundle 'vundle'
 Bundle 'bling/vim-airline'
 Bundle 'vim-ruby/vim-ruby'
-Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'tpope/vim-fugitive'
@@ -27,8 +26,21 @@ Bundle 'honza/vim-snippets'
 Bundle 'tpope/vim-rails'
 Bundle 'rking/ag.vim'
 Bundle 'maxbrunsfeld/vim-yankstack'
-Bundle 'airblade/vim-gitgutter'
 Bundle 'scrooloose/syntastic'
+" Bundle 'kien/ctrlp.vim'
+Bundle 'Shougo/vimshell.vim'
+Bundle 'Shougo/unite.vim'
+Bundle 'basyura/unite-rails'
+Bundle 'h1mesuke/unite-outline'
+" Required by xolox/vim-session:W
+Bundle 'xolox/vim-misc' 
+Bundle 'xolox/vim-session'
+
+" Set Autoload Session
+let g:session_autoload = 'yes'
+
+" Make help open full screen
+au BufEnter * if &buftype=='help'|set awa|only|endif 
 
 " No wrap mutherfuckah
 set nowrap
@@ -56,9 +68,9 @@ colorscheme lodestone
 let mapleader = ","
 
 " Set CtrlP's extensions
-let g:ctrlp_extensions = ['tag', 'buffertag']
-let g:ctrlp_max_height = 25
-let g:ctrlp_custom_ignore = { 'dir': '\.git$' }
+" let g:ctrlp_extensions = ['tag', 'buffertag']
+" let g:ctrlp_max_height = 25
+" let g:ctrlp_custom_ignore = { 'dir': '\.git$' }
 " let g:ctrlp_match_window_bottom = 0
 " let g:ctrlp_match_window_reversed = 0
 
@@ -93,7 +105,7 @@ let g:airline_theme='badwolf'
 let g:session_autosave = 'yes'
 
 "Show syntax highlighting groups for word under cursor
-map <C-i><C-i> :call <SID>SynStack()<CR>
+" vmap <C-i><C-i> :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists("*synstack")
     return
@@ -154,7 +166,7 @@ command! WRITE write
 set history=500
 
 " Quick timeouts on key combinations.
-set timeoutlen=600
+set timeoutlen=250
 
 " Send contents of current file to private gist
 map gist :Gist -p<CR>
@@ -184,8 +196,8 @@ nmap < <<
 nmap - $
  
 " Make spacebar behave like a webpage
-nmap <space> 10<Down>
-nmap <S-space> 10<Up>
+" nmap <space> 10<Down>
+" nmap <S-space> 10<Up>
 
 
 " Find All
@@ -206,17 +218,17 @@ set mouse=a
 " map <leader>t :FuzzyFinderTextMate<CR>
 " _find _buffer
 " map <leader>fb :FuzzyFinderBuffer<CR>
-map <leader>fb :CtrlPBuffer<CR>
-map <leader>ff :CtrlPBuffer<CR>
-map ff :CtrlPBuffer<CR>
-map <leader>fp :CtrlP<CR>
+" map <leader>fb :CtrlPBuffer<CR>
+" map <leader>ff :CtrlPBuffer<CR>
+" map ff :CtrlPBuffer<CR>
+" map <leader>fp :CtrlP<CR>
 " map <leader>f :CtrlPMixed<CR>
 " map <leader>ff :FuzzyFinderBuffer<CR>
 " _find file in current buffer's _directory
 " map <leader>fd :FuzzyFinderFileWithCurrentBufferDir<CR>
 " _find _recent
 " map <leader>fr :FuzzyFinderMruFile<CR>
-map <leader>fr :CtrlPMRUFiles<CR>
+" map <leader>fr :CtrlPMRUFiles<CR>
 " _find _tag
 " map <leader>ft :FuzzyFinderTag<CR>
 " _find _Tag with cursor word
@@ -264,8 +276,8 @@ cnoremap <C-d> <Del>
 cnoremap <C-k> <C-f>d$<C-c><End>
 imap <C-k> <C-o>d$
 " Used by autocomplete
-nmap <C-n> <Down>
-nmap <C-p> <Up>
+" nmap <C-n> <Down>
+" nmap <C-p> <Up>
 
 " Let tilde do some cools stuffs
 set tildeop 
@@ -305,7 +317,7 @@ filetype plugin indent on
 
 " Disable's <c-k> in insert mode as an autocomplete call 
 " (From WordFuzzyCompletion)
-let g:fuzzywordcompletion_disable_keybinding = 1
+" let g:fuzzywordcompletion_disable_keybinding = 1
 
 " Highlight search terms...
 set hlsearch
@@ -414,7 +426,7 @@ autocmd BufReadPost *
 
 " have some fun with bufexplorer
 " let g:bufExplorerDefaultHelp=0       " Do not show default help.
-let g:bufExplorerShowRelativePath=1  " Show relative paths.
+" let g:bufExplorerShowRelativePath=1  " Show relative paths.
 
 " Section: mappings
 "   Exit Insert mode quickly without ESC
@@ -494,8 +506,8 @@ nmap <Tab> <C-w><C-w>
 " let g:yankring_replace_n_pkey='<C-xx>' " Essentially unset this as I want to use <C-p> for :CtrlP
 
 " CtrlP
-let g:ctrlp_map = '<C-p>'
-let g:ctrlp_cmd = 'CtrlP'
+" let g:ctrlp_map = '<C-P>'
+" let g:ctrlp_cmd = 'CtrlP'
 
 " NeoComplete
 " Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
@@ -588,10 +600,10 @@ let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*:'
 
  
 " NeoSnippet
-" Plugin key-mappings.
-imap <C-Space>     <Plug>(neosnippet_expand_or_jump)
-smap <C-Space>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-Space>     <Plug>(neosnippet_expand_target)
+" Plugin key-mappings
+" imap <C-Space>     <Plug>(neosnippet_expand_or_jump)
+" smap <C-Space>     <Plug>(neosnippet_expand_or_jump)
+" xmap <C-Space>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
@@ -612,16 +624,16 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+" if !exists('g:neocomplcache_omni_patterns')
+"   let g:neocomplcache_omni_patterns = {}`;
+" endif
+" let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+" let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+" let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
-let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+" let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 
 
@@ -636,5 +648,71 @@ set title
 
 " map <C-w> :bd<CR>
 
+
+source ~/.vim/osc52.vim
+vmap <C-c> y:call SendViaOSC52(getreg('"'))<cr>
+
+" Unite.vim settings
+" -----------------------------------
+let g:unite_enable_start_insert = 1
+let g:unite_source_history_yank_enable = 1
+let g:unite_prompt='» '
+let g:unite_enable_short_source_names = 0
+" map <C-k> :Unite file buffer file_mru file_rec/async line history/yank -toggle -vertical -winwidth=30<CR>
+
+" nnoremap    [unite]   <Nop>
+" nmap    <leader>f [unite]
+
+nmap <C-k> :Unite file buffer file_mru file_rec/async line -vertical -winwidth=30<CR>
+nmap <C-p> :Unite file buffer file_mru file_rec/async line<CR><Esc>:only<CR>a
+noremap <C-@> :Unite file buffer file_mru file_rec/async line<CR><Esc>:only<CR>a
+noremap <A-Space> :Unite file buffer file_mru file_rec/async line<CR><Esc>:only<CR>a
+map <leader>fr :Unite file_mru -vertical -winwidth=30<CR>
+map <leader>fb :Unite buffer<CR><Esc>:only<CR>a
+map <leader>ff :Unite buffer<CR><Esc>:only<CR>a
+" map <leader>ff :Unite file_rec/async -vertical -winwidth=30<CR>
+map <leader>fy :Unite history/yank -vertical -winwidth=30<CR>
+map <leader>fo :Unite outline -vertical -winwidth=30 -no-start-insert<CR>
+map <leader>fl :Unite line -vertical -winwidth=30<CR>
+map <leader>fm :Unite mapping -vertical -winwidth=30<CR>
+map <leader>fj :Unite jump -vertical -winwidth=30<CR>
+map <leader>fg :Unite grep:.<CR> 
+nnoremap <leader>. :Unite file_rec/async<cr><Esc>:only<cr>a
+" map <leader>fc :Unite current-buffer-dir<CR>
+
+" Use ag for search
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+  let g:unite_source_grep_recursive_opt = ''
+endif
+
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" call unite#custom#source('buffer,file,file_mru,file_rec', 'sorters', 'sorter_rank')
+call unite#filters#sorter_default#use(['sorter_rank'])
+
+" let g:unite_split_rule = 'topright'
+
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()"{{{
+  " Overwrite settings.
+  nmap <buffer> <ESC>     <Plug>(unite_exit)
+  imap <buffer> <C-c>     <Plug>(unite_exit)
+
+  imap <buffer> <TAB>     <Plug>(unite_select_next_line)
+  imap <buffer> <S-TAB>   <Plug>(unite_select_previous_line)
+  " imap <buffer> <C-j>     <Plug>(unite_select_next_line)
+  imap <buffer> <C-n>     <Plug>(unite_select_next_line)
+  " imap <buffer> <C-k>     <Plug>(unite_select_previous_line)
+  imap <buffer> <C-p>     <Plug>(unite_select_previous_line)
+
+  nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
+  imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
+  imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
+  nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
+  nmap <buffer> <C-v>     <Plug>(unite_toggle_auto_preview)
+  " nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
+  " imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
+endfunction
 
 
