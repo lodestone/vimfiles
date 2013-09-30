@@ -62,18 +62,11 @@ set laststatus=2
 set t_Co=256
 
 " Set my colorscheme
-colorscheme lodestone
+" colorscheme lodestone
+colorscheme jellybean
 
 " Change <leader> to , because I don't want carpool tunnel syndrome
 let mapleader = ","
-
-" Set CtrlP's extensions
-" let g:ctrlp_extensions = ['tag', 'buffertag']
-" let g:ctrlp_max_height = 25
-" let g:ctrlp_custom_ignore = { 'dir': '\.git$' }
-" let g:ctrlp_match_window_bottom = 0
-" let g:ctrlp_match_window_reversed = 0
-
 
 " Set a temporary background color.
 "  I use this to differentiate 
@@ -82,6 +75,8 @@ let mapleader = ","
 function! SetBackground(color)
   let setbg=':highlight Normal guibg=' . a:color
   exec setbg
+  " let setbg=':highlight Normal ctermbg=' . a:color
+  " exec setbg
 endfunction
 command! -nargs=? BackgroundColor :call SetBackground(<f-args>)
 nmap <leader>bg :BackgroundColor #
@@ -103,6 +98,9 @@ let g:airline_theme='badwolf'
 
 " Autoload and save session
 let g:session_autosave = 'yes'
+
+" Set background color for jellybean.vim color scheme
+let g:jellybeans_background_color_256=0
 
 "Show syntax highlighting groups for word under cursor
 " vmap <C-i><C-i> :call <SID>SynStack()<CR>
@@ -664,9 +662,12 @@ let g:unite_enable_short_source_names = 0
 " nmap    <leader>f [unite]
 
 nmap <C-k> :Unite file buffer file_mru file_rec/async line -vertical -winwidth=30<CR>
-nmap <C-p> :Unite file buffer file_mru file_rec/async line<CR><Esc>:only<CR>a
-noremap <C-@> :Unite file buffer file_mru file_rec/async line<CR><Esc>:only<CR>a
-noremap <A-Space> :Unite file buffer file_mru file_rec/async line<CR><Esc>:only<CR>a
+" nmap <C-p> :Unite file buffer file_mru file_rec/async line<CR><Esc>:only<CR>a
+nmap <C-p> :Unite file_mru buffer file file_rec/async line<CR>
+" noremap <C-@> :Unite file buffer file_mru file_rec/async line<CR><Esc>:only<CR>a
+noremap <C-@> :Unite file buffer file_mru file_rec/async line<CR>
+" noremap <A-Space> :Unite file buffer file_mru file_rec/async line<CR><Esc>:only<CR>a
+noremap <A-Space> :Unite file buffer file_mru file_rec/async line<CR>
 map <leader>fr :Unite file_mru -vertical -winwidth=30<CR>
 map <leader>fb :Unite buffer<CR><Esc>:only<CR>a
 map <leader>ff :Unite buffer<CR><Esc>:only<CR>a
@@ -677,7 +678,8 @@ map <leader>fl :Unite line -vertical -winwidth=30<CR>
 map <leader>fm :Unite mapping -vertical -winwidth=30<CR>
 map <leader>fj :Unite jump -vertical -winwidth=30<CR>
 map <leader>fg :Unite grep:.<CR> 
-nnoremap <leader>. :Unite file_rec/async<cr><Esc>:only<cr>a
+" nnoremap <leader>. :Unite file_rec/async<cr><Esc>:only<cr>a
+nnoremap <leader>. :Unite file_rec/async<cr>
 " map <leader>fc :Unite current-buffer-dir<CR>
 
 " Use ag for search
