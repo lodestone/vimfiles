@@ -1,14 +1,11 @@
 set guioptions-=T
-" set guifont=Monaco:h10
-" set guifont=Inconsolata:h14
-" set guifont=Inconsolata-dz_for_Powerline:h12
-set guifont=Envy_Code_R:h13
-" set guifont=Envy_Code_R:h13
-" How you set this on Linux
 " set guifont=Monospace\ 9
-set linespace=0
+set guifont=Inconsolata:h14
+set guifont=Monospatial:h14
+set linespace=1
 " set noantialias
-set noantialias
+" set noantialias
+set antialias
 
 set columns=160
 set lines=40
@@ -26,16 +23,18 @@ set fuoptions=maxvert,maxhorz
 " color github
 
 " Command-T for CommandT
-macmenu &File.New\ Tab key=<D-T>
-map <D-t> :tabnew<CR>:CtrlP<CR>
-imap <D-t> <Esc>:tabnew<CR>:CtrlP<CR>
+" macmenu &File.New\ Tab key=<D-T>
+" map <D-t> :tabnew<CR><C-P>
+" imap <D-t> <Esc>:tabnew<CR><C-P>
 
-map <D-r> :Rake<CR>
-map <D-/> :TComment<CR>
-map <D-Left> :BufSurfBack<CR>
-map <D-Right> :BufSurfForward<CR>
-macmenu &File.Print key=<D-P>
-map <D-p> :CtrlP<CR>
+" map <D-r> :Rake<CR>
+map <D-/> gcc
+" map <D-Left> :BufSurfBack<CR>
+" map <D-Right> :BufSurfForward<CR>
+" macmenu &File.Print key=<D-P>
+map <D-p> <C-p><CR>
+map <D-[> :bp<CR>
+map <D-]> :bn<CR>
 
 " Cmd+d selects word
 map <D-d> viw
@@ -44,4 +43,7 @@ map <D-d> viw
 
 set noballooneval
 
+
+" For some reason if I don't source this again, <D-p> doesn't work... 2014-04-09
+source ~/.vimrc
 

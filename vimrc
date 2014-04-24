@@ -1,8 +1,12 @@
-                                                           " Lodestone's vimrc
+" Lodestone's vimrc
 
 " These two enable syntax highlighting
 " We're running Vim, not Vi!
 set nocompatible
+
+" Set my colorscheme
+" colorscheme lodestone-dark
+colorscheme iceberg
 
 filetype off
 
@@ -12,21 +16,23 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'vundle'
-Bundle 'bling/vim-airline'
+" Bundle 'bling/vim-airline'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-repeat'
 Bundle 'Tabular'
 Bundle 'rking/ag.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'Shougo/neocomplete.vim'
 Bundle 'Shougo/neosnippet'
+Bundle 'Shougo/neomru.vim'
 Bundle 'Shougo/vimshell.vim'
 Bundle 'Shougo/unite.vim'
 Bundle 'honza/vim-snippets'
@@ -35,11 +41,26 @@ Bundle 'basyura/unite-rails'
 Bundle 'h1mesuke/unite-outline'
 Bundle 'xolox/vim-misc' 
 Bundle 'xolox/vim-session'
-Bundle 'mkitt/tabline.vim'
-Bundle 'rizzatti/funcoo.vim'
-Bundle 'rizzatti/greper.vim'
-Bundle 'rizzatti/dash.vim'
+" Bundle 'mkitt/tabline.vim'
+Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
+Bundle 'ton/vim-bufsurf'
+Bundle 'davidoc/taskpaper.vim'
+Bundle 'plasticboy/vim-markdown'
+Bundle 'int3/vim-extradite'
+Bundle 'Sixeight/unite-grep'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'haya14busa/vim-easyoperator-line'
+Bundle 'haya14busa/vim-easyoperator-phrase'
+Bundle 'mhinz/vim-startify'
+Bundle 'kmnk/vim-unite-giti'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'lilydjwg/colorizer'
+Bundle 'Keithbsmiley/rspec.vim'
+Bundle 'thoughtbot/vim-rspec'
+Bundle 'airblade/vim-rooter'
+Bundle 'itchyny/lightline.vim'
+
 
 " Set Autoload Session
 let g:session_autoload = 'yes'
@@ -47,7 +68,7 @@ let g:session_autoload = 'yes'
 " Make help open full screen
 au BufEnter * if &buftype=='help'|set awa|only|endif 
 
-" No wrap mutherfuckah
+" No wrap
 set nowrap
 
 " Enable syntax highlighting
@@ -66,8 +87,6 @@ set laststatus=2
 
 set t_Co=256
 
-" Set my colorscheme
-colorscheme lodestone
 
 " Change <leader> to , because I don't want carpool tunnel syndrome
 let mapleader = ","
@@ -88,7 +107,8 @@ nmap <leader>bg :BackgroundColor #
 " Switch to project directory with ,kp
 function! ChangeToProject(project)
   let setdir=':cd ~/' . a:project
-  let settree=':NERDTree ~/' . a:project
+  let settree=':NERDTreeCWD'
+  " . a:project
   exec setdir
   exec settree
 endfunction
@@ -96,7 +116,7 @@ command! -complete=file -nargs=? ChangeProject :call ChangeToProject(<f-args>)
 nmap <leader>kp :ChangeProject 
 
 " Set Airline Theme
-let g:airline_theme='base16'
+" let g:airline_theme='base16'
 let g:airline#extensions#tabline#enabled = 1
 
 " Autoload and save session
@@ -126,7 +146,7 @@ set smartcase
 set shortmess+=atI
  
 " Don't ding
-" set visualbell
+set visualbell
       
 " make tabs and trailing spaces visible when requested:
 set list listchars=tab:»·,trail:· ",eol:$
@@ -137,16 +157,20 @@ nmap <silent> <leader>ss :set nolist!<CR>
 command! WRITE write
 
 " Increase history
-set history=500
+set history=1500
 
 " Quick timeouts on key combinations.
-set timeoutlen=250
+set timeoutlen=550
+
+" Use spacebar in normal mode like a web browser
+map <Space> 20j
+map <S-Space> 20k
 
 " Send contents of current file to private gist
 map gist :Gist -p<CR>
 let g:gist_open_browser_after_post = 1
 
-" Quick edit .vimrc
+" Quick edit Vim Config (.vimrc)
 map <leader>vc :e ~/.vimrc<CR>
 
 " Quick edit my color scheme
@@ -155,6 +179,8 @@ map <leader>vl :e ~/.vim/colors/lodestone.vim<CR>
 " Quick switch to last buffer without reaching up to the caret ^
 map <C-k><C-k> :b#<CR>
 map <leader><leader> <C-^>
+
+map <leader> <Plug>(easymotion-prefix)
 
 vmap > >gv
 vmap < <gv
@@ -178,23 +204,6 @@ set mouse=a
 " nmap <C-h> :BufSurfBack<CR>
 " nmap <C-k> :BufSurfForward<CR>
 " nmap <C-l> :BufSurfForward<CR>
-
-" These are standard bash/emacs/mac text movement/manipulation
-cmap <C-a> <Home>
-cmap <C-k> <C-o>d$
-imap <C-a> <Home>
-vmap <C-a> <Home>
-omap <C-a> <Home>
-cnoremap <C-e> <End>
-inoremap <C-e> <End>
-vnoremap <C-e> <End>
-onoremap <C-e> <End>
-inoremap <C-d> <Del>
-vnoremap <C-d> <Del>
-onoremap <C-d> <Del>
-cnoremap <C-d> <Del>
-cnoremap <C-k> <C-f>d$<C-c><End>
-imap <C-k> <C-o>d$
 
 " Used by autocomplete
 " nmap <C-n> <Down>
@@ -322,7 +331,9 @@ let g:rubycomplete_rails = 1
 imap jl <Esc>
 
 " Toggle NERDTree with <leader>d
-map <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+" map <silent> <leader>d :execute 'NERDTreeTabsToggle ' . getcwd()<CR>
+map <silent> <leader>d :execute 'NERDTreeMirrorToggle '<CR>
+map <C-S-r> :execute 'NERDTreeFind '<CR>
 
 " comment out a line
 nmap <leader>cc gcc
@@ -335,6 +346,12 @@ nmap # #nzz
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
+nnoremap ; :
+" nnoremap : ;
+
+
+" Map <C-*> to grep the word under the cursor
+" nmap <C-S-8> :Grep<CR> 
 
 " Yank all -- Can also do standard: ggyG
 map <leader>yall :%y<CR>
@@ -390,6 +407,9 @@ endif
 
 " Let tab move between open windows
 nmap <Tab> <C-w><C-w>
+
+" Let's not get crazy here. No folding please.
+let g:vim_markdown_folding_disabled=1
 
 " NeoComplete
 " Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
@@ -521,35 +541,108 @@ let g:unite_enable_start_insert = 1
 let g:unite_source_history_yank_enable = 1
 let g:unite_prompt='» '
 let g:unite_enable_short_source_names = 0
-nmap <C-k> :Unite command function<CR>
-nmap <C-p> :Unite file_rec/async file buffer file_mru <CR>
-noremap <C-@> :Unite file buffer file_mru file_rec/async line<CR>
-noremap <A-Space> :Unite file buffer file_mru file_rec/async line<CR>
-map <leader>fr :Unite file_mru<CR>
-map <leader>fb :Unite buffer<CR>
-map <leader>ff :Unite buffer<CR>
-map <leader>fy :Unite history/yank<CR>
-map <leader>fo :Unite outline -vertical -winwidth=30 -no-start-insert<CR>
-map <leader>fl :Unite line<CR>
-map <leader>fm :Unite mapping<CR>
-map <leader>fj :Unite jump<CR>
-map <leader>fg :Unite grep:.<CR> 
-nnoremap <leader>. :Unite buffer<cr>
+let g:unite_source_file_mru_long_limit = 16
+let g:unite_source_directory_mru_long_limit = 16
+let g:unite_source_grep_command="ag"
+
+" sort file results by length
+" call unite#custom#source('file', 'sorters', 'sorter_length')
+" call unite#custom#source('file_rec/async', 'sorters', 'sorter_length')
+" call unite#custom#source('file_mru', 'sorters', 'sorter_length')
+" call unite#custom#source('rails/model', 'sorters', 'sorter_length')
+
+call unite#custom#source('file', 'sorters', 'sorter_selecta')
+" call unite#custom#source('file_rec/async', 'sorters', 'sorter_selecta')
+call unite#custom#source('file_mru', 'sorters', 'sorter_selecta')
+call unite#custom#source('rails/model', 'sorters', 'sorter_selecta')
+call unite#custom#source('rails/controller', 'sorters', 'sorter_selecta')
+call unite#custom#source('buffer', 'sorters', 'sorter_selecta')
+
+" limit results for recently edited files
+call unite#custom#source('file_mru', 'max_candidates', 20)
+call unite#custom#source('file_rec/async', 'max_candidates', 0)
+
+" ignored files for file_mru
+" call unite#custom#source('file_mru', 'ignore_pattern', 'COMMIT_EDITMSG')
+
+" sort buffers by number
+call unite#custom#source('buffer', 'sorters', 'sorter_selecta')
+
+" noremap <C-@> :Unite buffer tab file_rec/async file_mru<CR>
+" noremap <A-Space> :Unite buffer tab file_rec/async file_mru<CR>
+
+" Find Function / Action
+map  <D-P> :Unite command mapping function<CR>
+" Find Anything
+map  <D-p> :Unite -unique buffer tab file_rec/async<CR>
+" Find open file
+map  <D-b> :Unite buffer tab<CR>
+" Find method (CTAGS)
+map  <D-r> :Unite outline<CR>
+
+" Find by git status
+map <D-B> :Unite giti/status<CR>
+
+"bind command-] to indent
+nmap <D-]> >
+vmap <D-]> >gv
+imap <D-]> <C-O>>
+
+"bindcommand-[ to outdent
+nmap <D-[> <
+vmap <D-[> <gv
+imap <D-[> <C-O><
+
+map <D-o> :!open %<CR><CR>
+
+
+" map  <D-t> <D-p>
+" nmap <C-p> <D-p>
+
+" nmap <C-k> :Unite command function mapping register<CR>
+map  <leader>fx :Unite command function mapping register<CR>
+map  <leader>fr :Unite file_mru<CR>
+map  <leader>fb :Unite buffer<CR>
+map  <leader>ff :Unite buffer tab file_rec/async file_mru<CR>
+map  <leader>fy :Unite history/yank<CR>
+map  <leader>fo :Unite outline -vertical -winwidth=30 -start-insert<CR>
+map  <leader>fl :Unite line<CR>
+map  <leader>fj :Unite jump<CR>
+map  <leader>fg :Unite grep:.<CR>
+map  <leader>g  :Unite grep:.<CR>
+
+" unite-rails shortcuts
+map <leader>rc    :Unite rails/controller<CR>
+map <leader>rm    :Unite rails/model<CR>
+map <leader>rg    :Unite rails/config<CR>
+map <leader>rdb   :Unite rails/db<CR>
+map <leader>rv    :Unite rails/view<CR>
+map <leader>rjs   :Unite rails/javascript<CR>
+map <leader>rcss  :Unite rails/stylesheet<CR>
+map <leader>ri    :Unite rails/initializer<CR>
+map <leader>rl    :Unite rails/lib<CR>
+" map <leader>rspec :Unite rails/spec<CR>
+
+nnoremap <leader>x :Unite buffer<cr>
 
 " Use ag for search
 if executable('ag')
   let g:unite_source_grep_command = 'ag'
   let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
   let g:unite_source_grep_recursive_opt = ''
+  let g:unite_source_find_command = 'ag'
+  let g:unite_source_rec_async_command = 'ag'
 endif
 
+" call unite#filters#sorter_default#use(['sorter_rank', 'sorter_ftime'])
+call unite#filters#sorter_default#use(['sorter_rank', 'sorter_selecta'])
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
   " Overwrite settings.
   nmap <buffer> <ESC>     <Plug>(unite_exit)
+  imap <buffer> <ESC>     <Plug>(unite_exit)
   imap <buffer> <C-c>     <Plug>(unite_exit)
   imap <buffer> <TAB>     <Plug>(unite_select_next_line)
   imap <buffer> <S-TAB>   <Plug>(unite_select_previous_line)
@@ -563,7 +656,84 @@ function! s:unite_my_settings()"{{{
   nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
   nmap <buffer> <C-v>     <Plug>(unite_toggle_auto_preview)
   " nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
-  " imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
+  imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
+  imap <C-k>               <C-e><Plug>(unite_delete_backward_line)
+  " imap <C-0>               <Plug>(unite_rotate_next_source)
+  " nmap <C-0>               <Plug>(unite_rotate_next_source)
 endfunction
 
+" These are standard bash/emacs/mac text movement/manipulation
+cmap <C-a> <Home>
+nmap <C-a> <Home>
+cmap <C-k> <C-o>d$
+imap <C-a> <Home>
+vmap <C-a> <Home>
+omap <C-a> <Home>
+nmap <C-e> <End>
+cnoremap <C-e> <End>
+inoremap <C-e> <End>
+vnoremap <C-e> <End>
+onoremap <C-e> <End>
+inoremap <C-d> <Del>
+vnoremap <C-d> <Del>
+onoremap <C-d> <Del>
+cnoremap <C-d> <Del>
+inoremap <C-o><C-k> <C-k>
+inoremap <C-k> <C-o>d$
+" <C-k> normally inserts a digraph (:help digraph)
+" Let's remap that so it is still accessible and
+" add the mapping for a normal _Kill_Until_EOL_ functionality
+" -- Special thanks to https://github.com/houtsnip/vim-emacscommandline
+cnoremap <C-o><C-k> <C-K>
+cnoremap <C-k> <C-\>e<SID>KillLine()<CR>
+function! <SID>KillLine()
+    call <SID>saveUndoHistory(getcmdline(), getcmdpos())
+    let l:cmd = getcmdline()
+    let l:rem = strpart(l:cmd, getcmdpos() - 1)
+    if ('' != l:rem)
+        let @c = l:rem
+    endif
+    let l:ret = strpart(l:cmd, 0, getcmdpos() - 1)
+    call <SID>saveUndoHistory(l:ret, getcmdpos())
+    return l:ret
+endfunction
+let s:oldcmdline = [ ]
+function! <SID>saveUndoHistory(cmdline, cmdpos)
+    if len(s:oldcmdline) == 0 || a:cmdline != s:oldcmdline[0][0]
+        call insert(s:oldcmdline, [ a:cmdline, a:cmdpos ], 0)
+    else
+        let s:oldcmdline[0][1] = a:cmdpos
+    endif
+    if len(s:oldcmdline) > 100
+        call remove(s:oldcmdline, 100)
+    endif
+endfunction
+
+let g:startify_change_to_vcs_root = 1
+let g:startify_custom_header = [
+      \ '                                                     .\',
+      \ '            .. ......................................;;.\',
+      \ '   GO!       ..:::::..........................:::::::;;;;\.',
+      \ '            .. :::::..........................:::::::;;:;/',
+      \ '                            ..........................;/',
+      \ '                                                      •'
+      \ ]
+
+hi StartifyBracket ctermfg=240
+hi StartifyFooter  ctermfg=111
+hi StartifyHeader  ctermfg=203
+hi StartifyNumber  ctermfg=215
+hi StartifyPath    ctermfg=245
+hi StartifySlash   ctermfg=240
+
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
+
+
+let g:rspec_command = "!bundle exec rspec"
+let g:rspec_runner = "os_x_iterm"
+
+
+let &colorcolumn=join(range(81,999),",")
 
