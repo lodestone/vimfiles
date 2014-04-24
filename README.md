@@ -3,7 +3,7 @@
 ![Screenshot](http://nx.is/dO1g+)
 
 
-*Goodies I use include:*
+*Goodies I use include as of 2014-04-24:*
 
 * [ag.vim                      ](https://github.com/rking/ag.vim                       )
 * [colorizer                ](https://github.com/lilydjwg/colorizer                 )
