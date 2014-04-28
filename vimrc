@@ -12,65 +12,92 @@ filetype off
 
 set hidden
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
 
-Bundle 'Keithbsmiley/rspec.vim'
-" Bundle 'Lokaltog/vim-easymotion'
-Bundle 'Shougo/neocomplete.vim'
-Bundle 'Shougo/neomru.vim'
-Bundle 'Shougo/neosnippet'
-Bundle 'Shougo/neosnippet-snippets'
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/vimfiler.vim'
-Bundle 'Shougo/vimshell.vim'
-Bundle 'Sixeight/unite-grep'
-Bundle 'Tabular'
-Bundle 'airblade/vim-rooter'
-Bundle 'basyura/unite-rails'
-" Bundle 'davidoc/taskpaper.vim'
-Bundle 'h1mesuke/unite-outline'
-" Bundle 'haya14busa/vim-easyoperator-line'
-" Bundle 'haya14busa/vim-easyoperator-phrase'
-Bundle 'honza/vim-snippets'
-Bundle 'int3/vim-extradite'
-Bundle 'itchyny/lightline.vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'kmnk/vim-unite-giti'
-Bundle 'lilydjwg/colorizer'
-Bundle 'lodestone/vim-markdown'
-Bundle 'mattn/gist-vim'
-Bundle 'mattn/webapi-vim'
-Bundle 'maxbrunsfeld/vim-yankstack'
-Bundle 'mhinz/vim-startify'
-" Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'rking/ag.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'thinca/vim-unite-history'
-Bundle 'thoughtbot/vim-rspec'
-Bundle 'tommcdo/vim-exchange'
-" Bundle 'ton/vim-bufsurf'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'tsukkee/unite-help'
-Bundle 'tsukkee/unite-tag'
-Bundle 'ujihisa/neco-look' 
-Bundle 'ujihisa/unite-rake'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'vundle'
-Bundle 'xolox/vim-misc' 
-Bundle 'xolox/vim-session'
-Bundle 'ercolanelli-leo/candyVirus'
-Bundle 'reedes/vim-pencil'
-Bundle 'reedes/vim-colors-pencil'
-Bundle 'junegunn/seoul256.vim'
-Bundle 'chriskempson/vim-tomorrow-theme'
-Bundle 'airblade/vim-gitgutter'
+"NeoBundle Scripts-----------------------------
+if has('vim_starting')
+  set nocompatible               " Be iMproved
 
+  " Required:
+  set runtimepath+=/Users/matt/.vim/bundle/neobundle.vim/
+endif
+
+" Required:
+call neobundle#begin(expand('/Users/matt/.vim/bundle'))
+
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" My Bundles here:
+NeoBundle 'Keithbsmiley/rspec.vim'
+" NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'Shougo/vimshell.vim'
+NeoBundle 'Sixeight/unite-grep'
+NeoBundle 'Tabular'
+NeoBundle 'airblade/vim-rooter'
+NeoBundle 'basyura/unite-rails'
+" NeoBundle 'davidoc/taskpaper.vim'
+NeoBundle 'h1mesuke/unite-outline'
+" NeoBundle 'haya14busa/vim-easyoperator-line'
+" NeoBundle 'haya14busa/vim-easyoperator-phrase'
+NeoBundle 'honza/vim-snippets'
+NeoBundle 'int3/vim-extradite'
+NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'kmnk/vim-unite-giti'
+NeoBundle 'lilydjwg/colorizer'
+NeoBundle 'lodestone/vim-markdown'
+NeoBundle 'mattn/gist-vim'
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'maxbrunsfeld/vim-yankstack'
+NeoBundle 'mhinz/vim-startify'
+" NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'rking/ag.vim'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'thinca/vim-unite-history'
+NeoBundle 'thoughtbot/vim-rspec'
+NeoBundle 'tommcdo/vim-exchange'
+" NeoBundle 'ton/vim-bufsurf'
+NeoBundle 'tpope/vim-commentary'
+NeoBundle 'tpope/vim-endwise'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-rails'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tsukkee/unite-help'
+NeoBundle 'tsukkee/unite-tag'
+NeoBundle 'ujihisa/neco-look' 
+NeoBundle 'ujihisa/unite-rake'
+NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'vundle'
+NeoBundle 'xolox/vim-misc' 
+NeoBundle 'xolox/vim-session'
+NeoBundle 'ercolanelli-leo/candyVirus'
+NeoBundle 'reedes/vim-pencil'
+NeoBundle 'reedes/vim-colors-pencil'
+NeoBundle 'junegunn/seoul256.vim'
+NeoBundle 'chriskempson/vim-tomorrow-theme'
+NeoBundle 'airblade/vim-gitgutter'
+
+" You can specify revision/branch/tag.
+" NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
+
+" Required:
+call neobundle#end()
+
+" Required:
+filetype plugin indent on
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
+"End NeoBundle Scripts-------------------------
 
 " Set Autoload Session
 let g:session_autoload = 'yes'
