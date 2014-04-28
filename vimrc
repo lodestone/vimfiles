@@ -15,51 +15,61 @@ set hidden
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-Bundle 'vundle'
-" Bundle 'bling/vim-airline'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'scrooloose/nerdtree'
+Bundle 'Keithbsmiley/rspec.vim'
+" Bundle 'Lokaltog/vim-easymotion'
+Bundle 'Shougo/neocomplete.vim'
+Bundle 'Shougo/neomru.vim'
+Bundle 'Shougo/neosnippet'
+Bundle 'Shougo/neosnippet-snippets'
+Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/vimfiler.vim'
+Bundle 'Shougo/vimshell.vim'
+Bundle 'Sixeight/unite-grep'
+Bundle 'Tabular'
+Bundle 'airblade/vim-rooter'
+Bundle 'basyura/unite-rails'
+" Bundle 'davidoc/taskpaper.vim'
+Bundle 'h1mesuke/unite-outline'
+" Bundle 'haya14busa/vim-easyoperator-line'
+" Bundle 'haya14busa/vim-easyoperator-phrase'
+Bundle 'honza/vim-snippets'
+Bundle 'int3/vim-extradite'
+Bundle 'itchyny/lightline.vim'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'kmnk/vim-unite-giti'
+Bundle 'lilydjwg/colorizer'
+Bundle 'lodestone/vim-markdown'
+Bundle 'mattn/gist-vim'
+Bundle 'mattn/webapi-vim'
+Bundle 'maxbrunsfeld/vim-yankstack'
+Bundle 'mhinz/vim-startify'
+" Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'rking/ag.vim'
 Bundle 'scrooloose/syntastic'
-Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'thinca/vim-unite-history'
+Bundle 'thoughtbot/vim-rspec'
+Bundle 'tommcdo/vim-exchange'
+" Bundle 'ton/vim-bufsurf'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-repeat'
-Bundle 'Tabular'
-Bundle 'rking/ag.vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'Shougo/neocomplete.vim'
-Bundle 'Shougo/neosnippet'
-Bundle 'Shougo/neomru.vim'
-Bundle 'Shougo/vimshell.vim'
-Bundle 'Shougo/unite.vim'
-Bundle 'honza/vim-snippets'
-Bundle 'maxbrunsfeld/vim-yankstack'
-Bundle 'basyura/unite-rails'
-Bundle 'h1mesuke/unite-outline'
+Bundle 'tpope/vim-surround'
+Bundle 'tsukkee/unite-help'
+Bundle 'tsukkee/unite-tag'
+Bundle 'ujihisa/neco-look' 
+Bundle 'ujihisa/unite-rake'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'vundle'
 Bundle 'xolox/vim-misc' 
 Bundle 'xolox/vim-session'
-" Bundle 'mkitt/tabline.vim'
-Bundle 'mattn/webapi-vim'
-Bundle 'mattn/gist-vim'
-Bundle 'ton/vim-bufsurf'
-Bundle 'davidoc/taskpaper.vim'
-Bundle 'plasticboy/vim-markdown'
-Bundle 'int3/vim-extradite'
-Bundle 'Sixeight/unite-grep'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'haya14busa/vim-easyoperator-line'
-Bundle 'haya14busa/vim-easyoperator-phrase'
-Bundle 'mhinz/vim-startify'
-Bundle 'kmnk/vim-unite-giti'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'lilydjwg/colorizer'
-Bundle 'Keithbsmiley/rspec.vim'
-Bundle 'thoughtbot/vim-rspec'
-Bundle 'airblade/vim-rooter'
-Bundle 'itchyny/lightline.vim'
+Bundle 'ercolanelli-leo/candyVirus'
+Bundle 'reedes/vim-pencil'
+Bundle 'reedes/vim-colors-pencil'
+Bundle 'junegunn/seoul256.vim'
+Bundle 'chriskempson/vim-tomorrow-theme'
+Bundle 'airblade/vim-gitgutter'
 
 
 " Set Autoload Session
@@ -107,17 +117,13 @@ nmap <leader>bg :BackgroundColor #
 " Switch to project directory with ,kp
 function! ChangeToProject(project)
   let setdir=':cd ~/' . a:project
-  let settree=':NERDTreeCWD'
+  " let settree=':NERDTreeCWD'
   " . a:project
   exec setdir
   exec settree
 endfunction
 command! -complete=file -nargs=? ChangeProject :call ChangeToProject(<f-args>) 
 nmap <leader>kp :ChangeProject 
-
-" Set Airline Theme
-" let g:airline_theme='base16'
-let g:airline#extensions#tabline#enabled = 1
 
 " Autoload and save session
 let g:session_autosave = 'yes'
@@ -155,16 +161,17 @@ nmap <silent> <leader>ss :set nolist!<CR>
 " :W works like :w
 " adding the ! overwrites a command, this gives a polite error upon reparsing if not set
 command! WRITE write
+command! W write " Just in case
 
 " Increase history
-set history=1500
+set history=5000
 
 " Quick timeouts on key combinations.
 set timeoutlen=550
 
 " Use spacebar in normal mode like a web browser
-map <Space> 20j
-map <S-Space> 20k
+nmap <Space> 20jzz
+nmap <S-Space> 20kzz
 
 " Send contents of current file to private gist
 map gist :Gist -p<CR>
@@ -178,7 +185,6 @@ map <leader>vl :e ~/.vim/colors/lodestone.vim<CR>
 
 " Quick switch to last buffer without reaching up to the caret ^
 map <C-k><C-k> :b#<CR>
-map <leader><leader> <C-^>
 
 map <leader> <Plug>(easymotion-prefix)
 
@@ -190,11 +196,9 @@ nmap < <<
 " I can't seem to reach $ as easily as I _should_ (double meaning)
 nmap - $
 
-" Find All
-map <leader>fa :Ag ""<LEFT>
-
 " Show only the current window/tab/whatevers
 nmap <leader>o :only<CR>
+" nmap <C-o> :only<CR>
 
 " make mouse work in console mode vim
 set mouse=a
@@ -205,18 +209,14 @@ set mouse=a
 " nmap <C-k> :BufSurfForward<CR>
 " nmap <C-l> :BufSurfForward<CR>
 
-" Used by autocomplete
-" nmap <C-n> <Down>
-" nmap <C-p> <Up>
-
 " Let tilde do some cools stuffs
 set tildeop 
 
 " Who uses plain javascript?
 autocmd BufRead,BufNewFile *.js set ft=javascript.jquery
 
-" highlight the current line 
-set cursorline
+" highlight the current line (or don't)
+set nocursorline
 
 " By default, pressing <TAB> in command mode will choose the first 
 " possible completion with no indication of how many others there might be. 
@@ -229,7 +229,6 @@ set wildignore+=*.o,*.fasl,*.git/*,*.DS_Store
 " To have the completion behave similarly to a shell, 
 " i.e. complete only up to the point of ambiguity 
 " (while still showing you what your options are), also add the following:
-" This is set in the Pickles section below
 " set wildmode=list:longest
 
 set backupdir=~/.vim/tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -260,10 +259,10 @@ set smarttab
 set directory=/tmp/
 
 " When scrolling off-screen do so 3 lines at a time, not 1
-set scrolloff=3
+" set scrolloff=3
 
 " Set the left column to a nice width
-setlocal numberwidth=5
+set numberwidth=5
 
 " Toggle Paste mode
 set pastetoggle=<F5>
@@ -280,18 +279,6 @@ set foldlevel=999 " make it really high, so they're not displayed by default
 let g:rails_statusline=0
 let g:rails_defalt_file="config/routes.rb"
 
-" let g:delimitMate_autoclose=0
-" let g:delimitMate_smart_quotes=0
-
-" NERDTree Options
-let g:nerdtree_tabs_open_on_gui_startup = 0
-let g:nerdtree_tabs_focus_on_files = 1
-" colored NERD Tree
-let NERDChristmasTree = 1
-let NERDTreeHighlightCursorline = 1
-let NERDTreeShowHidden = 0
-let NERDTreeIgnore=['\.git','\.DS_Store']
-
 augroup myfiletypes
   " Clear old autocmds in group
   autocmd!
@@ -300,11 +287,12 @@ augroup myfiletypes
   autocmd FileType vim set autoindent tabstop=2 shiftwidth=2 softtabstop=2 expandtab
   autocmd FileType cucumber set autoindent tabstop=2 shiftwidth=2 softtabstop=2 expandtab
   " markdown goodness
-  autocmd BufRead *.mkd  set autoindent formatoptions=tcroqn2 comments=n:>
+  " autocmd BufRead *.mkd  set autoindent formatoptions=tcroqn2 comments=n:>
   au BufRead,BufNewFile *etc/nginx/* set ft=nginx 
   " treat rackup files like ruby
   au BufRead,BufNewFile *.ru set ft=ruby
   au BufRead,BufNewFile *.coffee set ft=coffee
+  au BufNewFile,BufRead *.mkd set filetype=markdown autoindent tabstop=2 shiftwidth=2 
 augroup END
 
 " When editing a file, always jump to the last known cursor position.
@@ -316,7 +304,6 @@ autocmd BufReadPost *
       \ endi
 
 " Turn on language specific omnifuncs
-autocmd FileType ruby set omnifunc=rubycomplete#Complete
 " autocmd FileType python set omnifunc=pythoncomplete#Complete
 " autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 " autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -332,8 +319,8 @@ imap jl <Esc>
 
 " Toggle NERDTree with <leader>d
 " map <silent> <leader>d :execute 'NERDTreeTabsToggle ' . getcwd()<CR>
-map <silent> <leader>d :execute 'NERDTreeMirrorToggle '<CR>
-map <C-S-r> :execute 'NERDTreeFind '<CR>
+" map <silent> <leader>d :execute 'NERDTreeMirrorToggle '<CR>
+" map <C-S-r> :execute 'NERDTreeFind '<CR>
 
 " comment out a line
 nmap <leader>cc gcc
@@ -400,10 +387,6 @@ set nobackup
 " The default is :set writebackup This will keep a backup file while the file is being worked. Once VIM is closed; the backup will vanish.
 set nowritebackup
 
-" Local config
-if filereadable(".vimrc.local")
-  source .vimrc.local
-endif
 
 " Let tab move between open windows
 nmap <Tab> <C-w><C-w>
@@ -425,8 +408,14 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplete#force_overwrite_completefunc = 1
 
 " Define dictionary.
+" let g:neocomplete#sources#dictionary#dictionaries = {
+"     \ 'default' : '',
+"     \ 'dictionary' : '/usr/share/dict/words',
+"     \ 'vimshell' : $HOME.'/.vimshell_hist',
+"     \ 'scheme' : $HOME.'/.gosh_completions'
+"         \ }
+
 let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
     \ 'vimshell' : $HOME.'/.vimshell_hist',
     \ 'scheme' : $HOME.'/.gosh_completions'
         \ }
@@ -481,31 +470,24 @@ let g:neocomplete#enable_auto_select = 0
 "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
 " Enable omni completion.
+autocmd FileType ruby set omnifunc=rubycomplete#Complete
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType text setlocal omnifunc=<D-P>
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*:'
 
- 
 " NeoSnippet
-" Plugin key-mappings
-" imap <C-Space>     <Plug>(neosnippet_expand_or_jump)
-" smap <C-Space>     <Plug>(neosnippet_expand_or_jump)
-" xmap <C-Space>     <Plug>(neosnippet_expand_target)
-
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
       \ "\<Plug>(neosnippet_expand_or_jump)"
@@ -514,35 +496,53 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
       \ "\<Plug>(neosnippet_expand_or_jump)"
       \: "\<TAB>"
 
+let g:vimfiler_execute_file_list = {
+        \ '_' : 'vim'
+        \ }
+
 " Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+let g:neosnippet#snippets_directory='~/.vim/snippets,~/.vim/bundle/neosnippet-snippets/neosnippets,~/.vim/bundle/vim-snippets/snippets'
 
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Make <C-/> work for comment/uncomment
 nmap <S-/> gcc
 vmap <S-/> gcc
-nmap <C-_> gcc
-vmap <C-_> gcc
+" Make <C-/> work for comment/uncomment
+" nmap <C-_> gcc
+" vmap <C-_> gcc
+
+nmap <C-h> :noh<CR>
 
 filetype plugin indent on
 
 autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 set title
 
+" VimFiler
+function! s:my_vimfiler_settings()
+	" nmap <buffer> q <Plug>(vimfiler_exit)
+	" nmap <buffer> <Esc> <Plug>(vimfiler_exit)
+  " nmap <buffer> Q <Plug>(vimfiler_hide)
+	" nmap <buffer> <C-h> <Plug>(vimfiler_switch_to_parent_directory)
+endfunction
+
+autocmd FileType vimfiler call s:my_vimfiler_settings()
+
+let g:vimfiler_as_default_explorer = 1
+
+nmap      <Leader>d [VimFiler]
+nnoremap  <silent> [VimFiler]f :<C-u>VimFiler -toggle -split -simple -winwidth=35<CR>
+nnoremap  <silent> [VimFiler]b :<C-u>VimFilerBufferDir -toggle -split -simple -winwidth=35<CR>
+nnoremap  <silent> [VimFiler]d :<C-u>VimFilerCurrentDir -toggle -split -simple -winwidth=35<CR>
+
+" let g:vimfiler_edit_action = "tabopen"
+
 " Unite.vim settings
 " -----------------------------------
 let g:unite_enable_start_insert = 1
 let g:unite_source_history_yank_enable = 1
-let g:unite_prompt='» '
+let g:unite_prompt='•••••••» '
 let g:unite_enable_short_source_names = 0
-let g:unite_source_file_mru_long_limit = 16
-let g:unite_source_directory_mru_long_limit = 16
+let g:unite_source_file_mru_long_limit = 20
+let g:unite_source_directory_mru_long_limit = 20
 let g:unite_source_grep_command="ag"
 
 " sort file results by length
@@ -552,15 +552,18 @@ let g:unite_source_grep_command="ag"
 " call unite#custom#source('rails/model', 'sorters', 'sorter_length')
 
 call unite#custom#source('file', 'sorters', 'sorter_selecta')
-" call unite#custom#source('file_rec/async', 'sorters', 'sorter_selecta')
+call unite#custom#source('file_rec/async', 'sorters', 'sorter_selecta')
 call unite#custom#source('file_mru', 'sorters', 'sorter_selecta')
 call unite#custom#source('rails/model', 'sorters', 'sorter_selecta')
 call unite#custom#source('rails/controller', 'sorters', 'sorter_selecta')
 call unite#custom#source('buffer', 'sorters', 'sorter_selecta')
+call unite#custom#source('command', 'sorters', 'sorter_selecta')
+call unite#custom#source('mapping', 'sorters', 'sorter_selecta')
+call unite#custom#source('function', 'sorters', 'sorter_selecta')
 
 " limit results for recently edited files
-call unite#custom#source('file_mru', 'max_candidates', 20)
-call unite#custom#source('file_rec/async', 'max_candidates', 0)
+call unite#custom#source('file_mru', 'max_candidates', 15)
+call unite#custom#source('file_rec/async', 'max_candidates', 25)
 
 " ignored files for file_mru
 " call unite#custom#source('file_mru', 'ignore_pattern', 'COMMIT_EDITMSG')
@@ -568,20 +571,39 @@ call unite#custom#source('file_rec/async', 'max_candidates', 0)
 " sort buffers by number
 call unite#custom#source('buffer', 'sorters', 'sorter_selecta')
 
+" #keep
 " noremap <C-@> :Unite buffer tab file_rec/async file_mru<CR>
 " noremap <A-Space> :Unite buffer tab file_rec/async file_mru<CR>
 
 " Find Function / Action
-map  <D-P> :Unite command mapping function<CR>
+map  <D-P> :Unite -buffer-name=commands -no-split command mapping function<CR>
+map  <C-P> :Unite -buffer-name=commands -no-split command mapping function<CR>
 " Find Anything
-map  <D-p> :Unite -unique buffer tab file_rec/async<CR>
+map  <D-p> :Unite -hide-source-names -buffer-name=files -no-split -unique buffer tab file_rec/async neomru/file<CR>
+map  <C-p> :Unite -hide-source-names -buffer-name=files -no-split -unique buffer tab file_rec/async neomru/file<CR>
+
 " Find open file
-map  <D-b> :Unite buffer tab<CR>
+map  <D-b> :Unite -buffer-name=buffers -no-split buffer tab<CR>
+
 " Find method (CTAGS)
-map  <D-r> :Unite outline<CR>
+map  <D-r> :Unite -no-split outline<CR>
+" Find all
+map <leader>fa :Unite -no-split grep:.<CR>
+noremap <D-f> :Unite -no-split grep:.<CR>
+
+" Quick jump to a jump location
+nnoremap '' :Unite -no-split jump<CR>
+
+" Quick jump to a buffer
+nnoremap ,, :Unite -no-split buffer<CR>
+
+" map <S-D-t> :Unite -no-split -default-action=tabopen file_rec/async<CR>
+
+" Search the word in the cursor in the current directory,
+noremap <silent> <Leader>fw :Unite grep:.::<C-R><C-w><CR>
 
 " Find by git status
-map <D-B> :Unite giti/status<CR>
+map <D-B> :Unite -no-split giti/status<CR>
 
 "bind command-] to indent
 nmap <D-]> >
@@ -595,35 +617,36 @@ imap <D-[> <C-O><
 
 map <D-o> :!open %<CR><CR>
 
+map <leader>a  :Unite
+map <leader>ar :Unite -no-split rails/
+map <leader>ab :Unite -no-split bookmark -no-start-insert <CR>
 
-" map  <D-t> <D-p>
-" nmap <C-p> <D-p>
+map <C-f>      :Unite -auto-preview grep:%<CR>
 
 " nmap <C-k> :Unite command function mapping register<CR>
-map  <leader>fx :Unite command function mapping register<CR>
-map  <leader>fr :Unite file_mru<CR>
-map  <leader>fb :Unite buffer<CR>
-map  <leader>ff :Unite buffer tab file_rec/async file_mru<CR>
-map  <leader>fy :Unite history/yank<CR>
-map  <leader>fo :Unite outline -vertical -winwidth=30 -start-insert<CR>
-map  <leader>fl :Unite line<CR>
-map  <leader>fj :Unite jump<CR>
-map  <leader>fg :Unite grep:.<CR>
-map  <leader>g  :Unite grep:.<CR>
+map  <leader>fx :Unite -buffer-name=commands -no-split command function mapping register<CR>
+map  <leader>fc :Unite -buffer-name=commands -no-split command function mapping register<CR>
+map  <leader>fr :Unite -buffer-name=recent -no-split neomru/file<CR>
+map  <leader>fb :Unite -buffer-name=buffers -no-split buffer<CR>
+map  <leader>ff :Unite -buffer-name=files -no-split buffer tab file_rec/async file_mru<CR>
+map  <leader>fy :Unite -no-split history/yank<CR>
+map  <leader>fo :Unite  outline -vertical -winwidth=30 -start-insert<CR>
+map  <leader>fl :Unite -no-split line<CR>
+map  <leader>fj :Unite -no-split jump<CR>
+map  <leader>gg :Unite -no-split grep:.<CR>
+" map  <leader>g  :Unite -no-split grep:.<CR>
 
 " unite-rails shortcuts
-map <leader>rc    :Unite rails/controller<CR>
-map <leader>rm    :Unite rails/model<CR>
-map <leader>rg    :Unite rails/config<CR>
-map <leader>rdb   :Unite rails/db<CR>
-map <leader>rv    :Unite rails/view<CR>
-map <leader>rjs   :Unite rails/javascript<CR>
-map <leader>rcss  :Unite rails/stylesheet<CR>
-map <leader>ri    :Unite rails/initializer<CR>
-map <leader>rl    :Unite rails/lib<CR>
-" map <leader>rspec :Unite rails/spec<CR>
-
-nnoremap <leader>x :Unite buffer<cr>
+map <leader>rc    :Unite -buffer-name=rails -no-split rails/controller<CR>
+map <leader>rm    :Unite -buffer-name=rails -no-split rails/model<CR>
+map <leader>rg    :Unite -buffer-name=rails -no-split rails/config<CR>
+map <leader>rdb   :Unite -buffer-name=rails -no-split rails/db<CR>
+map <leader>rv    :Unite -buffer-name=rails -no-split rails/view<CR>
+map <leader>rjs   :Unite -buffer-name=rails -no-split rails/javascript<CR>
+map <leader>rcss  :Unite -buffer-name=rails -no-split rails/stylesheet<CR>
+map <leader>ri    :Unite -buffer-name=rails -no-split rails/initializer<CR>
+map <leader>rl    :Unite -buffer-name=rails -no-split rails/lib<CR>
+map <leader>rspec :Unite -buffer-name=rails -no-split rails/spec<CR>
 
 " Use ag for search
 if executable('ag')
@@ -631,11 +654,11 @@ if executable('ag')
   let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
   let g:unite_source_grep_recursive_opt = ''
   let g:unite_source_find_command = 'ag'
-  let g:unite_source_rec_async_command = 'ag'
 endif
 
 " call unite#filters#sorter_default#use(['sorter_rank', 'sorter_ftime'])
-call unite#filters#sorter_default#use(['sorter_rank', 'sorter_selecta'])
+" call unite#filters#sorter_default#use(['sorter_rank', 'sorter_selecta'])
+call unite#filters#sorter_default#use(['sorter_selecta'])
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 autocmd FileType unite call s:unite_my_settings()
@@ -657,15 +680,16 @@ function! s:unite_my_settings()"{{{
   nmap <buffer> <C-v>     <Plug>(unite_toggle_auto_preview)
   " nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
   imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
-  imap <C-k>               <C-e><Plug>(unite_delete_backward_line)
+  " imap <C-k>               <C-e><Plug>(unite_delete_backward_line)
   " imap <C-0>               <Plug>(unite_rotate_next_source)
   " nmap <C-0>               <Plug>(unite_rotate_next_source)
 endfunction
 
+
 " These are standard bash/emacs/mac text movement/manipulation
+
 cmap <C-a> <Home>
-nmap <C-a> <Home>
-cmap <C-k> <C-o>d$
+" nmap <C-a> <Home>
 imap <C-a> <Home>
 vmap <C-a> <Home>
 omap <C-a> <Home>
@@ -678,7 +702,10 @@ inoremap <C-d> <Del>
 vnoremap <C-d> <Del>
 onoremap <C-d> <Del>
 cnoremap <C-d> <Del>
+nnoremap <C-d> <Del>
 inoremap <C-o><C-k> <C-k>
+cmap <C-k> <C-o>d$
+nmap <C-k> d$
 inoremap <C-k> <C-o>d$
 " <C-k> normally inserts a digraph (:help digraph)
 " Let's remap that so it is still accessible and
@@ -735,5 +762,49 @@ let g:rspec_command = "!bundle exec rspec"
 let g:rspec_runner = "os_x_iterm"
 
 
-let &colorcolumn=join(range(81,999),",")
+" Colorize the area beyond 80 columns
+" let &colorcolumn=join(range(81,999),",")
+
+" Debug
+" set debug+=msg
+
+" Set a dictionary for word completion by using <C-x> <C-k>
+set dictionary-=/usr/share/dict/words dictionary+=/usr/share/dict/words
+set complete-=k complete+=k
+
+
+let g:pencil#wrapModeDefault = 'soft'
+
+augroup pencil
+  autocmd!
+  autocmd FileType markdown call pencil#init()
+  autocmd FileType mkd call pencil#init()
+  autocmd FileType md call pencil#init()
+  autocmd FileType textile call pencil#init()
+  autocmd FileType text call pencil#init()
+  " autocmd FileType text call pencil#init({'wrap': 'hard'})
+augroup END
+
+
+" Exchange word command
+nmap <leader>xx cxiw
+
+
+:NeoSnippetSource ~/.vim/snippets/ruby.snip
+
+
+nnoremap <esc> :noh<return><esc>
+
+map <F2> :set background=light <CR>:colorscheme pencil<CR>
+map <F1> :set background=dark <CR>:colorscheme iceberg<CR>
+
+
+" Make not so slow when typing!
+set foldmethod=manual
+" let g:ruby_path = system('echo $HOME/.rbenv/shims')
+
+" Local config
+if filereadable(".vimrc.local")
+  source .vimrc.local
+endif
 
