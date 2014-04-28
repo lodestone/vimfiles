@@ -30,7 +30,6 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " My Bundles here:
 NeoBundle 'Keithbsmiley/rspec.vim'
-" NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/neosnippet'
@@ -42,10 +41,7 @@ NeoBundle 'Sixeight/unite-grep'
 NeoBundle 'Tabular'
 NeoBundle 'airblade/vim-rooter'
 NeoBundle 'basyura/unite-rails'
-" NeoBundle 'davidoc/taskpaper.vim'
 NeoBundle 'h1mesuke/unite-outline'
-" NeoBundle 'haya14busa/vim-easyoperator-line'
-" NeoBundle 'haya14busa/vim-easyoperator-phrase'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'int3/vim-extradite'
 NeoBundle 'itchyny/lightline.vim'
@@ -57,13 +53,11 @@ NeoBundle 'mattn/gist-vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'maxbrunsfeld/vim-yankstack'
 NeoBundle 'mhinz/vim-startify'
-" NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'thoughtbot/vim-rspec'
 NeoBundle 'tommcdo/vim-exchange'
-" NeoBundle 'ton/vim-bufsurf'
 NeoBundle 'tpope/vim-commentary'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tpope/vim-fugitive'
@@ -86,6 +80,11 @@ NeoBundle 'junegunn/seoul256.vim'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'altercation/vim-colors-solarized'
+" NeoBundle 'Lokaltog/vim-easymotion'
+" NeoBundle 'haya14busa/vim-easyoperator-line'
+" NeoBundle 'haya14busa/vim-easyoperator-phrase'
+" NeoBundle 'nathanaelkane/vim-indent-guides'
+" NeoBundle 'ton/vim-bufsurf'
 
 " You can specify revision/branch/tag.
 " NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
@@ -786,10 +785,8 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ }
 
-
 let g:rspec_command = "!bundle exec rspec"
 let g:rspec_runner = "os_x_iterm"
-
 
 " Colorize the area beyond 80 columns
 " let &colorcolumn=join(range(81,999),",")
@@ -801,6 +798,8 @@ let g:rspec_runner = "os_x_iterm"
 set dictionary-=/usr/share/dict/words dictionary+=/usr/share/dict/words
 set complete-=k complete+=k
 
+" Hit ^l to autocomplete from the dictionary file
+inoremap <C-l> <C-x><C-k>
 
 let g:pencil#wrapModeDefault = 'soft'
 
@@ -814,13 +813,8 @@ augroup pencil
   " autocmd FileType text call pencil#init({'wrap': 'hard'})
 augroup END
 
-
 " Exchange word command
 nmap <leader>xx cxiw
-
-
-:NeoSnippetSource ~/.vim/snippets/ruby.snip
-
 
 nnoremap <esc> :noh<return><esc>
 
@@ -832,8 +826,14 @@ map <F1> :set background=dark <CR>:colorscheme iceberg<CR>
 set foldmethod=manual
 " let g:ruby_path = system('echo $HOME/.rbenv/shims')
 
+colorscheme iceberg
+
+" Use OSX clipboard
+set clipboard=unnamed
+
 " Local config
 if filereadable(".vimrc.local")
   source .vimrc.local
 endif
+
 
