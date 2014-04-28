@@ -67,6 +67,7 @@ NeoBundle 'tommcdo/vim-exchange'
 NeoBundle 'tpope/vim-commentary'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-haml'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-surround'
@@ -84,6 +85,7 @@ NeoBundle 'reedes/vim-colors-pencil'
 NeoBundle 'junegunn/seoul256.vim'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'altercation/vim-colors-solarized'
 
 " You can specify revision/branch/tag.
 " NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
@@ -435,17 +437,17 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplete#force_overwrite_completefunc = 1
 
 " Define dictionary.
-" let g:neocomplete#sources#dictionary#dictionaries = {
-"     \ 'default' : '',
-"     \ 'dictionary' : '/usr/share/dict/words',
-"     \ 'vimshell' : $HOME.'/.vimshell_hist',
-"     \ 'scheme' : $HOME.'/.gosh_completions'
-"         \ }
-
 let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'dictionary' : '/usr/share/dict/words',
     \ 'vimshell' : $HOME.'/.vimshell_hist',
     \ 'scheme' : $HOME.'/.gosh_completions'
         \ }
+
+" let g:neocomplete#sources#dictionary#dictionaries = {
+"     \ 'vimshell' : $HOME.'/.vimshell_hist',
+"     \ 'scheme' : $HOME.'/.gosh_completions'
+"         \ }
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')

@@ -22,12 +22,14 @@ unite-tag
 unite.vim
 vim-coffee-script
 vim-colors-pencil
+vim-colors-solarized
 vim-commentary
 vim-endwise
 vim-exchange
 vim-extradite
 vim-fugitive
 vim-gitgutter
+vim-haml
 vim-markdown
 vim-misc
 vim-pencil
