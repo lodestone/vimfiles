@@ -12,6 +12,7 @@ neosnippet
 neosnippet-snippets
 rspec.vim
 seoul256.vim
+smartgf.vim
 syntastic
 unite-grep
 unite-help
@@ -45,6 +46,7 @@ vim-surround
 vim-tomorrow-theme
 vim-unite-giti
 vim-unite-history
+vim-vroom
 vim-yankstack
 vimfiler.vim
 vimshell.vim

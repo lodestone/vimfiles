@@ -80,6 +80,8 @@ NeoBundle 'junegunn/seoul256.vim'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'skalnik/vim-vroom'
+NeoBundle 'gorkunov/smartgf.vim'
 " NeoBundle 'Lokaltog/vim-easymotion'
 " NeoBundle 'haya14busa/vim-easyoperator-line'
 " NeoBundle 'haya14busa/vim-easyoperator-phrase'
@@ -629,6 +631,7 @@ nnoremap ,, :Unite -no-split buffer<CR>
 
 " Search the word in the cursor in the current directory,
 noremap <silent> <Leader>fw :Unite grep:.::<C-R><C-w><CR>
+noremap <silent> <Leader>fW :Unite grep:.::<C-R><C-W><CR>
 
 " Find by git status
 map <D-B> :Unite -no-split giti/status<CR>
@@ -824,12 +827,25 @@ map <F1> :set background=dark <CR>:colorscheme iceberg<CR>
 
 " Make not so slow when typing!
 set foldmethod=manual
+
+" Don't do this. The latest vim-ruby handles it.
 " let g:ruby_path = system('echo $HOME/.rbenv/shims')
 
 colorscheme iceberg
 
 " Use OSX clipboard
 set clipboard=unnamed
+
+" Vroom! (test runner for vim ruby)
+let g:vroom_cucumber_path="cucumber"
+let g:vroom_use_spring=1
+let g:vroom_use_bundle_exec=0
+let g:vroom_use_binstubs=1
+let g:vroom_binstubs_path='.bundle/ruby/2.0.0/bin'
+
+" SmartGF (Doesn't seem to take)
+" let g:smartgf_key = 'gm'
+nmap <leader>gf gF
 
 " Local config
 if filereadable(".vimrc.local")
