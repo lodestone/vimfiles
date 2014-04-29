@@ -397,11 +397,11 @@ hi rubySymbol guifg=#9B7EF6 ctermfg=099
 
 
 
+" This is class methods and local variables
 " hi rubyDoBlock guifg=#dedede ctermfg=124
 " hi rubyArrayDelimiter guifg=#9090dd ctermfg=189
 " hi rubyArrayLiteral guifg=#9f9fbd ctermfg=189
 " hi rubyCurlyDelimiter guifg=#9090dd ctermfg=189
-hi rubyRailsARAssociationMethod guifg=#fd0011 ctermfg=124
 " hi rubyRailsARAssociationMethod guifg=#6666ff ctermfg=099
 hi rubyRailsARValidationMethod guifg=#fd0011 ctermfg=124
 " hi rubyLocalVariableOrMethod guifg=#9090ff ctermfg=124
@@ -415,15 +415,16 @@ hi rubyString guifg=#00a460 ctermfg=28
 hi link rubyStringDelimiter rubyString
 " hi link rubyRegexp          Regexp
 " hi link rubyRegexpDelimiter rubyRegexp
+" Constants
 " hi link rubyConstant        Identifier
 " hi link rubyClassVariable Keyword
 hi rubyInstanceVariable      guifg=#9090FF ctermfg=189
-" hi railsUserClass guifg=#aaaaaa ctermfg=255
+hi railsUserClass guifg=#aaaaaa ctermfg=255
 " 
-" hi rubyLocalVariableOrMethod guifg=#D0D0FF ctermfg=189
+hi rubyLocalVariableOrMethod guifg=#D0D0FF ctermfg=189
 " 
 " highlight Special                   guifg=#DA4939 ctermfg=167 
-" highlight rubyClass                 guifg=#FFFFFF ctermfg=15
+highlight rubyClass                 guifg=#fa3300 ctermfg=15
 hi rubyClass guifg=#905000 ctermfg=166
 syn keyword Identifier context
 

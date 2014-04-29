@@ -1,4 +1,6 @@
 set guioptions-=T
+set guioptions-=r
+set guioptions-=L
 " Make highlights auto-push into clipboard buffer
 " set guioptions+=a 
 " Set Font

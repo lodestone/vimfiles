@@ -82,6 +82,17 @@ NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'skalnik/vim-vroom'
 NeoBundle 'gorkunov/smartgf.vim'
+NeoBundle 'tpope/vim-eunuch'
+NeoBundle 'tpope/vim-rake'
+NeoBundle 'tpope/vim-projectionist'
+NeoBundle 'tpope/vim-cucumber'
+NeoBundle 'tpope/vim-characterize'
+NeoBundle 'tpope/vim-ragtag'
+NeoBundle 'tpope/vim-obsession'
+NeoBundle 'tommcdo/vim-lion'
+
+
+
 " NeoBundle 'Lokaltog/vim-easymotion'
 " NeoBundle 'haya14busa/vim-easyoperator-line'
 " NeoBundle 'haya14busa/vim-easyoperator-phrase'
@@ -202,6 +213,9 @@ set timeoutlen=550
 " Use spacebar in normal mode like a web browser
 nmap <Space> 20jzz
 nmap <S-Space> 20kzz
+
+" I don't use 's' so make S more convenient
+vmap s S
 
 " Send contents of current file to private gist
 map gist :Gist -p<CR>
