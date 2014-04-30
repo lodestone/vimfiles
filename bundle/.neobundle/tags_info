@@ -3,6 +3,7 @@ ag.vim
 candyVirus
 colorizer
 gist-vim
+gitsessions.vim
 lightline.vim
 neco-look
 neobundle.vim
@@ -58,5 +59,4 @@ vim-vroom
 vim-yankstack
 vimfiler.vim
 vimshell.vim
-vundle
 webapi-vim
