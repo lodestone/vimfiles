@@ -1,9 +1,0 @@
-[submodule "bundle/nerdtree"]
-	path = bundle/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
-[submodule "bundle/yankring"]
-	path = bundle/yankring
-	url = https://github.com/vim-scripts/YankRing.vim.git
-[submodule "bundle/buffergator"]
-	path = bundle/buffergator
-	url = https://github.com/jeetsukumaran/vim-buffergator.git

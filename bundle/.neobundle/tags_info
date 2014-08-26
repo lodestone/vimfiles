@@ -14,6 +14,7 @@ neosnippet-snippets
 rspec.vim
 seoul256.vim
 smartgf.vim
+sudo-gui.vim
 syntastic
 unite-grep
 unite-help
@@ -38,6 +39,7 @@ vim-haml
 vim-lion
 vim-markdown
 vim-misc
+vim-mustache-handlebars
 vim-obsession
 vim-pencil
 vim-projectionist
@@ -48,10 +50,12 @@ vim-repeat
 vim-rooter
 vim-rspec
 vim-ruby
+vim-ruby-minitest
 vim-session
 vim-snippets
 vim-startify
 vim-surround
+vim-tags
 vim-tomorrow-theme
 vim-unite-giti
 vim-unite-history

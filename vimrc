@@ -59,11 +59,14 @@ NeoBundle 'mattn/gist-vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'maxbrunsfeld/vim-yankstack'
 NeoBundle 'mhinz/vim-startify'
+NeoBundle 'mustache/vim-mustache-handlebars'
 NeoBundle 'reedes/vim-colors-pencil'
 NeoBundle 'reedes/vim-pencil'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'skalnik/vim-vroom'
+NeoBundle 'sunaku/vim-ruby-minitest'
+NeoBundle 'szw/vim-tags'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'thoughtbot/vim-rspec'
 NeoBundle 'tommcdo/vim-exchange'
@@ -89,8 +92,16 @@ NeoBundle 'ujihisa/unite-rake'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'wting/gitsessions.vim'
 NeoBundle 'xolox/vim-misc' 
+" NeoBundle 'xolox/vim-notes'
 NeoBundle 'xolox/vim-session'
+NeoBundle 'tsukkee/unite-tag'
+NeoBundle 'gmarik/sudo-gui.vim'
 
+let g:notes_directories = ['~/Dropbox/Mind']
+let g:notes_suffix = '.md'
+let g:notes_title_sync = 'no'
+
+let g:pad_dir = "~/Dropbox/Mind"
 
 " NeoBundle 'Lokaltog/vim-easymotion'
 " NeoBundle 'haya14busa/vim-easyoperator-line'
@@ -329,13 +340,14 @@ augroup myfiletypes
   autocmd FileType ruby,eruby,yaml set autoindent shiftwidth=2 softtabstop=2 expandtab
   autocmd FileType vim set autoindent tabstop=2 shiftwidth=2 softtabstop=2 expandtab
   autocmd FileType cucumber set autoindent tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+  " autocmd FileType markdown set background=light colorscheme=pencil
   " markdown goodness
   " autocmd BufRead *.mkd  set autoindent formatoptions=tcroqn2 comments=n:>
   au BufRead,BufNewFile *etc/nginx/* set ft=nginx 
   " treat rackup files like ruby
   au BufRead,BufNewFile *.ru set ft=ruby
   au BufRead,BufNewFile *.coffee set ft=coffee
-  au BufNewFile,BufRead *.mkd set filetype=markdown autoindent tabstop=2 shiftwidth=2 
+  " au BufNewFile,BufRead *.mkd set filetype=markdown autoindent tabstop=2 shiftwidth=2 
 augroup END
 
 " When editing a file, always jump to the last known cursor position.
@@ -562,7 +574,7 @@ set title
 " VimFiler
 function! s:my_vimfiler_settings()
 	" nmap <buffer> q <Plug>(vimfiler_exit)
-	" nmap <buffer> <Esc> <Plug>(vimfiler_exit)
+	" nnoremap <buffer> <Esc> <Plug>(vimfiler_hide)
   " nmap <buffer> Q <Plug>(vimfiler_hide)
 	" nmap <buffer> <C-h> <Plug>(vimfiler_switch_to_parent_directory)
 endfunction
@@ -572,9 +584,17 @@ autocmd FileType vimfiler call s:my_vimfiler_settings()
 let g:vimfiler_as_default_explorer = 1
 
 nmap      <Leader>d [VimFiler]
-nnoremap  <silent> [VimFiler]f :<C-u>VimFiler -toggle -split -simple -winwidth=35<CR>
-nnoremap  <silent> [VimFiler]b :<C-u>VimFilerBufferDir -toggle -split -simple -winwidth=35<CR>
-nnoremap  <silent> [VimFiler]d :<C-u>VimFilerCurrentDir -toggle -split -simple -winwidth=35<CR>
+nnoremap  <silent> [VimFiler]f :<C-u>VimFiler -toggle<CR>
+nnoremap  <silent> [VimFiler]b :<C-u>VimFilerBufferDir -toggle<CR>
+nnoremap  <silent> [VimFiler]d :<C-u>VimFilerCurrentDir -toggle<CR>
+
+" Like Textmate icons.
+let g:vimfiler_tree_leaf_icon = ' '
+let g:vimfiler_tree_opened_icon = '▾'
+let g:vimfiler_tree_closed_icon = '▸'
+let g:vimfiler_file_icon = '-'
+let g:vimfiler_marked_file_icon = '*'
+let g:vimfiler_enable_auto_cd = 1
 
 " let g:vimfiler_edit_action = "tabopen"
 
@@ -587,6 +607,7 @@ let g:unite_enable_short_source_names = 0
 let g:unite_source_file_mru_long_limit = 20
 let g:unite_source_directory_mru_long_limit = 20
 let g:unite_source_grep_command="ag"
+
 
 " sort file results by length
 " call unite#custom#source('file', 'sorters', 'sorter_length')
@@ -618,6 +639,8 @@ call unite#custom#source('buffer', 'sorters', 'sorter_selecta')
 " noremap <C-@> :Unite buffer tab file_rec/async file_mru<CR>
 " noremap <A-Space> :Unite buffer tab file_rec/async file_mru<CR>
 
+map <D-l> :Unite -toggle -prompt=> -no-cursor-line -hide-source-names -winheight=5 file<CR>
+
 " Find Function / Action
 map  <D-P> :Unite -buffer-name=commands -no-split command mapping function<CR>
 map  <C-P> :Unite -buffer-name=commands -no-split command mapping function<CR>
@@ -639,6 +662,7 @@ nnoremap '' :Unite -no-split jump<CR>
 
 " Quick jump to a buffer
 nnoremap ,, :Unite -no-split buffer<CR>
+nnoremap ,,, :b#<CR>
 
 " map <S-D-t> :Unite -no-split -default-action=tabopen file_rec/async<CR>
 
@@ -661,7 +685,7 @@ imap <D-[> <C-O><
 
 map <D-o> :!open %<CR><CR>
 
-map <leader>a  :Unite
+map <leader>a  :Unite -no-split 
 map <leader>ar :Unite -no-split rails/
 map <leader>ab :Unite -no-split bookmark -no-start-insert <CR>
 
@@ -674,7 +698,7 @@ map  <leader>fr :Unite -buffer-name=recent -no-split neomru/file<CR>
 map  <leader>fb :Unite -buffer-name=buffers -no-split buffer<CR>
 map  <leader>ff :Unite -buffer-name=files -no-split buffer tab file_rec/async file_mru<CR>
 map  <leader>fy :Unite -no-split history/yank<CR>
-map  <leader>fo :Unite  outline -vertical -winwidth=30 -start-insert<CR>
+" map  <leader>fo :Unite  outline -vertical -winwidth=30 -start-insert<CR>
 map  <leader>fl :Unite -no-split line<CR>
 map  <leader>fj :Unite -no-split jump<CR>
 map  <leader>gg :Unite -no-split grep:.<CR>
@@ -695,7 +719,7 @@ map <leader>rspec :Unite -buffer-name=rails -no-split rails/spec<CR>
 " Use ag for search
 if executable('ag')
   let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor --hidden --column'
   let g:unite_source_grep_recursive_opt = ''
   let g:unite_source_find_command = 'ag'
 endif
@@ -832,7 +856,7 @@ augroup END
 " Exchange word command
 nmap <leader>xx cxiw
 
-nnoremap <esc> :noh<return><esc>
+nnoremap <silent> <esc> :noh<return><esc>
 
 map <F2> :set background=light <CR>:colorscheme pencil<CR>
 map <F1> :set background=dark <CR>:colorscheme iceberg<CR>
@@ -866,3 +890,4 @@ if filereadable(".vimrc.local")
 endif
 
 
+" set fileformats=unix,dos,mac
