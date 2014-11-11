@@ -97,12 +97,6 @@ NeoBundle 'xolox/vim-session'
 NeoBundle 'tsukkee/unite-tag'
 NeoBundle 'gmarik/sudo-gui.vim'
 
-let g:notes_directories = ['~/Dropbox/Mind']
-let g:notes_suffix = '.md'
-let g:notes_title_sync = 'no'
-
-let g:pad_dir = "~/Dropbox/Mind"
-
 " NeoBundle 'Lokaltog/vim-easymotion'
 " NeoBundle 'haya14busa/vim-easyoperator-line'
 " NeoBundle 'haya14busa/vim-easyoperator-phrase'
@@ -751,6 +745,10 @@ function! s:unite_my_settings()"{{{
   " imap <C-k>               <C-e><Plug>(unite_delete_backward_line)
   " imap <C-0>               <Plug>(unite_rotate_next_source)
   " nmap <C-0>               <Plug>(unite_rotate_next_source)
+  " inoremap <buffer><C-k>   repeat("\<Del>", len(substitute(getline(".")[col(".")-1 :], ".", "x", "g"))
+  inoremap <expr><buffer><C-k>   repeat('<Del>', len(substitute(getline('.')[col('.')-1 :], '.', 'x', 'g')))
+  " inoremap <expr><buffer><C-k>   len(substitute(getline('.')[col('.')-1 :], '.', 'x', 'g'))
+   
 endfunction
 
 
@@ -868,7 +866,7 @@ set foldmethod=manual
 " Don't do this. The latest vim-ruby handles it.
 " let g:ruby_path = system('echo $HOME/.rbenv/shims')
 
-colorscheme iceberg
+" colorscheme iceberg
 
 " Use OSX clipboard
 " set clipboard=unnamed
@@ -882,7 +880,7 @@ let g:vroom_binstubs_path='.bundle/ruby/2.0.0/bin'
 
 " SmartGF (Doesn't seem to take)
 " let g:smartgf_key = 'gm'
-nmap <leader>gf gF
+" nmap <leader>gf gF
 
 " Local config
 if filereadable(".vimrc.local")
@@ -890,4 +888,12 @@ if filereadable(".vimrc.local")
 endif
 
 
+map <D-E> :!open -a Atom.app %<CR><CR>
+
+set selectmode=mouse
+
+set shell=/usr/local/bin/bash
 " set fileformats=unix,dos,mac
+
+
+
