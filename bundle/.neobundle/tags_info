@@ -4,6 +4,7 @@ candyVirus
 colorizer
 gist-vim
 gitsessions.vim
+incsearch.vim
 lightline.vim
 neco-look
 neobundle.vim
@@ -33,6 +34,7 @@ vim-endwise
 vim-eunuch
 vim-exchange
 vim-extradite
+vim-fish
 vim-fugitive
 vim-gitgutter
 vim-haml

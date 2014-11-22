@@ -5,8 +5,13 @@
 set nocompatible
 
 " Set my colorscheme
-" colorscheme lodestone-dark
-colorscheme iceberg
+" Set color schemes, 
+" both light and dark variables
+" to be used by F1 and F2 to
+" switch between them.
+let g:colorscheme_light = "pencil"
+let g:colorscheme_dark = "hybrid"
+execute 'colorscheme '.g:colorscheme_dark
 
 filetype off
 
@@ -92,10 +97,16 @@ NeoBundle 'ujihisa/unite-rake'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'wting/gitsessions.vim'
 NeoBundle 'xolox/vim-misc' 
-" NeoBundle 'xolox/vim-notes'
 NeoBundle 'xolox/vim-session'
 NeoBundle 'tsukkee/unite-tag'
 NeoBundle 'gmarik/sudo-gui.vim'
+NeoBundle 'haya14busa/incsearch.vim'
+NeoBundle 'dag/vim-fish'
+
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+let g:incsearch#emacs_like_keymap = 1
 
 " NeoBundle 'Lokaltog/vim-easymotion'
 " NeoBundle 'haya14busa/vim-easyoperator-line'
@@ -132,16 +143,13 @@ syntax on
 " utf-8
 scriptencoding utf-8
 
-" Set spell check
+" Set no spell check
 set nospell
 
 " Line numbers
 set number 
 
 set laststatus=2
-
-set t_Co=256
-
 
 " Change <leader> to , because I don't want carpool tunnel syndrome
 let mapleader = ","
@@ -158,17 +166,6 @@ function! SetBackground(color)
 endfunction
 command! -nargs=? BackgroundColor :call SetBackground(<f-args>)
 nmap <leader>bg :BackgroundColor #
-
-" Switch to project directory with ,kp
-function! ChangeToProject(project)
-  let setdir=':cd ~/' . a:project
-  " let settree=':NERDTreeCWD'
-  " . a:project
-  exec setdir
-  exec settree
-endfunction
-command! -complete=file -nargs=? ChangeProject :call ChangeToProject(<f-args>) 
-nmap <leader>kp :ChangeProject 
 
 " Autoload and save session
 let g:session_autosave = 'yes'
@@ -212,7 +209,7 @@ command! W write " Just in case
 set history=5000
 
 " Quick timeouts on key combinations.
-set timeoutlen=550
+set timeoutlen=450
 
 " Use spacebar in normal mode like a web browser
 nmap <Space> 20jzz
@@ -246,16 +243,9 @@ nmap - $
 
 " Show only the current window/tab/whatevers
 nmap <leader>o :only<CR>
-" nmap <C-o> :only<CR>
 
 " make mouse work in console mode vim
 set mouse=a
-
-" Buffer movement
-" nmap <C-j> :BufSurfBack<CR>
-" nmap <C-h> :BufSurfBack<CR>
-" nmap <C-k> :BufSurfForward<CR>
-" nmap <C-l> :BufSurfForward<CR>
 
 " Let tilde do some cools stuffs
 set tildeop 
@@ -306,9 +296,6 @@ set smarttab
 " Set temporary directory (don't litter local dir with swp/tmp files)
 set directory=/tmp/
 
-" When scrolling off-screen do so 3 lines at a time, not 1
-" set scrolloff=3
-
 " Set the left column to a nice width
 set numberwidth=5
 
@@ -325,7 +312,7 @@ set foldlevel=999 " make it really high, so they're not displayed by default
 
 " Turn on rails bits of statusbar
 let g:rails_statusline=0
-let g:rails_defalt_file="config/routes.rb"
+let g:rails_defalt_file="Gemfile"
 
 augroup myfiletypes
   " Clear old autocmds in group
@@ -347,10 +334,10 @@ augroup END
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
 " (happens when dropping a file on gvim).
-autocmd BufReadPost *
-      \ if line("'\"") > 0 && line("'\"") <= line("$") |
-      \   exe "normal g`\"" |
-      \ endi
+" autocmd BufReadPost *
+"       \ if line("'\"") > 0 && line("'\"") <= line("$") |
+"       \   exe "normal g`\"" |
+"       \ endi
 
 " Turn on language specific omnifuncs
 " autocmd FileType python set omnifunc=pythoncomplete#Complete
@@ -364,7 +351,7 @@ autocmd BufReadPost *
 let g:rubycomplete_rails = 1
 
 " Exit Insert mode quickly without ESC
-imap jl <Esc>
+" imap jl <Esc>
 
 " Toggle NERDTree with <leader>d
 " map <silent> <leader>d :execute 'NERDTreeTabsToggle ' . getcwd()<CR>
@@ -383,11 +370,6 @@ nmap # #nzz
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
 nnoremap ; :
-" nnoremap : ;
-
-
-" Map <C-*> to grep the word under the cursor
-" nmap <C-S-8> :Grep<CR> 
 
 " Yank all -- Can also do standard: ggyG
 map <leader>yall :%y<CR>
@@ -534,7 +516,7 @@ endif
 
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*:'
+" let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*:'
 
 " NeoSnippet
 " SuperTab like snippets behavior.
@@ -560,7 +542,8 @@ vmap <S-/> gcc
 
 nmap <C-h> :noh<CR>
 
-filetype plugin indent on
+" Make backspace do something useful
+nmap <Backspace> :b#<CR>
 
 autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 set title
@@ -656,7 +639,7 @@ nnoremap '' :Unite -no-split jump<CR>
 
 " Quick jump to a buffer
 nnoremap ,, :Unite -no-split buffer<CR>
-nnoremap ,,, :b#<CR>
+" nnoremap ,,, :b#<CR>
 
 " map <S-D-t> :Unite -no-split -default-action=tabopen file_rec/async<CR>
 
@@ -677,6 +660,8 @@ nmap <D-[> <
 vmap <D-[> <gv
 imap <D-[> <C-O><
 
+" Command+O => Open the file with the system application
+" useful for opening Markdown in Marked for example.
 map <D-o> :!open %<CR><CR>
 
 map <leader>a  :Unite -no-split 
@@ -754,8 +739,8 @@ endfunction
 
 " These are standard bash/emacs/mac text movement/manipulation
 
-cmap <C-a> <Home>
 " nmap <C-a> <Home>
+cmap <C-a> <Home>
 imap <C-a> <Home>
 vmap <C-a> <Home>
 omap <C-a> <Home>
@@ -854,10 +839,11 @@ augroup END
 " Exchange word command
 nmap <leader>xx cxiw
 
+" Escape clears the current highlights
 nnoremap <silent> <esc> :noh<return><esc>
 
-map <F2> :set background=light <CR>:colorscheme pencil<CR>
-map <F1> :set background=dark <CR>:colorscheme iceberg<CR>
+map <F2> :set background=light <CR>:execute 'colorscheme '.g:colorscheme_light<CR>
+map <F1> :set background=dark <CR>:execute 'colorscheme '.g:colorscheme_dark<CR>
 
 
 " Make not so slow when typing!
@@ -866,17 +852,15 @@ set foldmethod=manual
 " Don't do this. The latest vim-ruby handles it.
 " let g:ruby_path = system('echo $HOME/.rbenv/shims')
 
-" colorscheme iceberg
-
 " Use OSX clipboard
 " set clipboard=unnamed
 
 " Vroom! (test runner for vim ruby)
-let g:vroom_cucumber_path="cucumber"
-let g:vroom_use_spring=1
-let g:vroom_use_bundle_exec=0
-let g:vroom_use_binstubs=1
-let g:vroom_binstubs_path='.bundle/ruby/2.0.0/bin'
+" let g:vroom_cucumber_path="cucumber"
+" let g:vroom_use_spring=1
+" let g:vroom_use_bundle_exec=0
+" let g:vroom_use_binstubs=1
+" let g:vroom_binstubs_path='.bundle/ruby/2.0.0/bin'
 
 " SmartGF (Doesn't seem to take)
 " let g:smartgf_key = 'gm'
@@ -888,12 +872,12 @@ if filereadable(".vimrc.local")
 endif
 
 
+" Switch between MacVim and Atom Editor
 map <D-E> :!open -a Atom.app %<CR><CR>
 
 set selectmode=mouse
 
 set shell=/usr/local/bin/bash
 " set fileformats=unix,dos,mac
-
 
 
