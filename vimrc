@@ -17,7 +17,6 @@ filetype off
 
 set hidden
 
-
 "NeoBundle Scripts-----------------------------
 if has('vim_starting')
   set nocompatible               " Be iMproved
@@ -42,6 +41,7 @@ NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'Shougo/vimshell.vim'
+NeoBundle 'Shougo/junkfile.vim'
 NeoBundle 'Sixeight/unite-grep'
 NeoBundle 'Tabular'
 NeoBundle 'airblade/vim-gitgutter'
@@ -51,7 +51,7 @@ NeoBundle 'basyura/unite-rails'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'ercolanelli-leo/candyVirus'
 NeoBundle 'gorkunov/smartgf.vim'
-NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'Shougo/unite-outline'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'int3/vim-extradite'
 NeoBundle 'itchyny/lightline.vim'
@@ -143,8 +143,9 @@ syntax on
 " utf-8
 scriptencoding utf-8
 
-" Set no spell check
+" Set nospell check
 set nospell
+map <F8> :setlocal spell! spelllang=en_us<CR>
 
 " Line numbers
 set number 
@@ -209,7 +210,7 @@ command! W write " Just in case
 set history=5000
 
 " Quick timeouts on key combinations.
-set timeoutlen=450
+set timeoutlen=350
 
 " Use spacebar in normal mode like a web browser
 nmap <Space> 20jzz
@@ -260,6 +261,7 @@ set nocursorline
 " possible completion with no indication of how many others there might be. 
 " The following configuration lets you see what your other options are:
 set wildmenu
+
 " first tab shows all matches. next tab starts cycling through the matches
 set wildmode=list:longest,full
 set wildignore+=*.o,*.fasl,*.git/*,*.DS_Store
@@ -540,13 +542,14 @@ vmap <S-/> gcc
 " nmap <C-_> gcc
 " vmap <C-_> gcc
 
+" Esc clears the highlight in normal mode
 nmap <C-h> :noh<CR>
 
 " Make backspace do something useful
 nmap <Backspace> :b#<CR>
 
-autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
-set title
+" autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
+" set title
 
 " VimFiler
 function! s:my_vimfiler_settings()
@@ -581,8 +584,8 @@ let g:unite_enable_start_insert = 1
 let g:unite_source_history_yank_enable = 1
 let g:unite_prompt='•••••••» '
 let g:unite_enable_short_source_names = 0
-let g:unite_source_file_mru_long_limit = 20
-let g:unite_source_directory_mru_long_limit = 20
+let g:unite_source_file_mru_long_limit = 90
+let g:unite_source_directory_mru_long_limit = 90
 let g:unite_source_grep_command="ag"
 
 
@@ -593,19 +596,22 @@ let g:unite_source_grep_command="ag"
 " call unite#custom#source('rails/model', 'sorters', 'sorter_length')
 
 call unite#custom#source('file', 'sorters', 'sorter_selecta')
-call unite#custom#source('file_rec/async', 'sorters', 'sorter_selecta')
-call unite#custom#source('file_mru', 'sorters', 'sorter_selecta')
-call unite#custom#source('rails/model', 'sorters', 'sorter_selecta')
+call unite#custom#source('file_rec/async', 'sorters', ['sorter_ftime', 'sorter_selecta'])
+call unite#custom#source('file_mru', 'sorters', 'sorter_ftime')
+call unite#custom#source('rails/model', 'sorters', 'sorter_length')
 call unite#custom#source('rails/controller', 'sorters', 'sorter_selecta')
 call unite#custom#source('buffer', 'sorters', 'sorter_selecta')
-call unite#custom#source('command', 'sorters', 'sorter_selecta')
-call unite#custom#source('mapping', 'sorters', 'sorter_selecta')
-call unite#custom#source('function', 'sorters', 'sorter_selecta')
+call unite#custom#source('command', 'sorters', 'sorter_length')
+call unite#custom#source('mapping', 'sorters', 'sorter_length')
+call unite#custom#source('function', 'sorters', 'sorter_length')
+call unite#custom#source('history/jump', 'sorters', 'sorter_ftime')
+call unite#custom#source('neomru/file', 'matchers', ['matcher_fuzzy', 'sorter_ftime', 'matcher_project_files'])
+call unite#custom#source('file_rec/async', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
+call unite#custom#source('file_rec/async', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
 
 " limit results for recently edited files
-call unite#custom#source('file_mru', 'max_candidates', 15)
-call unite#custom#source('file_rec/async', 'max_candidates', 25)
-
+call unite#custom#source('file_mru', 'max_candidates', 75)
+call unite#custom#source('file_rec/async', 'max_candidates', 75)
 " ignored files for file_mru
 " call unite#custom#source('file_mru', 'ignore_pattern', 'COMMIT_EDITMSG')
 
@@ -616,32 +622,34 @@ call unite#custom#source('buffer', 'sorters', 'sorter_selecta')
 " noremap <C-@> :Unite buffer tab file_rec/async file_mru<CR>
 " noremap <A-Space> :Unite buffer tab file_rec/async file_mru<CR>
 
-map <D-l> :Unite -toggle -prompt=> -no-cursor-line -hide-source-names -winheight=5 file<CR>
+" What does this do? 
+" map <D-l> :Unite -toggle -prompt=> -no-cursor-line -hide-source-names -winheight=5 file<CR>
 
-" Find Function / Action
+" Find Function / Mapping / Command
 map  <D-P> :Unite -buffer-name=commands -no-split command mapping function<CR>
 map  <C-P> :Unite -buffer-name=commands -no-split command mapping function<CR>
+
 " Find Anything
-map  <D-p> :Unite -hide-source-names -buffer-name=files -no-split -unique buffer tab file_rec/async neomru/file<CR>
-map  <C-p> :Unite -hide-source-names -buffer-name=files -no-split -unique buffer tab file_rec/async neomru/file<CR>
+map  <D-p> :Unite -hide-source-names -buffer-name=files -no-split -unique file_rec/async<CR>
+map  <C-p> :Unite -hide-source-names -buffer-name=files -no-split -unique file_rec/async<CR>
 
 " Find open file
 map  <D-b> :Unite -buffer-name=buffers -no-split buffer tab<CR>
 
 " Find method (CTAGS)
+map  <leader>fm :Unite -no-split outline<CR>
 map  <D-r> :Unite -no-split outline<CR>
-" Find all
+
+" Find all in project
 map <leader>fa :Unite -no-split grep:.<CR>
-noremap <D-f> :Unite -no-split grep:.<CR>
+noremap <D-F> :Unite -no-split grep:.<CR>
 
 " Quick jump to a jump location
-nnoremap '' :Unite -no-split jump<CR>
+nnoremap "" :Unite -no-split jump<CR>
+nnoremap <leader>fj :Unite -no-split jump<CR>
 
 " Quick jump to a buffer
-nnoremap ,, :Unite -no-split buffer<CR>
-" nnoremap ,,, :b#<CR>
-
-" map <S-D-t> :Unite -no-split -default-action=tabopen file_rec/async<CR>
+nnoremap ,, :Unite -no-split -no-start-insert buffer<CR>
 
 " Search the word in the cursor in the current directory,
 noremap <silent> <Leader>fw :Unite grep:.::<C-R><C-w><CR>
@@ -649,6 +657,10 @@ noremap <silent> <Leader>fW :Unite grep:.::<C-R><C-W><CR>
 
 " Find by git status
 map <D-B> :Unite -no-split giti/status<CR>
+map <leader>fg :Unite -no-split giti/status<CR>
+
+" Search the search history
+map <leader>fs :Unite -no-split history/search<CR>
 
 "bind command-] to indent
 nmap <D-]> >
@@ -664,34 +676,23 @@ imap <D-[> <C-O><
 " useful for opening Markdown in Marked for example.
 map <D-o> :!open %<CR><CR>
 
-map <leader>a  :Unite -no-split 
-map <leader>ar :Unite -no-split rails/
-map <leader>ab :Unite -no-split bookmark -no-start-insert <CR>
-
-map <C-f>      :Unite -auto-preview grep:%<CR>
+map <leader>fu  :Unite -no-split 
+map <leader>fur :Unite -no-split rails/
+map <leader>fub :Unite -no-split bookmark -no-start-insert <CR>
 
 " nmap <C-k> :Unite command function mapping register<CR>
 map  <leader>fx :Unite -buffer-name=commands -no-split command function mapping register<CR>
 map  <leader>fc :Unite -buffer-name=commands -no-split command function mapping register<CR>
 map  <leader>fr :Unite -buffer-name=recent -no-split neomru/file<CR>
-map  <leader>fb :Unite -buffer-name=buffers -no-split buffer<CR>
-map  <leader>ff :Unite -buffer-name=files -no-split buffer tab file_rec/async file_mru<CR>
+map  <leader>ff <C-p>
+map  <leader>fo :Unite -buffer-name=openfiles -no-split buffer tab window<CR>
 map  <leader>fy :Unite -no-split history/yank<CR>
-" map  <leader>fo :Unite  outline -vertical -winwidth=30 -start-insert<CR>
 map  <leader>fl :Unite -no-split line<CR>
-map  <leader>fj :Unite -no-split jump<CR>
-map  <leader>gg :Unite -no-split grep:.<CR>
-" map  <leader>g  :Unite -no-split grep:.<CR>
 
 " unite-rails shortcuts
 map <leader>rc    :Unite -buffer-name=rails -no-split rails/controller<CR>
 map <leader>rm    :Unite -buffer-name=rails -no-split rails/model<CR>
-map <leader>rg    :Unite -buffer-name=rails -no-split rails/config<CR>
-map <leader>rdb   :Unite -buffer-name=rails -no-split rails/db<CR>
 map <leader>rv    :Unite -buffer-name=rails -no-split rails/view<CR>
-map <leader>rjs   :Unite -buffer-name=rails -no-split rails/javascript<CR>
-map <leader>rcss  :Unite -buffer-name=rails -no-split rails/stylesheet<CR>
-map <leader>ri    :Unite -buffer-name=rails -no-split rails/initializer<CR>
 map <leader>rl    :Unite -buffer-name=rails -no-split rails/lib<CR>
 map <leader>rspec :Unite -buffer-name=rails -no-split rails/spec<CR>
 
@@ -701,44 +702,40 @@ if executable('ag')
   let g:unite_source_grep_default_opts = '--nogroup --nocolor --hidden --column'
   let g:unite_source_grep_recursive_opt = ''
   let g:unite_source_find_command = 'ag'
+  let g:unite_source_rec_async_command='ag --nocolor --nogroup --column --ignore ".gif" --ignore ".png" --ignore ".git" --ignore ".jpg" --ignore ".pdf" --hidden -g ""'
 endif
 
-" call unite#filters#sorter_default#use(['sorter_rank', 'sorter_ftime'])
-" call unite#filters#sorter_default#use(['sorter_rank', 'sorter_selecta'])
-call unite#filters#sorter_default#use(['sorter_selecta'])
+call unite#filters#sorter_default#use(['sorter_ftime', 'sorter_selecta'])
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" call unite#filters#sorter_default#use(['sorter_rank', 'sorter_ftime'])
+" call unite#filters#sorter_default#use(['sorter_selecta'])
+" call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
   " Overwrite settings.
   nmap <buffer> <ESC>     <Plug>(unite_exit)
-  imap <buffer> <ESC>     <Plug>(unite_exit)
+  " imap <buffer> <ESC>     <Plug>(unite_exit)
   imap <buffer> <C-c>     <Plug>(unite_exit)
   imap <buffer> <TAB>     <Plug>(unite_select_next_line)
   imap <buffer> <S-TAB>   <Plug>(unite_select_previous_line)
-  " imap <buffer> <C-j>     <Plug>(unite_select_next_line)
   imap <buffer> <C-n>     <Plug>(unite_select_next_line)
-  " imap <buffer> <C-k>     <Plug>(unite_select_previous_line)
   imap <buffer> <C-p>     <Plug>(unite_select_previous_line)
   nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
   imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
   imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
   nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
   nmap <buffer> <C-v>     <Plug>(unite_toggle_auto_preview)
-  " nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
   imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
-  " imap <C-k>               <C-e><Plug>(unite_delete_backward_line)
-  " imap <C-0>               <Plug>(unite_rotate_next_source)
-  " nmap <C-0>               <Plug>(unite_rotate_next_source)
-  " inoremap <buffer><C-k>   repeat("\<Del>", len(substitute(getline(".")[col(".")-1 :], ".", "x", "g"))
   inoremap <expr><buffer><C-k>   repeat('<Del>', len(substitute(getline('.')[col('.')-1 :], '.', 'x', 'g')))
-  " inoremap <expr><buffer><C-k>   len(substitute(getline('.')[col('.')-1 :], '.', 'x', 'g'))
-   
+  " nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
 endfunction
 
 
 " These are standard bash/emacs/mac text movement/manipulation
 
+" Used to use this to move to the beginning of the line
+" in normal mode, but now I use it to increment numbers (the default)
 " nmap <C-a> <Home>
 cmap <C-a> <Home>
 imap <C-a> <Home>
@@ -821,6 +818,8 @@ let g:rspec_runner = "os_x_iterm"
 set dictionary-=/usr/share/dict/words dictionary+=/usr/share/dict/words
 set complete-=k complete+=k
 
+
+
 " Hit ^l to autocomplete from the dictionary file
 inoremap <C-l> <C-x><C-k>
 
@@ -880,4 +879,6 @@ set selectmode=mouse
 set shell=/usr/local/bin/bash
 " set fileformats=unix,dos,mac
 
+" Map s to something useful
+noremap s :Unite 
 

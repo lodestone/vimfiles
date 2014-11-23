@@ -30,6 +30,7 @@ CONTENTS                                                     *startify-contents*
     INTRO .......................................... |startify-intro|
     USAGE .......................................... |startify-usage|
     OPTIONS ........................................ |startify-options|
+    AUTOCMD ........................................ |startify-autocmd|
     COMMANDS ....................................... |startify-commands|
     MAPPINGS ....................................... |startify-mappings|
     COLORS ......................................... |startify-colors|
@@ -85,27 +86,25 @@ OPTIONS                                                       *startify-options*
 Put these variables into your vimrc. The shown assignments are also the
 default values.
 
-    |g:startify_session_dir|
-    |g:startify_list_order|
     |g:startify_bookmarks|
-    |g:startify_files_number|
-    |g:startify_session_detection|
-    |g:startify_session_autoload|
-    |g:startify_session_persistence|
-    |g:startify_session_delete_buffers|
-    |g:startify_skiplist|
-    |g:startify_skiplist_server|
     |g:startify_change_to_dir|
-    |g:startify_custom_indices|
-    |g:startify_custom_header|
+    |g:startify_change_to_vcs_root|
     |g:startify_custom_footer|
-    |g:startify_restore_position|
-    |g:startify_empty_buffer_key|
-    |g:startify_enable_special|
-    |g:startify_session_savevars|
-    |g:startify_session_savecmds|
+    |g:startify_custom_header|
+    |g:startify_custom_indices|
     |g:startify_disable_at_vimenter|
+    |g:startify_enable_special|
+    |g:startify_files_number|
+    |g:startify_list_order|
     |g:startify_relative_path|
+    |g:startify_session_autoload|
+    |g:startify_session_delete_buffers|
+    |g:startify_session_dir|
+    |g:startify_session_persistence|
+    |g:startify_session_savecmds|
+    |g:startify_session_savevars|
+    |g:startify_skiplist_server|
+    |g:startify_skiplist|
 
 ------------------------------------------------------------------------------
                                                         *g:startify_session_dir*
@@ -190,14 +189,6 @@ Example:
 The number of files to list.
 
 ------------------------------------------------------------------------------
-                                                  *g:startify_session_detection*
->
-    let g:startify_session_detection = 1
-<
-When the file Session.vim is found in the current directory, it will be shown
-at the top of all lists as entry [0].
-
-------------------------------------------------------------------------------
                                                    *g:startify_session_autoload*
 >
     let g:startify_session_autoload = 0
@@ -213,8 +204,15 @@ Great way to create a portable project folder.
 >
     let g:startify_session_persistence = 0
 <
-Automatically update sessions before exiting Vim.
+Automatically update sessions in two cases:
 
+    1) Before leaving Vim
+    2) Before loading a new session via :SLoad
+
+This also works for sessions started with:
+>
+    vim -S mysession.vim
+<
 ------------------------------------------------------------------------------
                                              *g:startify_session_delete_buffers*
 >
@@ -242,17 +240,21 @@ At the moment only git, hg, bzr and svn are supported.
 ------------------------------------------------------------------------------
                                                            *g:startify_skiplist*
 >
-    let g:startify_skiplist = []
+    let g:startify_skiplist = [
+        \ 'COMMIT_EDITMSG',
+        \ $VIMRUNTIME .'/doc',
+        \ 'bundle/.*/doc',
+        \ '.vimgolf',
+        \ ]
 <
-A list of Vim regular expressions to filter recently used files and files in
-the current directory.
+A list of Vim regular expressions that filters recently used files.
 
 Example:
 >
     let g:startify_skiplist = [
-           \ '.vimgolf',
+           \ '\.vimgolf',
            \ '^/tmp',
-           \ '/project/.*/documentation'
+           \ '/project/.*/documentation',
            \ ]
 <
 ------------------------------------------------------------------------------
@@ -267,15 +269,6 @@ Example:
 >
     let g:startify_skiplist_server = [ 'GVIM' ]
 <
-------------------------------------------------------------------------------
-                                                   *g:startify_empty_buffer_key*
->
-    let g:startify_empty_buffer_key = 'o'
-<
-This creates an additional, hidden mapping for the empty buffer.
-
-Default: does not exist
-
 ------------------------------------------------------------------------------
                                                      *g:startify_enable_special*
 >
@@ -320,14 +313,6 @@ Example:
            \ ]
 <
 ------------------------------------------------------------------------------
-                                                   *g:startify_restore_position*
->
-    let g:startify_restore_position = 0
-<
-Jump to the last cursor position when opening a file. You don't need this, if
-you already have this in your vimrc: |last-position-jump|.
-
-------------------------------------------------------------------------------
                                                      *g:startify_custom_indices*
 >
     let g:startify_custom_indices = []
@@ -353,6 +338,10 @@ This would result in:
     [2]  /last/recently/used/file6
     etc.
 
+If you want numbers to start at 1 instead of 0, you could use this:
+>
+    let g:startify_custom_indices = map(range(1,100), 'string(v:val)')
+<
 NOTE: There is no sanitizing going on, so you should know what you're doing!
 
 Best practices:
@@ -381,15 +370,16 @@ A programmatic example:
 A hardcoded example:
 >
     let g:startify_custom_header = [
-                \ '   __      ___            ______ ____   ',
-                \ '   \ \    / (_)           |____  |___ \ ',
-                \ '    \ \  / / _ _ __ ___       / /  __) |',
-                \ '     \ \/ / | | ''_ ` _ \     / /  |__ <',
-                \ '      \  /  | | | | | | |   / /   ___) |',
-                \ '       \/   |_|_| |_| |_|  /_(_) |____/ ',
-                \ '',
-                \ '',
-                \ ]
+            \ '                                 ________  __ __        ',
+            \ '            __                  /\_____  \/\ \\ \       ',
+            \ '    __  __ /\_\    ___ ___      \/___//''/''\ \ \\ \    ',
+            \ '   /\ \/\ \\/\ \ /'' __` __`\        /'' /''  \ \ \\ \_ ',
+            \ '   \ \ \_/ |\ \ \/\ \/\ \/\ \      /'' /''__  \ \__ ,__\',
+            \ '    \ \___/  \ \_\ \_\ \_\ \_\    /\_/ /\_\  \/_/\_\_/  ',
+            \ '     \/__/    \/_/\/_/\/_/\/_/    \//  \/_/     \/_/    ',
+            \ '',
+            \ '',
+            \ ]
 <
 ------------------------------------------------------------------------------
                                                       *g:startify_custom_footer*
@@ -414,6 +404,14 @@ Don't run Startify at Vim startup. You can still call it anytime via
 Show filenames relative to the current working directory instead of as
 absolute paths.
 
+==============================================================================
+AUTOCMD                                                       *startify-autocmd*
+
+In case you want to alter the startify buffer to cause all kinds of mayhem, an
+user autocmd is issued. You can hook into it like this:
+>
+    autocmd User Startified let &l:stl = ' This statusline rocks!'
+<
 ==============================================================================
 COMMANDS                                                     *startify-commands*
 >
@@ -471,85 +469,95 @@ in a vertical split window or in a new tab.
 Open all marked entries. If nothing was marked beforehand, just open the
 current entry.
 
+If you want to use another key instead of <cr>, put this in your vimrc:
+>
+    autocmd User Startified nmap <buffer> o <plug>(startify-open-buffers)
+<
 ==============================================================================
 COLORS                                                         *startify-colors*
 
 You can overwrite the highlight groups used by startify. The plugin defines
 these groups:
 
-    StartifyBracket         [,]
-    StartifyFile            the actual file
-    StartifyFooter          the custom footer
-    StartifyHeader          the custom header
-    StartifyNumber          the numbers between []
-    StartifyPath            the path to a file
-    StartifySection         section headers
-    StartifySlash           slashes in paths
-    StartifySpecial         <empty buffer>,<quit>
+    Highlight group  |  Description             |  Default
+    ------------------------------------------------------------------
+                     |                          |
+    StartifyBracket  |  [,]                     |  linked to Delimiter
+    StartifyFile     |  the actual file         |  <none>
+    StartifyFooter   |  the custom footer       |  linked to Normal
+    StartifyHeader   |  the custom header       |  linked to Normal
+    StartifyNumber   |  the numbers between []  |  linked to Number
+    StartifyPath     |  the path to a file      |  <none>
+    StartifySection  |  section headers         |  linked to Special
+    StartifySelect   |  selected entries        |  linked to Title
+    StartifySlash    |  slashes in paths        |  <none>
+    StartifySpecial  |  <empty buffer>,<quit>   |  <none>
 
 Example: (my terminal emulator supports 256 colors)
 >
-    hi StartifyBracket ctermfg=240
-    hi StartifyFooter  ctermfg=111
-    hi StartifyHeader  ctermfg=203
-    hi StartifyNumber  ctermfg=215
-    hi StartifyPath    ctermfg=245
-    hi StartifySlash   ctermfg=240
+    highlight StartifyBracket ctermfg=240
+    highlight StartifyFooter  ctermfg=240
+    highlight StartifyHeader  ctermfg=114
+    highlight StartifyNumber  ctermfg=215
+    highlight StartifyPath    ctermfg=245
+    highlight StartifySlash   ctermfg=240
+    highlight StartifySpecial ctermfg=240
 <
 ==============================================================================
 FAQ                                                               *startify-faq*
 
+    |startify-faq-01|  I don't want the start screen to use cursorline!
+    |startify-faq-02|  Recent files aren't shown!
+    |startify-faq-03|  Last recently used files don't seem to get updated
+                     at :Startify!
+    |startify-faq-04|  I have broken colors when using sessions!
+    |startify-faq-05|  How to disable common but unimportant files?
+    |startify-faq-06|  CtrlP or NERDTree open a split in Startify!
+    |startify-faq-07|  How do I get both NERDTree and Startify working at
+                     startup?
+    |startify-faq-08|  The session autoload feature is not working!
+
 ------------------------------------------------------------------------------
+                                                               *startify-faq-01*
+I want to use cursorline!~
 
-CtrlP or NERDTree open a split in Startify!~
-
-Put this in your vimrc:
+Startify issues a User event when it's finished. It can be used to set
+buffer-local options etc.
 >
-    autocmd FileType startify setlocal buftype=
-<
-If you're using CtrlP without NERDTree, there is an even more elegant
-solution:
->
-    let g:ctrlp_reuse_window = 'startify'
-<
-------------------------------------------------------------------------------
-
-How do I get both NERDTree and Startify working at startup?~
-
-Put this in your vimrc:
->
-    autocmd VimEnter *
-                \ if !argc() |
-                \   Startify |
-                \   NERDTree |
-                \   execute "normal \<c-w>w" |
-                \ endif
+    autocmd User Startified setlocal cursorline
 <
 ------------------------------------------------------------------------------
+                                                               *startify-faq-02*
+Recent files aren't shown!~
 
-The session autoload feature is not working!~
+Perhaps the problem is that the viminfo file..
 
-Do you have NERDTree installed by any chance? If so, try this:
+    - doesn't exist
+    - is invalid
+    - is empty
+    - can't be read (check permissions)
+
+I suggest the following steps:
+
+    1) Create a new directory:
 >
-    let NERDTreeHijackNetrw = 0
+        $ mkdir -p ~/.vim/files/info
 <
-------------------------------------------------------------------------------
-
-I don't want the start screen to use cursorline!~
-
-Startify sets its own filetype "startify". Thus one could set buffer-local
-options like this:
+    2) Put this into your vimrc:
 >
-    autocmd FileType startify setlocal nocursorline
+        set viminfo='100,n$HOME/.vim/files/info/viminfo
 <
-------------------------------------------------------------------------------
+See |'viminfo'| for information about the second step and what it does
+exactly.
 
+------------------------------------------------------------------------------
+                                                               *startify-faq-03*
 Last recently used files don't seem to get updated at :Startify!~
 
 Vim loads the list from viminfo only once, at startup.
 
 ------------------------------------------------------------------------------
-
+                                                               *startify-faq-04*
 I have broken colors when using sessions!~
 
 Nothing this plugin could do about. Try playing around with 'sessionoptions'.
@@ -562,7 +570,7 @@ Some people swear it works for them with these settings:
     set sessionoptions=blank,curdir,folds,help,tabpages,winpos
 <
 ------------------------------------------------------------------------------
-
+                                                               *startify-faq-05*
 How to disable common but unimportant files?~
 
 Use the skiplist. Personally I use:
@@ -574,30 +582,71 @@ Use the skiplist. Personally I use:
            \ '\.DS_Store'
            \ ]
 <
+------------------------------------------------------------------------------
+                                                               *startify-faq-06*
+CtrlP or NERDTree open a split in Startify!~
+
+Put this in your vimrc:
+>
+    autocmd User Startified setlocal buftype=
+<
+If you're using CtrlP without NERDTree, there is an even more elegant
+solution:
+>
+    let g:ctrlp_reuse_window = 'startify'
+<
+------------------------------------------------------------------------------
+                                                               *startify-faq-07*
+How do I get both NERDTree and Startify working at startup?~
+
+Put this in your vimrc:
+>
+    autocmd VimEnter *
+                \   if !argc()
+                \ |   Startify
+                \ |   NERDTree
+                \ |   wincmd w
+                \ | endif
+<
+------------------------------------------------------------------------------
+                                                               *startify-faq-08*
+The session autoload feature is not working!~
+
+Do you have NERDTree installed by any chance? If so, try this:
+>
+    let NERDTreeHijackNetrw = 0
+<
 ==============================================================================
 EXAMPLE                                                       *startify-example*
 
 This is my configuration..
 >
-    let g:startify_files_number        = 8
-    let g:startify_session_persistence = 1
-    let g:startify_session_autoload    = 1
-    let g:startify_enable_special      = 0
+    autocmd User Startified setlocal cursorline
+
+    let g:startify_enable_special         = 0
+    let g:startify_files_number           = 8
+    let g:startify_relative_path          = 1
+    let g:startify_change_to_dir          = 1
+    let g:startify_session_autoload       = 1
+    let g:startify_session_persistence    = 1
+    let g:startify_session_delete_buffers = 1
 
     let g:startify_list_order = [
-          \ ['   LRU:'],
-          \ 'files',
-          \ ['   Sessions:'],
-          \ 'sessions',
-          \ ['   Bookmarks:'],
-          \ 'bookmarks',
-          \ ]
+      \ ['   LRU:'],
+      \ 'files',
+      \ ['   LRU within this dir:'],
+      \ 'dir',
+      \ ['   Sessions:'],
+      \ 'sessions',
+      \ ['   Bookmarks:'],
+      \ 'bookmarks',
+      \ ]
 
     let g:startify_skiplist = [
                 \ 'COMMIT_EDITMSG',
                 \ $VIMRUNTIME .'/doc',
                 \ 'bundle/.*/doc',
-                \ '.vimgolf',
+                \ '\.vimgolf',
                 \ ]
 
     let g:startify_bookmarks = [
@@ -612,13 +661,13 @@ This is my configuration..
           \ map(split(system('tips | cowsay -f apt'), '\n'), '"   ". v:val') + ['']
 
     hi StartifyBracket ctermfg=240
+    hi StartifyFile    ctermfg=147
+    hi StartifyFooter  ctermfg=240
+    hi StartifyHeader  ctermfg=114
     hi StartifyNumber  ctermfg=215
     hi StartifyPath    ctermfg=245
     hi StartifySlash   ctermfg=240
     hi StartifySpecial ctermfg=240
-    hi StartifyHeader  ctermfg=114
-    hi StartifyFooter  ctermfg=240
-    "hi StartifyFile    ctermfg=111
 <
 ==============================================================================
 vim: tw=78

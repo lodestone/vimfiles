@@ -1,6 +1,6 @@
 " set guioptions-=Tc
 set guioptions-=T
-set guioptions+=c
+set guioptions-=c
 set guioptions-=r
 set guioptions-=L
 " Make highlights auto-push into clipboard buffer
@@ -9,7 +9,8 @@ set guioptions-=L
 " set guifont=Monospace\ 9
 " set guifont=Inconsolata:h14
 " set guifont=Monospatial:h14
-set guifont=MonospaceTypewriter:h12
+" set guifont=MonospaceTypewriter:h12
+set guifont=Envy_Code_R:h13
 set linespace=1
 
 " set noantialias
@@ -39,5 +40,5 @@ map <D-l> V
 set noballooneval
 
 " For some reason if I don't source this again, <D-p> doesn't work... 2014-04-09
-" source ~/.vimrc
+source ~/.vimrc
 

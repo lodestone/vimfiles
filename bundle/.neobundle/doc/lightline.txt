@@ -4,7 +4,7 @@ Version: 0.0
 Author: itchyny (https://github.com/itchyny)
 License: MIT License
 Repository: https://github.com/itchyny/lightline.vim
-Last Change: 2014/01/27 08:47:37.
+Last Change: 2014/11/14 09:20:21.
 
 CONTENTS					*lightline-contents*
 
@@ -109,6 +109,7 @@ OPTIONS						*lightline-option*
 		    \ 'filetype': '%{strlen(&filetype)?&filetype:"no ft"}',
 		    \ 'percent': '%3p%%',
 		    \ 'percentwin': '%P',
+		    \ 'spell': '%{&spell?&spelllang:"no spell"}',
 		    \ 'lineinfo': '%3l:%-2v',
 		    \ 'line': '%l',
 		    \ 'column': '%c'
@@ -964,9 +965,9 @@ Problem 1:					*lightline-problem-1*
 			1. Add the following configuration to your
 			.vimrc(_vimrc).
 >
-			Bundle 'itchyny/lightline.vim'
+			Plugin 'itchyny/lightline.vim'
 <
-			2. Install with |:BundleInstall|.
+			2. Install with |:PluginInstall|.
 
 		If you are to install this plugin using |NeoBundle|:
 
@@ -988,7 +989,7 @@ Problem 2:					*lightline-problem-2*
 
 		If you have installed this plugin using Vundle:
 
-			1. Execute |:BundleInstall!|. Or try git pull in the
+			1. Execute |:PluginInstall!|. Or try git pull in the
 			directory of this plugin.
 
 		If you have installed this plugin using NeoBundle:
@@ -1005,9 +1006,9 @@ Problem 3:					*lightline-problem-3*
 
 		If you have installed this plugin using Vundle:
 
-			1. Remove the :Bundle 'itchyny/lightline.vim'
+			1. Remove the :Plugin 'itchyny/lightline.vim'
 			configuration from your .vimrc(_vimrc).
-			2. Update with |:BundleClean|.
+			2. Update with |:PluginClean|.
 
 		If you have installed this plugin using NeoBundle:
 
@@ -1101,7 +1102,7 @@ Problem 9:					*lightline-problem-9*
 	separator.left		''		'' (\ue0b0)		'⮀' (\u2b80)
 	separator.right		''		'' (\ue0b2)		'⮂' (\u2b82)
 	subseparator.left	'|'		'' (\ue0b1)		'⮁' (\u2b81)
-	subseparator.right	'|'		'' (\ue0b4)		'⮃' (\u2b83)
+	subseparator.right	'|'		'' (\ue0b3)		'⮃' (\u2b83)
 	branch symbol		--		'' (\ue0a0)		'⭠' (\u2b60)
 	readonly symbol		--		'' (\ue0a2)		'⭤' (\u2b64)
 	linecolumn symbol	--		'' (\ue0a1)		'⭡' (\u2b81)
