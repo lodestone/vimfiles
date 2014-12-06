@@ -1,4 +1,8 @@
 !_TAG_FILE_ENCODING	utf-8	//
+g:unite_source_git_grep_max_candidates	unite-vcs_grep.jax	/*g:unite_source_git_grep_max_candidates*
+g:unite_source_git_grep_required_pattern_length	unite-vcs_grep.jax	/*g:unite_source_git_grep_required_pattern_length*
+g:unite_source_hg_grep_max_candidates	unite-vcs_grep.jax	/*g:unite_source_hg_grep_max_candidates*
+g:unite_source_hg_grep_required_pattern_length	unite-vcs_grep.jax	/*g:unite_source_hg_grep_required_pattern_length*
 g:unite_source_outline_cache_limit	unite-outline.jax	/*g:unite_source_outline_cache_limit*
 g:unite_source_outline_filetype_options	unite-outline.jax	/*g:unite_source_outline_filetype_options*
 g:unite_source_outline_highlight	unite-outline.jax	/*g:unite_source_outline_highlight*
@@ -55,3 +59,11 @@ unite-outline-usage	unite-outline.jax	/*unite-outline-usage*
 unite-outline-utility-functions	unite-outline.jax	/*unite-outline-utility-functions*
 unite-outline-variables	unite-outline.jax	/*unite-outline-variables*
 unite-outline.txt	unite-outline.jax	/*unite-outline.txt*
+unite-vcs_grep	unite-vcs_grep.jax	/*unite-vcs_grep*
+unite-vcs_grep-changelog	unite-vcs_grep.jax	/*unite-vcs_grep-changelog*
+unite-vcs_grep-contents	unite-vcs_grep.jax	/*unite-vcs_grep-contents*
+unite-vcs_grep-install	unite-vcs_grep.jax	/*unite-vcs_grep-install*
+unite-vcs_grep-introduction	unite-vcs_grep.jax	/*unite-vcs_grep-introduction*
+unite-vcs_grep-usage	unite-vcs_grep.jax	/*unite-vcs_grep-usage*
+unite-vcs_grep-variables	unite-vcs_grep.jax	/*unite-vcs_grep-variables*
+unite-vcs_grep.txt	unite-vcs_grep.jax	/*unite-vcs_grep.txt*

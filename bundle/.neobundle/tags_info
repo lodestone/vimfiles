@@ -18,6 +18,8 @@ seoul256.vim
 smartgf.vim
 sudo-gui.vim
 syntastic
+unite-bibtex
+unite-git_grep
 unite-grep
 unite-help
 unite-outline

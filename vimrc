@@ -33,6 +33,10 @@ call neobundle#begin(expand('/Users/matt/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " My Bundles here:
+"
+" NeoBundle 'lambdalisue/unite-grep-vcs'
+NeoBundle 'sgur/unite-git_grep'
+NeoBundle 'termoshtt/unite-bibtex'
 NeoBundle 'Keithbsmiley/rspec.vim'
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neomru.vim'
@@ -384,35 +388,21 @@ while c <= 'z'
   let c = nr2char(1+char2nr(c))
 endw
 
-" toggle Quickfix window with <leader>q
-function! GetBufferList()
-  redir =>buflist
-  silent! ls
-  redir END
-  return buflist
-endfunction
+nnoremap <leader>q :call QuickfixToggle()<cr>
 
-function! ToggleList(bufname, pfx)
-  let buflist = GetBufferList()
-  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
-    if bufwinnr(bufnum) != -1
-      exec(a:pfx.'close')
-      return
+let g:quickfix_is_open = 0
+
+function! QuickfixToggle()
+    if g:quickfix_is_open
+        cclose
+        let g:quickfix_is_open = 0
+        execute g:quickfix_return_to_window . "wincmd w"
+    else
+        let g:quickfix_return_to_window = winnr()
+        copen
+        let g:quickfix_is_open = 1
     endif
-  endfor
-  if a:pfx == 'l' && len(getloclist(0)) == 0
-      echohl ErrorMsg
-      echo "Location List is Empty."
-      return
-  endif
-  let winnr = winnr()
-  exec(a:pfx.'open')
-  if winnr() != winnr
-    wincmd p
-  endif
 endfunction
-nmap <silent> <leader>q :call ToggleList("Quickfix List", 'c')<CR>
-
 
 " Having this set will not leave any additional file(s) around after having closed VIM. This is what most people might be looking to have set.
 set nobackup
@@ -595,9 +585,10 @@ let g:unite_source_grep_command="ag"
 " call unite#custom#source('file_mru', 'sorters', 'sorter_length')
 " call unite#custom#source('rails/model', 'sorters', 'sorter_length')
 
+call unite#custom#source('outline', 'sorters', [])
 call unite#custom#source('file', 'sorters', 'sorter_selecta')
 call unite#custom#source('file_rec/async', 'sorters', ['sorter_ftime', 'sorter_selecta'])
-call unite#custom#source('file_mru', 'sorters', 'sorter_ftime')
+call unite#custom#source('file_mru', 'sorters', ['sorter_ftime', 'sorter_reverse'])
 call unite#custom#source('rails/model', 'sorters', 'sorter_length')
 call unite#custom#source('rails/controller', 'sorters', 'sorter_selecta')
 call unite#custom#source('buffer', 'sorters', 'sorter_selecta')
@@ -605,7 +596,8 @@ call unite#custom#source('command', 'sorters', 'sorter_length')
 call unite#custom#source('mapping', 'sorters', 'sorter_length')
 call unite#custom#source('function', 'sorters', 'sorter_length')
 call unite#custom#source('history/jump', 'sorters', 'sorter_ftime')
-call unite#custom#source('neomru/file', 'matchers', ['matcher_fuzzy', 'sorter_ftime', 'matcher_project_files'])
+call unite#custom#source('neomru/file', 'sorters', ['sorter_ftime', 'sorter_reverse'])
+call unite#custom#source('neomru/file', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
 call unite#custom#source('file_rec/async', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
 call unite#custom#source('file_rec/async', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
 
@@ -880,5 +872,6 @@ set shell=/usr/local/bin/bash
 " set fileformats=unix,dos,mac
 
 " Map s to something useful
-noremap s :Unite 
+" noremap s <NOP> 
 
+let g:unite_bibtex_bib_files=["/Users/matt/Dropbox/References.bib"]  

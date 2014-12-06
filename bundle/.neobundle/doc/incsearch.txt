@@ -97,6 +97,7 @@ Additional usage~
 
 						*g:incsearch#auto_nohlsearch*
 <Plug>(incsearch-nohl)				*<Plug>(incsearch-nohl)*
+<Plug>(incsearch-nohl0)				*<Plug>(incsearch-nohl0)*
 <Plug>(incsearch-nohl-n)			*<Plug>(incsearch-nohl-n)*
 <Plug>(incsearch-nohl-N)			*<Plug>(incsearch-nohl-N)*
 <Plug>(incsearch-nohl-*)			*<Plug>(incsearch-nohl-star)*
@@ -125,13 +126,29 @@ Additional usage~
 	behavior is completely same as default one.
 
 	If you want to use this feature with other search related plugins, use
-	|<Plug>(incsearch-nohl)|. Please make sure to place |<Plug>(incsearch-nohl)|
-	before the cursor moving mappings.
+	|<Plug>(incsearch-nohl)|.
+	Please make sure to place |<Plug>(incsearch-nohl)| before the cursor
+	moving mappings. |<Plug>(incsearch-nohl0)| handles search enhancement
+	mappings without |CursorMoved| event.
 
 	Working with |anzu.txt| example:
+	    https://github.com/osyo-manga/vim-anzu
 >
 	    map n <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
 	    map N <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
+<
+	Working with |asterisk.txt| example:
+	    https://github.com/haya14busa/vim-asterisk
+>
+	    map *   <Plug>(incsearch-nohl)<Plug>(asterisk-*)
+	    map g*  <Plug>(incsearch-nohl)<Plug>(asterisk-g*)
+	    map #   <Plug>(incsearch-nohl)<Plug>(asterisk-#)
+	    map g#  <Plug>(incsearch-nohl)<Plug>(asterisk-g#)
+
+	    map z*  <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
+	    map gz* <Plug>(incsearch-nohl0)<Plug>(asterisk-gz*)
+	    map z#  <Plug>(incsearch-nohl0)<Plug>(asterisk-z#)
+	    map gz# <Plug>(incsearch-nohl0)<Plug>(asterisk-gz#)
 <
 
 					    *g:incsearch#consistent_n_direction*
@@ -219,6 +236,10 @@ Command line interface~
 				    default: <C-j>
 	<Over>(incsearch-scroll-b) : scroll to the previous page match.
 				    default: <C-k>
+		NOTE: if you want to use |digraphs| feature, please overwrite
+		<C-k> or map another key to <C-k> like this. >
+		    IncSearchNoreMap <C-k> <C-k>
+<
 
 	Example:
 >
@@ -255,11 +276,17 @@ Command line interface~
 		<A-d>  | |<C-w>|
 
 Buffer completion			*incsearch-<Over>(buffer-complete)*
+					*incsearch-<Over>(buffer-complete-prev)*
 	Completion with the buffer text.
 
-	<Over>(buffer-complete)  start buffer text completion. default: <C-l>
-	<Right>			 select next candidate while completion
-	<Left>			 select candidate while completion
+	<Over>(buffer-complete)
+	    start buffer text completion. default: <C-l>
+	<Over>(buffer-complete-prev)
+	    start buffer text completion to backward direction.
+	<Right>
+	    select next candidate while completion
+	<Left>
+	    select candidate while completion
 
 	Example: >
 		augroup incsearch-keymap
@@ -268,6 +295,7 @@ Buffer completion			*incsearch-<Over>(buffer-complete)*
 		augroup END
 		function! s:incsearch_keymap()
 		    IncSearchNoreMap <Tab> <Over>(buffer-complete)
+		    IncSearchNoreMap <S-Tab> <Over>(buffer-complete-prev)
 		endfunction
 <
 ------------------------------------------------------------------------------
